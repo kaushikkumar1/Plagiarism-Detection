@@ -1,0 +1,23 @@
+<div class="container mt-5" >
+    <div class="text-center">
+        <button class="btn btn-danger" (click)="onGen()">Generate XLSX Result </button>
+    </div>
+
+</div>
+<div class="mt-5">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th  *ngFor = "let column of problem">
+                {{column}}
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let person of data">
+          <td *ngFor = "let d of person">{{d}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
