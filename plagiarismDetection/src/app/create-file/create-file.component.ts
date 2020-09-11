@@ -3,6 +3,7 @@ import { ApiDataService } from '../api-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CreateFileComponent implements OnInit {
 
   constructor(private apiDataService: ApiDataService,
     private route: ActivatedRoute,
-    private router: Router,) {
+    private router: Router,private authService:AuthService) {
     this.fillUrl=false;
 
     this.findform = new FormGroup({
@@ -104,6 +105,9 @@ export class CreateFileComponent implements OnInit {
       this.fillUrl = true;
     })
 
+  }
+  onLogout(){
+    this.authService.logOut();
   }
 
   onScrap(){

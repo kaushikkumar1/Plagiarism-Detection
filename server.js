@@ -19,8 +19,17 @@ app.use(cors());
 app.use(json2xls.middleware);
 app.use(express.json());
 app.use(cookieParser())
-var allRoutes = require('./backend/routes/allRoutes');
 
+var authRoute=require('./backend/routes/auth');
+var allRoutes = require('./backend/routes/allRoutes');
+var verify =require('./backend/verifytoken');
+app.use('/api/auth',authRoute);
 app.use('/api', allRoutes);
+app.use(express.static(__dirname + '/plagiarismDetection/dist/plagiarismDetection'));
+
+app.get('/*', function(req, res) {
+
+    res.sendFile(path.join(__dirname + '/plagiarismDetection/dist/plagiarismDetection/index.html'));
+});
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))

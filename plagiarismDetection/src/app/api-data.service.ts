@@ -15,46 +15,44 @@ export class ApiDataService {
   }
 
   getData(route) {
-    // const token = localStorage.getItem('token');
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   Authorization: 'Bearer ' + token
-    // });
-    // return this.http.get(this.url + '/api' + route, { headers });
+    const headers = new HttpHeaders({
+      'token': localStorage.getItem('token')
+    })
+    return this.http.get(this.url + '/api' + route,{headers});
+  }
+
+  getD(route) {
+   
     return this.http.get(this.url + '/api' + route);
   }
 
   postData(route, body) {
-    // const token = localStorage.getItem('token');
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   Authorization: 'Bearer ' + token
-    // });
-    // console.log(route);
-    // return this.http.post(this.url + '/api' + route, body, { headers });
-    return this.http.post(this.url + '/api' + route, body);
+    const headers = new HttpHeaders({
+      'token': localStorage.getItem('token')
+    })
+    return this.http.post(this.url + '/api' + route, body,{headers});
+
+  }
+
+  postD(route, body) {
+
+    return this.http.post(this.url + '/api' + route, body,);
 
   }
 
   putData(route, body) {
-    // const token = localStorage.getItem('token');
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   Authorization: 'Bearer ' + token
-    // });
-    // return this.http.put(this.url + '/api' + route, body, { headers });
-    return this.http.put(this.url + '/api' + route, body);
+    const headers = new HttpHeaders({
+      'token': localStorage.getItem('token')
+    })
+    return this.http.put(this.url + '/api' + route, body,{headers});
 
   }
 
   deleteData(route) {
-    // const token = localStorage.getItem('token');
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   Authorization: 'Bearer ' + token
-    // });
-    // return this.http.delete(this.url + '/api' + route, { headers });
-    return this.http.delete(this.url + '/api' + route);
+    const headers = new HttpHeaders({
+      'token': localStorage.getItem('token')
+    })
+    return this.http.delete(this.url + '/api' + route,{headers});
 
   }
 }

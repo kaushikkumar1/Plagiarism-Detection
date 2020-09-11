@@ -1,1 +1,43 @@
-<p>create-plagiarism-data works!</p>
+<div class="h1 text-center mt-3" ><a href={{problemViewLink}} style="color: rgb(0, 182, 0);">    {{problemId}}
+</a>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="h2 text-center col-sm-6 mt-3">
+            <a href={{profileUrlOne}}> {{userNameOne}}
+            </a>
+            ({{p1}}%)
+        </div>
+        <div class="h2 text-center col-sm-6 mt-3">
+            <a href={{profileUrlTwo}}> {{userNameTwo}}
+            </a>({{p2}}%)
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+
+    <div id="content">
+
+        <div id="left" style="background-color: black;">
+            <div class="text-center" style="color: red;">
+                SUBMISSION ID => {{submissionId}}
+            </div>
+            <pre class="mt-2">
+                <code style="color: white;"> {{data}}</code>
+                </pre>
+        </div>
+        <div id="right" style="background-color: rgb(56, 53, 53);">
+            <div class="text-center" style="color: red;">
+                SUBMISSION ID => {{submissionId2}}
+            </div>
+            <pre class="mt-2">
+                <code style="color: white;"> {{data2}}</code>
+                </pre>
+        </div>
+    </div>
+
+
+
+</div>

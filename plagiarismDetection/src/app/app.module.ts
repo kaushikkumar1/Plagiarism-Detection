@@ -11,6 +11,7 @@ import { CreateFileComponent } from './create-file/create-file.component';
 import { CreatePlagiarismDataComponent } from './create-plagiarism-data/create-plagiarism-data.component';
 import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/generate-plagiarism-report.component';
 import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.compo
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AuthModule
     ],
   providers: [],
   bootstrap: [AppComponent]

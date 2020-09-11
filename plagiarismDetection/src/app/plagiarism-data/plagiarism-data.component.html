@@ -1,10 +1,11 @@
 <div class="container mt-5" >
-    <div class="text-center">
-        <button class="btn btn-danger" (click)="onGen()">Generate XLSX Result </button>
-    </div>
-
+    
+    <h1 class="display-4  text-center"> Plagiarism Report of <strong
+      style="color: green;">{{contest_name}} </strong> 
+        <button class="btn btn-success" (click)="onGen()"><i class="fa fa-download"></i> Download Result </button>
+    </h1>
 </div>
-<div class="mt-5">
+<div class="mar mt-5">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -15,7 +16,16 @@
       </thead>
       <tbody>
         <tr *ngFor = "let person of data">
-          <td *ngFor = "let d of person">{{d}}</td>
+          <td>{{person.problemName}}</td>
+          <td><a href={{person.profileOne}}>{{person.UserNameOne}}</a></td>
+          <td>{{person.MatchPercentOne}}%</td>
+          <td><a href={{person.profileTwo}}>{{person.UserNameTwo}}</a></td>
+          <td>{{person.MatchPercentTwo}}%</td>
+          <td>{{person.TotalMatchedLine}}</td>
+          <td><button (click)="onCall(person.SubmissionIdOne,person.SubmissionIdTwo,person.MatchPercentOne,person.MatchPercentTwo)" style="color: rgb(2, 163, 16);">{{person.SubmissionIdOne}}</button></td>
+          <td><button (click)="onCall(person.SubmissionIdTwo,person.SubmissionIdOne,person.MatchPercentTwo,person.MatchPercentOne)" style="color: rgb(2, 163, 16);">{{person.SubmissionIdTwo}}</button></td>
+          <td><a href={{person.MossViewLink}} style="color: red;">View</a></td>
+
         </tr>
       </tbody>
     </table>

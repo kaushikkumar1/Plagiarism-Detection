@@ -13,7 +13,6 @@ module.exports.connect = function(auto_reconnect) {
 
     console.log("DB AUTO RECONNECT: " + dbOptions.auto_reconnect);
     mongoose.connect(env_config.db_connection_string, dbOptions);
-
     var db = mongoose.connection;
 
     db.on('connecting', function() {

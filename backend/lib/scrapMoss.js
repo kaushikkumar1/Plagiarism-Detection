@@ -8,7 +8,8 @@ const Submission = require("../models/submissionModel");
 exports.ScrapContestPlagiarismData = async function (req, res) {
     try {
 
-        const url = req.body.url;
+        var url = req.body.url;
+        url=url.trim();
         var new_submissionOne=[], new_submissionTwo=[];
         var new_submissionOneId,new_submissionTwoId;
         var matchPercentOne, matchPercentTwo;
@@ -60,6 +61,7 @@ exports.ScrapContestPlagiarismData = async function (req, res) {
                             contestId                 :newone_submissionOne.contest_id,
                             problemId                 :newone_submissionOne.problem_id,
                             language                  :newone_submissionOne.submission_language,
+                            problem_name              :newone_submissionOne.problem_name,
 
                             userNameOne               :newone_submissionOne.site_user_handle,  
                             submissionIdOne           :newone_submissionOne.site_submission_id,
@@ -69,7 +71,7 @@ exports.ScrapContestPlagiarismData = async function (req, res) {
                             submissionIdTwo           :newtwo_submissionTwo.site_submission_id,
                             matchPercentTwo           :new_submissionOne[i].matchPercentTwo,
 
-                            mossViewLink              :("http://moss.stanford.edu/results/4/9641145876116/match"+(i)+".html"),
+                            mossViewLink              :(url+"/match"+(i)+".html"),
                             matchedLine               :new_submissionOne[i].matchingLine
 
                         })

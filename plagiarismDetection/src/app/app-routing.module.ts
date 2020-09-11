@@ -7,7 +7,8 @@ import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.compo
 
 const routes: Routes = [
   {path:'create/file',component:CreateFileComponent },
-  {path:'create/plagiarism/data',component:CreatePlagiarismDataComponent},
+  { path: 'auth', loadChildren: 'src/app/auth/auth.module#AuthModule' },
+  {path:'create/plagiarism/data/:id/:id2/:p1/:p2',component:CreatePlagiarismDataComponent},
   {path:'generate/plagiarism/report',component:GeneratePlagiarismReportComponent},
   {path:'plagiarism/result/:cn',component:PlagiarismDataComponent}
 ];

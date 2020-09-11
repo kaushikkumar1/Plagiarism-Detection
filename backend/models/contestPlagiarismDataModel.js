@@ -5,6 +5,7 @@ const plagarismDataSchema = mongoose.Schema({
     contestName               :{ type: String, required: true },
     contestId                 :{ type: String },
     problemId                 :{ type: String },
+    problem_name              :{ type: String },
     language                  :{ type: String },
 
     userNameOne               :{ type: String },  
