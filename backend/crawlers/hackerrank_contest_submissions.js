@@ -28,7 +28,6 @@ hackerrankLib.getOffsetAndPageCount(judgeSubmissionsUrl, model, function(err, re
     var allPages = [];
     for (var page = 0; page <= res.pages; page++)
         allPages.push(page);
-    console.log("REACHED HERE");
     async.eachSeries(allPages, function(currentPage, next){
         model.offset = currentPage * model.limit;
         hackerrankLib.getCurrentLeaderboardPage(judgeSubmissionsUrl, model, function(err, result){

@@ -12,7 +12,7 @@ module.exports.makeAPIRequest = function(url, headers, callback){
         }
         else{
             log.debug(JSON.stringify(headers));
-            log.debug('%s RESPONSE CODE %d', url, response.statusCode);
+            log.info('%s RESPONSE CODE %d', url, response.statusCode);
             var jsonResult = JSON.parse(body);
             log.debug('JSON: %s', JSON.stringify(jsonResult));
             callback(err, jsonResult);
