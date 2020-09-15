@@ -175,7 +175,7 @@ exports.generateFileForSubmission = async function (req, res) {
     }
 };
 
-exports.uniqueGeneratedContestReport =async function (req, res) {
+exports.uniqueGeneratedContestReport = async function (req, res) {
 
     try {
 
@@ -184,5 +184,20 @@ exports.uniqueGeneratedContestReport =async function (req, res) {
     } catch (error) {
         console.log(error);
         res.status(200).send(error);
+    }
+}
+
+exports.getSubmissionOfContest = async function (req, res) {
+
+    try {
+        console.log(req.body);
+        res.status(200).send({
+            msg: "ok"
+        })
+    } catch {
+        console.log(error);
+        res.status(500).send({
+            error
+        });
     }
 }

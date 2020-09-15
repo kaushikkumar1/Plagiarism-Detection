@@ -12,6 +12,7 @@ app.post('/generate/file',verify,ReadSubmissionLib.generateFileForSubmission);
 
 app.get('/unique/contest',verify,ReadSubmissionLib.uniqueContests);
 app.get('/unique/contest/result',verify,ReadSubmissionLib.uniqueGeneratedContestReport);
+app.post('/submission/contest',ReadSubmissionLib.getSubmissionOfContest);
 
 app.get('/submission/code/:id',ResultLib.submissionCode); //non admin
 
