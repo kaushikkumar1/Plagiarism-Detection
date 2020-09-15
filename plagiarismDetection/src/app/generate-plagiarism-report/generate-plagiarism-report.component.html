@@ -1,1 +1,32 @@
-<p>generate-plagiarism-report works!</p>
+
+<div class="container mt-5 ">
+    <div class="col-sm-12 ">
+        <h1 class="display-4  text-center">Fetch Submission of the contest <P
+                style="color: green;">ADD cookie : "_hrank_session=XXXXXXXXX; "</P></h1>
+    </div>
+    <form [formGroup]="findform" (ngSubmit)="onFind()">
+
+        <div class="row">
+            <div class="col-sm-12 mt-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Contest Name</span>
+                    </div>
+                    <input type="text"  class="form-control" formControlName="contest_name">
+                </div>
+            </div>
+            <div class="col-sm-12 mt-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">_hrank_session</span>
+                    </div>
+                    <input type="text"  class="form-control" formControlName="_hrank_session">
+                </div>
+            </div>
+            <div class="col-sm-2 mt-3">
+                <button class="btn btn-primary" type="submit" [disabled]="!findform.valid">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -7,13 +7,19 @@ var json2xls = require('json2xls');
 var verify =require('../verifytoken');
 
 app.post('/scrap/data',verify, ScrapMossLib.ScrapContestPlagiarismData);
-app.get('/submission/data',verify,ReadSubmissionLib.readSubmissionData);
+app.get('/submission/data',ReadSubmissionLib.readSubmissionData);
 app.post('/generate/file',verify,ReadSubmissionLib.generateFileForSubmission);
 
 app.get('/unique/contest',verify,ReadSubmissionLib.uniqueContests);
+app.get('/unique/contest/result',verify,ReadSubmissionLib.uniqueGeneratedContestReport);
+app.post('/submission/contest',ReadSubmissionLib.getSubmissionOfContest);
+
 app.get('/submission/code/:id',ResultLib.submissionCode); //non admin
 
 app.post('/plagiarism/result',ResultLib.contestResult);//non admin
 app.post('/plagiarism/result/csv',ResultLib.contestResultCSV);//non admin
 
+app.get('/exe',ResultLib.childProcess);
+
+app.post('/exe/delete',ResultLib.deleteFiles);
 module.exports = app;

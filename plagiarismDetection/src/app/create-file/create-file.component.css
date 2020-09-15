@@ -1,0 +1,15 @@
+.dot {
+    height: 30px;
+    width: 30px;
+    background-color: rgb(250, 8, 8);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .dotg {
+    height: 30px;
+    width: 30px;
+    background-color: rgb(16, 214, 65);
+    border-radius: 50%;
+    display: inline-block;
+  }

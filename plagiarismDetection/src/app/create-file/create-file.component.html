@@ -1,6 +1,6 @@
 <button class="btn btn-primary" (click)=onLogout()>LogOut</button>
 
-<div *ngIf="!fillUrl" class="container mt-5">
+<div class="container mt-5">
     <div class="col-sm-12 ">
         <h1 class="display-4  text-center">Choose contest to create files of submissions in <strong
                 style="color: green;">Plagiarism-Detection/plagirasmFile</strong></h1>
@@ -21,125 +21,61 @@
                 </div>
             </div>
             <div class="col-sm-1 mt-3">
-                <button class="btn btn-primary" [disabled]="!findform.valid">Generate</button>
+                <button class="btn btn-primary" [disabled]="!findform.valid && disableForm">Generate</button>
             </div>
         </div>
     </form>
-    <div class="text-center mt-5">
-        <button type="button" class="btn btn-danger" (click)="onScrap()">Go to Scrap</button>
+</div>
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class=" text-center display-4 col-sm-12 mt-5">
+            Files Generated & Uploading files..
+            <span *ngIf="!fillUrl1" class="dot"></span>
+            <span *ngIf="fillUrl1" class="dotg"></span>
+
+        </div>
+
+        <div class="text-center display-4 col-sm-12 mt-5">
+            Results Saved To DB Successfully !!
+            <span *ngIf="!fillUrl2" class="dot"></span>
+            <span *ngIf="fillUrl2" class="dotg"></span>
+        </div>
+        <div class="text-center display-4 col-sm-12 mt-5">
+             Files Deleted from plagiarism File !
+            <span *ngIf="!fillUrl3" class="dot"></span>
+            <span *ngIf="fillUrl3" class="dotg"></span>
+        </div>
     </div>
 </div>
 
-    <div  *ngIf="fillUrl" class="container mt-5">
 
-        <div class="col-sm-12 ">
-            <h1 class="display-4  text-center">Run perl command in cmd, The command is on the file <strong
-                    style="color: orange;">plagirasmFile/commandToRun</strong></h1>
+<div  class="container mt-5">
+
+    <form [formGroup]="generateResultform" (ngSubmit)="onGenerate()">
+
+        <div class="row">
+            <div class="col-sm-10 mt-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Contest Name</span>
+                    </div>
+                    <select class="form-control" formControlName="contest_name">
+                        <option *ngFor="let op of uniqueContestResult" [value]="op">
+                            {{ op}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 mt-3">
+                <button class="btn btn-danger" [disabled]="!generateResultform.valid">View Result</button>
+            </div>
         </div>
-
-        <form [formGroup]="UrlformC" (ngSubmit)="onFindC()">
-
-            <div class="row">
-                <div class="col-sm-11 mt-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Moss Url for C
-                            </span>
-                        </div>
-                        <input  type="text" class="form-control" formControlName="url">
-                    </div>
-                </div>
-                <div class="col-sm-1 mt-3">
-                    <button class="btn btn-primary" [disabled]="!UrlformC.valid">Scrap</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div *ngIf="fillUrl" class="container mt-2">
-
-        <form [formGroup]="UrlformCpp" (ngSubmit)="onFindCpp()">
-
-            <div class="row">
-                <div class="col-sm-11 mt-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Moss Url for CPP
-                            </span>
-                        </div>
-                        <input  type="text" class="form-control" formControlName="url">
-                    </div>
-                </div>
-                <div class="col-sm-1 mt-3">
-                    <button class="btn btn-primary" [disabled]="!UrlformCpp.valid">Scrap</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div *ngIf="fillUrl" class="container mt-2">
-
-        <form [formGroup]="UrlformPython" (ngSubmit)="onFindPython()">
-
-            <div class="row">
-                <div class="col-sm-11 mt-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Moss Url for Python
-                            </span>
-                        </div>
-                        <input  type="text" class="form-control" formControlName="url">
-                    </div>
-                </div>
-                <div class="col-sm-1 mt-3">
-                    <button class="btn btn-primary" [disabled]="!UrlformPython.valid">Scrap</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div *ngIf="fillUrl" class="container mt-2">
-
-        <form [formGroup]="UrlformJava" (ngSubmit)="onFindJava()">
-
-            <div class="row">
-                <div class="col-sm-11 mt-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Moss Url for JAVA
-                            </span>
-                        </div>
-                        <input  type="text" class="form-control" formControlName="url">
-                    </div>
-                </div>
-                <div class="col-sm-1 mt-3">
-                    <button class="btn btn-primary" [disabled]="!UrlformJava.valid">Scrap</button>
-                </div>
-            </div>
-        </form>
-    </div>
+    </form>
+</div>
 
 
+<div style="margin-bottom: 100px;">
 
-    
-
-    <div *ngIf="fillUrl" class="container mt-5">
-
-        <form [formGroup]="generateResultform" (ngSubmit)="onGenerate()">
-
-            <div class="row">
-                <div class="col-sm-9 mt-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Contest Name</span>
-                        </div>
-                        <select class="form-control" formControlName="contest_name">
-                            <option *ngFor="let op of contests" [value]="op">
-                                {{ op}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-3 mt-3">
-                    <button class="btn btn-danger" [disabled]="!generateResultform.valid">Generate Plagiarism Result</button>
-                </div>
-            </div>
-        </form>
-    </div>
+</div>
