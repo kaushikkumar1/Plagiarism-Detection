@@ -2,13 +2,14 @@ const request = require("request-promise");
 const cheerio = require("cheerio");
 const PlagirismData = require("../models/contestPlagiarismDataModel");
 const Submission = require("../models/submissionModel");
+const chalk = require('chalk');
 
 
 // CREATE PLAGIARISM DATA
-exports.ScrapContestPlagiarismData = async function (req, res) {
+exports.ScrapContestPlagiarismData = async function (urll,callback) {
     try {
 
-        var url = req.body.url;
+        var url = urll;
         url=url.trim();
         var new_submissionOne=[], new_submissionTwo=[];
         var new_submissionOneId,new_submissionTwoId;
@@ -55,7 +56,17 @@ exports.ScrapContestPlagiarismData = async function (req, res) {
 
                 //  console.log(newone_submissionOne.site_submission_id,newtwo_submissionTwo.site_submission_id);
 
+               // if record exist with with submissionIdOne and submissionIdTwo dont save again
+               var exist = await PlagirismData.findOne({submissionIdOne:newone_submissionOne.site_submission_id,                            submissionIdTwo           :newtwo_submissionTwo.site_submission_id,
+                                                       submissionIdTwo:newtwo_submissionTwo.site_submission_id,
 
+               })
+
+               if(exist){
+                //    console.log(exist);
+                   console.log(chalk.red(`skip record ${i}`));
+               }else
+               {
                    var new_PDO =new PlagirismData({
                             contestName               :newone_submissionOne.contest_name,
                             contestId                 :newone_submissionOne.contest_id,
@@ -75,15 +86,20 @@ exports.ScrapContestPlagiarismData = async function (req, res) {
                             matchedLine               :new_submissionOne[i].matchingLine
 
                         })
-                      //  console.log(new_PDO);
+                       console.log(chalk.blue(`saving..${i}`));
                        new_PDO.save();
+                    }
             }
 
-            res.status(200).send({msg:"successfully scraped data"});
+            callback(true);
+
+            // res.status(200).send({msg:"successfully scraped data"});
         })
+
 
     } catch (error) {
         console.log(error);
-        return res.status(500).send(error);
+        return false;
+        // return res.status(500).send(error);
     }
 };

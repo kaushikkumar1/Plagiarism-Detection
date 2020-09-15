@@ -32,4 +32,6 @@ app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname + '/plagiarismDetection/dist/plagiarismDetection/index.html'));
 });
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+var server=app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+
+server.timeout=1000*60*10;
