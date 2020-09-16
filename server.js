@@ -27,6 +27,9 @@ app.use('/api/auth',authRoute);
 app.use('/api', allRoutes);
 app.use(express.static(__dirname + '/plagiarismDetection/dist/plagiarismDetection'));
 
+//run schedular 
+require('./backend/crawlers/schedule');
+
 app.get('/*', function(req, res) {
 
     res.sendFile(path.join(__dirname + '/plagiarismDetection/dist/plagiarismDetection/index.html'));

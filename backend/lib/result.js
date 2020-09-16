@@ -168,12 +168,87 @@ exports.childProcess = async function (req, res) {
                 //call the scrap function for scraping the data
                 ScrapLib.ScrapContestPlagiarismData(str, (data) => {
 
-                    console.log(chalk.blue("SAVED THE DATA TO DB BY SCRAPING THE MOSS REPOERT "), "TASK COMPLETED");
+                    console.log(chalk.blue("SAVED THE DATA TO DB BY SCRAPING THE MOSS REPOERT "), "TASK COMPLETED CPP");
+
+                                       
 
 
-                    res.status(200).send({
-                        MSG: "TASK COMPLETED SUCCESSFULLY"
-                    });
+                                fs.readFile("./PlagarismFile/commandToRunPython.txt", 'utf8', function (err, data) {
+                                    if (err) throw err;
+                                    console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
+                        
+                                    child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                        if(error) console.log(error);
+                                        console.log(stdout);
+                                        var str = stdout.split(' ');
+                                        var len = str[str.length - 1].length;
+                                        str = str[str.length - 1].substring(11, len - 2);
+                                        console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
+                        
+                                        //call the scrap function for scraping the data
+                                        ScrapLib.ScrapContestPlagiarismData(str, (data) => {
+                        
+                                            console.log(chalk.blue("SAVED THE DATA TO DB BY SCRAPING THE MOSS REPOERT "), "TASK COMPLETED PYTHON");
+                        
+                                                      
+
+                                                                    fs.readFile("./PlagarismFile/commandToRunJava.txt", 'utf8', function (err, data) {
+                                                                        if (err) throw err;
+                                                                        console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
+                                                            
+                                                                        child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                                                            if(error) console.log(error);
+                                                                            console.log(stdout);
+                                                                            var str = stdout.split(' ');
+                                                                            var len = str[str.length - 1].length;
+                                                                            str = str[str.length - 1].substring(11, len - 2);
+                                                                            console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
+                                                            
+                                                                            //call the scrap function for scraping the data
+                                                                            ScrapLib.ScrapContestPlagiarismData(str, (data) => {
+                                                            
+                                                                                console.log(chalk.blue("SAVED THE DATA TO DB BY SCRAPING THE MOSS REPOERT "), "TASK COMPLETED JAVA");
+                                                            
+                                                                                            
+
+
+
+                                                                                                    fs.readFile("./PlagarismFile/commandToRunC.txt", 'utf8', function (err, data) {
+                                                                                                        if (err) throw err;
+                                                                                                        console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
+                                                                                            
+                                                                                                        child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                                                                                            if(error) console.log(error);
+                                                                                                            console.log(stdout);
+                                                                                                            var str = stdout.split(' ');
+                                                                                                            var len = str[str.length - 1].length;
+                                                                                                            str = str[str.length - 1].substring(11, len - 2);
+                                                                                                            console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
+                                                                                            
+                                                                                                            //call the scrap function for scraping the data
+                                                                                                            ScrapLib.ScrapContestPlagiarismData(str, (data) => {
+                                                                                            
+                                                                                                                console.log(chalk.blue("SAVED THE DATA TO DB BY SCRAPING THE MOSS REPOERT "), "TASK COMPLETED C");
+                                                                                            
+                                                                                            
+                                                                                                                res.status(200).send({
+                                                                                                                    MSG: "TASK COMPLETED SUCCESSFULLY"
+                                                                                                                });
+                                                                                            
+                                                                                                            });
+                                                                                            
+                                                                                                        });
+                                                                                                    });
+                                                            
+                                                                            });
+                                                            
+                                                                        });
+                                                                    });
+            
+                                        });
+                        
+                                    });
+                                });
 
                 });
 

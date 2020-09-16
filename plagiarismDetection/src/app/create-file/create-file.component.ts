@@ -52,7 +52,7 @@ export class CreateFileComponent implements OnInit {
   ngOnInit(): void {
 
     this.apiDataService.getData('/unique/contest').subscribe((d) => {
-      // console.log(d);
+      console.log(d);
       this.contests = d;
       this.apiDataService.getData('/unique/contest/result').subscribe((data) => {
         console.log(data);
@@ -64,7 +64,7 @@ export class CreateFileComponent implements OnInit {
           temp.push(this.contests[i]);
         }
         
-        this.contests=temp;
+        // this.contests=temp;
         console.log(this.contests);
       })
     })
