@@ -64,7 +64,7 @@ export class CreateFileComponent implements OnInit {
           temp.push(this.contests[i]);
         }
         
-        // this.contests=temp;
+        this.contests=temp;
         console.log(this.contests);
       })
     })

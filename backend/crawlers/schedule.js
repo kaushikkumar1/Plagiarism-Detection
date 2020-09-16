@@ -4,7 +4,7 @@ var temp_contest_name, temp_cookie;
 var hackerank_contest_submission=require('./hackerrank_contest_submissions');
 
 
-cron.schedule(' */45 * * * *', async () => {
+cron.schedule(' */50 * * * *', async () => {
 
     try{
 
