@@ -61,8 +61,11 @@ module.exports.crawler=async function( user ){
                         else{
                             model.site_submission_id = currentLBUser.id;
                             var s = new Date(parseInt(currentLBUser.created_at)*1000).toLocaleDateString("en-US");
-
+                            s=s.replace("/", "-");
+                            s=s.replace("/", "-");
                             var tempName=model.contest_name+"-"+s;
+                            console.log(tempName);
+
                             console.log( chalk.red(tempName));
                             var submissionObject = {
                                 submission_code: '',

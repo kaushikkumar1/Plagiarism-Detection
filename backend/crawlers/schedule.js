@@ -4,7 +4,7 @@ var temp_contest_name, temp_cookie;
 var hackerank_contest_submission=require('./hackerrank_contest_submissions');
 
 
-cron.schedule(' */50 * * * *', async () => {
+cron.schedule(' */47 * * * *', async () => {
 
     try{
 
@@ -14,9 +14,6 @@ cron.schedule(' */50 * * * *', async () => {
 
     if (user) {
 
-        temp_contest_name = user.contest_name;
-        temp_cookie = user.cookie;
-
         await Contest.findOneAndUpdate({
             "_id": user._id
         }, {
@@ -24,7 +21,7 @@ cron.schedule(' */50 * * * *', async () => {
                 "lrTime": new Date()
             }
         })
-        hackerank_contest_submission.crawler(user);
+        // hackerank_contest_submission.crawler(user);
     }
 
     console.log(new Date());

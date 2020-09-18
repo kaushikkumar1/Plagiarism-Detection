@@ -17,6 +17,8 @@ export class GeneratePlagiarismReportComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, private authService: AuthService) {
     this.findform = new FormGroup({
+      email: new FormControl('', { validators: Validators.required }),
+      isActiveContest: new FormControl('', { validators: Validators.required }),
       contest_name: new FormControl('', { validators: Validators.required }),
       _hrank_session: new FormControl('', { validators: Validators.required })
     })

@@ -35,6 +35,11 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    if(this.apiDataServoce.islogedin())
+    {
+    this.router.navigate(['/generate/plagiarism/report']);
+    }
   }
 
   onSubmit(){
@@ -42,10 +47,10 @@ export class LoginComponent implements OnInit {
     this.apiDataServoce.signIn(this.testForm.value).subscribe((d)=>{
       console.log(d);
      localStorage.setItem('token',d['token'])
-    //  this.router.navigate(['/home']);
      this.islogedin=true;
      alert("Login Successful");
-     this.router.navigate(['/create/file']);
+     window.location.reload();
+
     },(error)=>{
       alert("wrong user_name or password");
     })

@@ -187,22 +187,3 @@ exports.uniqueGeneratedContestReport = async function (req, res) {
         res.status(200).send(error);
     }
 }
-
-exports.getSubmissionOfContest = async function (req, res) {
-
-    try {
-
-        var new_contest = new Contest(req.body);
-        new_contest.save();
-        console.log(new_contest);
-
-        res.status(200).send({
-            msg: "contest Saved"
-        })
-    } catch {
-        console.log(error);
-        res.status(500).send({
-            error
-        });
-    }
-}

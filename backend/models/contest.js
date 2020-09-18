@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // SCHEMA OF THE USER ( HOSTEL OWNER )
 const contestSchema = new mongoose.Schema({
+    email:{
+        type:String,
+        required:true
+    },
     contest_name: {
         type: String,
         unique:true,
@@ -19,7 +23,7 @@ const contestSchema = new mongoose.Schema({
         type:Date,
         default:new Date(0)
     },
-    islongContest:{
+    isActiveContest:{
         type:Boolean,
         default:false
     }
