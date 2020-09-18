@@ -1,17 +1,18 @@
 const scraperConfig = require('../config/scraperConfig');
 const template = require('lodash.template');
 const utilityLib = require('../lib/utilityLib');
-const codechefLib = require('../lib/codechefLib');
+const pageScrapeLib = require('../lib/pageScrapeLib');
 const dbconnect = require('../db/connect');
 const itemLib = require('../lib/itemLib');
 const submissionsStatsModel = require('../models/submissionsStatsModel');
 const codingProfilesModel = require('../models/codingProfilesModel');
+const codechefParser = require('../lib/parsers/codechefParser');
 const moment = require('moment');
 const async = require('async');
 
 
 var site_name = 'CODECHEF';
-var libToUse = codechefLib;
+var libToUse = pageScrapeLib;
 
 const headers = {
     'User-Agent': scraperConfig.common.agent
@@ -29,7 +30,7 @@ if(connect_to_db)
 module.exports.crawlAndUpdateDB = function(userHandleToCrawl, cb){
     let model = {site_name: site_name, site_user_handle: userHandleToCrawl };
 
-    libToUse.getUserStats(userProfilePageUrl, model, headers, function(err, crawledStats){
+    libToUse.getUserStats(userProfilePageUrl, model, headers, codechefParser, function(err, crawledStats){
         // console.log("getUserStats ERR: "+err);
         // console.log("getUserStats crawledStats: "+crawledStats);
         if(err)
