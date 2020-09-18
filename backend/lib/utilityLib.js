@@ -13,3 +13,22 @@ module.exports.normalizedDateString = function(inputDate){
 module.exports.randInRange = function(min, max) {  
     return Math.floor(Math.random() * (max - min) + min); 
 }
+
+module.exports.stringToInt = function(strVal, defValue){
+    if(!defValue)
+        defValue = 0;
+    return isNaN(parseInt(strVal)) ? defValue : parseInt(strVal);   
+}
+
+// pass it first empty object and then any number of json objects
+// it'll return merged of all
+// mergeJSONObjects({}, obj1, obj2, obj3);
+module.exports.mergeJSONObjects = function(target) {
+    var sources = [].slice.call(arguments, 1);
+    sources.forEach(function (source) {
+        for (var prop in source) {
+            target[prop] = source[prop];
+        }
+    });
+    return target;
+}
