@@ -1,7 +1,7 @@
 const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
 var submissionStatsSchema = new Schema({
-    user_id                           : { type: Schema.Types.ObjectId, ref: 'user'},
+    user_id                           : { type: Schema.Types.ObjectId, ref: 'User'},
     site_name                         : { type: String,  required: true, enum: ['CODECHEF', 'CODEFORCES', 'HACKERRANK', 'HACKEREARTH', 'INTERVIEWBIT', 'LEETCODE', 'MENTORPICK', 'SPOJ', 'UVA', 'VJUDGE']},
     site_user_handle                  : String,
     site_user_id                      : String,

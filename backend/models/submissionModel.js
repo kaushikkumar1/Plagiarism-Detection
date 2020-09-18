@@ -1,6 +1,6 @@
 const mongoose =require('mongoose');
 var submissionSchema = new mongoose.Schema({
-    user_id                           : { type: Schema.Types.ObjectId, ref: 'user'},
+    user_id                           : { type: Schema.Types.ObjectId, ref: 'User'},
     site_submission_timestamp         : Date,
     site_submission_id                : {type: Number, unique:true, require: true},
     contest_id                        : String,
