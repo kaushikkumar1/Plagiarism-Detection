@@ -81,7 +81,7 @@ module.exports.pickNextUserCrawlAndUpdateDB = function(connect_to_db, cb){
             });
         }
         else{
-            console.log("NO MORE USERS TO CRAWO FOR TODAY");
+            console.log("NO MORE USERS TO CRAWL FOR TODAY");
             if(connect_to_db)
                 dbconnect.disconnect();
             cb();
