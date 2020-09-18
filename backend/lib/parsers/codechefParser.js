@@ -7,8 +7,9 @@ module.exports.parsePageSource = function(pageBody, callback){
     const $ = cheerio.load(pageBody);
 
     var username = $(config.CODECHEF.cc_selectors.username_selector).text().trim();
+    //console.log("USERNAME: "+ username);
     if(!username || username.length==0)
-        return callback('error occured '+model.interviewbit_username, null);
+        return callback('error occured', null);
 
     var objToReturn = {};
 
@@ -20,11 +21,11 @@ module.exports.parsePageSource = function(pageBody, callback){
     fully_solved_count = fully_solved_count.split("(")[1].trim();
     fully_solved_count = fully_solved_count.split(")")[0].trim();
             //console.log("fully_solved_count: "+fully_solved_count);
-    objToReturn.codechef_rating = rating;
-    objToReturn.codechef_profile_solved_count = fully_solved_count;
-    objToReturn.codechef_country_rank = country_rank;
-    objToReturn.codechef_global_rank = global_rank;
-    objToReturn.codechef_star_rating = star_rating;
+    objToReturn.user_rating = rating;
+    objToReturn.solved_count = fully_solved_count;
+    objToReturn.country_rank = country_rank;
+    objToReturn.global_rank = global_rank;
+    objToReturn.star_rating = star_rating;
 
     var ratingInt = utilityLib.stringToInt(rating);
     var solvedCountInt = utilityLib.stringToInt(fully_solved_count);
