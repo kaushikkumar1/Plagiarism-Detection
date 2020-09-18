@@ -1,6 +1,9 @@
 module.exports = {
     common: {
-        agent : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+        agent : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36",
+        maximum_fetch_window_in_minutes : 240,
+        min_crawling_delay : 4000,
+        max_crawling_delay : 10000
     },
     vjudge:{
         cookie : "JSESSIONID=XXXXXXX;",
