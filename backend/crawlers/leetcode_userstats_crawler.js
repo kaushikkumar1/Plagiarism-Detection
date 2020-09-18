@@ -1,6 +1,6 @@
 const template = require('lodash.template');
 const scraperConfig = require('../config/scraperConfig');
-const interviewbitLib = require('../lib/interviewbitLib');
+const leetcodeLib = require('../lib/leetcodeLib');
 const utilityLib = require('../lib/utilityLib');
 const itemLib = require('../lib/itemLib');
 const moment = require('moment');
@@ -15,14 +15,17 @@ const headers = {
     'User-Agent': scraperConfig.common.agent
 };
 
+
+const userProfilePageUrl = template(scraperConfig.leetcode.profile_url);
+var site_name = 'LEETCODE';
+
+
 module.exports.crawlAndUpdateDB = function(userHandleToCrawl, connect_to_db, cb){
     if(connect_to_db){
         dbconnect.connect(false);
     }
-    const userProfilePageUrl = template(scraperConfig.interviewbit.ib_user_profile_url);
-
-    let model = {site_user_handle: userHandleToCrawl, interviewbit_username: userHandleToCrawl };
-    interviewbitLib.getUserStats(userProfilePageUrl, model, headers, function(err, crawledStats){
+    let model = {site_user_handle: userHandleToCrawl, leetcode_username: userHandleToCrawl };
+    leetcodeLib.getUserStats(userProfilePageUrl, model, headers, function(err, crawledStats){
         if(crawledStats){
             console.log(JSON.stringify(crawledStats));
             crawledStats['created_at_date_string'] = utilityLib.normalizedDateString(new Date());
@@ -57,10 +60,16 @@ module.exports.crawlAndUpdateDB = function(userHandleToCrawl, connect_to_db, cb)
     })
 }
 
+function unitTestCrawlAndUpdateDB(){
+    var userHandleToCrawl ='sandywadhwa';
+    module.exports.crawlAndUpdateDB(userHandleToCrawl, true, function(){
+
+    })
+}
+// unitTestCrawlAndUpdateDB();
 
 
 module.exports.pickNextUserCrawlAndUpdateDB = function(connect_to_db, cb){
-    var site_name = 'INTERVIEWBIT';
     var backinMins = moment(new Date()).subtract(scraperConfig.common.maximum_fetch_window_in_minutes, 'm').toDate();
     var query = {site_name: site_name , is_handle_valid: {$ne: false}, is_crawler_active: {$ne: false}};
     query['$or'] = [{last_crawled_at: {$lt: backinMins}}, {last_crawled_at: null}];
@@ -81,7 +90,7 @@ module.exports.pickNextUserCrawlAndUpdateDB = function(connect_to_db, cb){
             });
         }
         else{
-            console.log("NO MORE USERS TO CRAWO FOR TODAY");
+            console.log("NO MORE USERS TO CRAWL FOR TODAY");
             if(connect_to_db)
                 dbconnect.disconnect();
             cb();
@@ -89,7 +98,7 @@ module.exports.pickNextUserCrawlAndUpdateDB = function(connect_to_db, cb){
     });
 }
 
-// UNIT TEST
+// // UNIT TEST
 function crawlUnitTest(){
     dbconnect.connect(false);
     module.exports.pickNextUserCrawlAndUpdateDB(false, function(){
@@ -97,6 +106,8 @@ function crawlUnitTest(){
         dbconnect.disconnect();
     })
 }
+
+//crawlUnitTest();
 
 
 function crawlLoop(n){
@@ -116,5 +127,5 @@ function crawlLoop(n){
     });
 }
 
-crawlLoop(200);
+crawlLoop(1);
 

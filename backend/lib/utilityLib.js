@@ -9,3 +9,7 @@ module.exports.normalizedDateString = function(inputDate){
     var yyyy = date.getUTCFullYear();
     return util.format('%s-%s-%s', yyyy, mm, dd);
 }
+
+module.exports.randInRange = function(min, max) {  
+    return Math.floor(Math.random() * (max - min) + min); 
+}
