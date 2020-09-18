@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 var codingProfileSchema = new Schema({
     user_id                           : { type: Schema.Types.ObjectId, ref: 'User'},
     site_name                         : { type: String,  required: true, enum: ['CODECHEF', 'CODEFORCES', 'HACKERRANK', 'HACKEREARTH', 'INTERVIEWBIT', 'LEETCODE', 'MENTORPICK', 'SPOJ', 'UVA', 'VJUDGE']},
+    user_roll_number                  : { type: String, required: true},
     site_user_handle                  : { type: String, required: true},
     is_crawler_active                 : { type: Boolean, default: true},
     last_crawled_at                   : { type: Date },
