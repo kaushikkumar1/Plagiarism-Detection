@@ -3,12 +3,9 @@ const userStatsCrawler = require('./userstats_crawler');
 const scraperConfig = require('../config/scraperConfig');
 const dbconnect = require('../db/connect');
 
-var connect_to_db = true;
+var connect_to_db_local_run = true;
 
-if(connect_to_db)
-    dbconnect.connect(false);
-
-var interviewbitSiteOptions = {
+var siteOptions = {
     site_name : 'INTERVIEWBIT',
     site_parser : require('../lib/parsers/interviewbitParser'),
     userProfilePageUrl: template(scraperConfig['INTERVIEWBIT'].user_profile_url),
@@ -16,6 +13,14 @@ var interviewbitSiteOptions = {
     connect_to_db: false
 };
 
-userStatsCrawler.dailyCrawl(interviewbitSiteOptions, function(){
-    dbconnect.disconnect();
-});
+module.exports.crawl = function(connect_to_db){
+    if(connect_to_db)
+        dbconnect.connect(false);
+    userStatsCrawler.dailyCrawl(siteOptions, function(){
+        if(connect_to_db)
+           dbconnect.disconnect();
+    });
+}
+
+
+module.exports.crawl(connect_to_db_local_run);

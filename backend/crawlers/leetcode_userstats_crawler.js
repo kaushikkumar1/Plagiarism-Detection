@@ -4,12 +4,9 @@ const scraperConfig = require('../config/scraperConfig');
 const leetcodeParser = require('../lib/parsers/leetcodeParser');
 const dbconnect = require('../db/connect');
 
-var connect_to_db = true;
+var connect_to_db_local_run = true;
 
-if(connect_to_db)
-    dbconnect.connect(false);
-
-var leetcodeSiteOptions = {
+var siteOptions = {
     site_name : 'LEETCODE',
     site_parser : leetcodeParser,
     userProfilePageUrl: template(scraperConfig['LEETCODE'].user_profile_url),
@@ -17,6 +14,13 @@ var leetcodeSiteOptions = {
     connect_to_db: false
 };
 
-userStatsCrawler.dailyCrawl(leetcodeSiteOptions, function(){
-    dbconnect.disconnect();
-});
+module.exports.crawl = function(connect_to_db){
+    if(connect_to_db)
+        dbconnect.connect(false);
+    userStatsCrawler.dailyCrawl(siteOptions, function(){
+        if(connect_to_db)
+           dbconnect.disconnect();
+    });
+}
+
+module.exports.crawl(connect_to_db_local_run);
