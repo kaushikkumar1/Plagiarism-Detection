@@ -11,6 +11,9 @@ const submissionsStatsModel = require('../models/submissionsStatsModel');
 const dbconnect = require('../db/connect');
 const codingProfilesModel = require('../models/codingProfilesModel');
 
+
+dbconnect.connect(false);
+
 const headers = {
     'User-Agent': scraperConfig.common.agent
 };
@@ -110,11 +113,12 @@ function crawlUnitTest(){
 //crawlUnitTest();
 
 
-function crawlLoop(n){
+function crawlLoop(n, connect_to_db){
     var allPages = [];
     for (var page = 1; page <= n; page++)
         allPages.push(page);
-    dbconnect.connect(false);
+    if(connect_to_db)
+        dbconnect.connect(false);
     async.eachSeries(allPages, function(currentPage, next){
         module.exports.pickNextUserCrawlAndUpdateDB(false, function(){
             var timeoutDurationInMs = utilityLib.randInRange(scraperConfig.common.min_crawling_delay, scraperConfig.common.max_crawling_delay);
@@ -123,9 +127,29 @@ function crawlLoop(n){
         })
     }, function(err){
         console.log("COMPLETED CRAWLING");
-        dbconnect.disconnect();
+        if(connect_to_db)
+            dbconnect.disconnect();
     });
 }
 
-crawlLoop(1);
 
+function getCountToCrawl(cb){
+    var backinMins = moment(new Date()).subtract(scraperConfig.common.maximum_fetch_window_in_minutes, 'm').toDate();
+    var query = {site_name: site_name , is_handle_valid: {$ne: false}, is_crawler_active: {$ne: false}};
+    query['$or'] = [{last_crawled_at: {$lt: backinMins}}, {last_crawled_at: null}];
+    itemLib.getItemByQuery(query, codingProfilesModel, function(err, res){
+        if(err)
+            cb(0);
+        else
+            cb(res.length);
+    })
+}
+
+function dailyCrawlRun(){
+    getCountToCrawl(function(cnt){
+        console.log("GOT COUNT AS  "+cnt);
+        crawlLoop(cnt);
+    })
+}
+
+dailyCrawlRun();
