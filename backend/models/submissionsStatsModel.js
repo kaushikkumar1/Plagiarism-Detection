@@ -1,5 +1,6 @@
 const mongoose =require('mongoose');
-var submissionStatsSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+var submissionStatsSchema = new Schema({
     user_id                           : { type: Schema.Types.ObjectId, ref: 'user'},
     site_name                         : { type: String,  required: true, enum: ['CODECHEF', 'CODEFORCES', 'HACKERRANK', 'HACKEREARTH', 'INTERVIEWBIT', 'LEETCODE', 'MENTORPICK', 'SPOJ', 'UVA', 'VJUDGE']},
     site_user_handle                  : String,
@@ -13,6 +14,7 @@ var submissionStatsSchema = new mongoose.Schema({
     global_rank                       : Number,
     crawled_by_server                 : String,
     misc_notes                        : String,
+    created_at_date_string            : String,
     created_at_ms                     : Number,
     updated_at_ms                     : Number,
     created_at                        : {type: Date, default: Date.now },

@@ -60,9 +60,9 @@ exports.createitem = function (itemDetails, itemModel, cb) {
 };
 
 exports.updateItem = function (itemDetails, itemModel, cb) {
-    console.log('Edit Resource ' + itemDetails.id);
-    console.log("MODEL: "+ JSON.stringify(itemModel))
-    itemModel.findById(itemDetails.id, function (err, qObj) {
+    console.log('Edit Resource ' + itemDetails._id);
+    //console.log("MODEL: "+ JSON.stringify(itemModel))
+    itemModel.findById(itemDetails._id, function (err, qObj) {
         if (err || !qObj)
             cb(err, null);
         else {
