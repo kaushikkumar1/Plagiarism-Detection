@@ -57,10 +57,11 @@ function getCountToCrawl(siteOptions, cb){
     })
 }
 
-module.exports.dailyCrawl = function(siteOptions){
+module.exports.dailyCrawl = function(siteOptions, cb){
     getCountToCrawl(siteOptions, function(cnt){
         console.log("GOT COUNT AS  "+cnt);
         crawlLoop(cnt, siteOptions);
+        cb();
     })
 }
 

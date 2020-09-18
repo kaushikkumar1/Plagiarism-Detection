@@ -17,4 +17,6 @@ var leetcodeSiteOptions = {
     connect_to_db: false
 };
 
-userStatsCrawler.dailyCrawl(leetcodeSiteOptions);
+userStatsCrawler.dailyCrawl(leetcodeSiteOptions, function(){
+    dbconnect.disconnect();
+});

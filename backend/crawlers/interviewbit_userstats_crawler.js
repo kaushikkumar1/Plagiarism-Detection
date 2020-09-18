@@ -16,4 +16,6 @@ var interviewbitSiteOptions = {
     connect_to_db: false
 };
 
-userStatsCrawler.dailyCrawl(interviewbitSiteOptions);
+userStatsCrawler.dailyCrawl(interviewbitSiteOptions, function(){
+    dbconnect.disconnect();
+});

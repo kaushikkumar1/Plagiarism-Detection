@@ -17,4 +17,6 @@ var codechefSiteOptions = {
     connect_to_db: false
 };
 
-userStatsCrawler.dailyCrawl(codechefSiteOptions);
+userStatsCrawler.dailyCrawl(codechefSiteOptions, function(){
+    dbconnect.disconnect();
+});
