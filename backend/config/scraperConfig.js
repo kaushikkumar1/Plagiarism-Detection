@@ -18,6 +18,15 @@ module.exports = {
         hr_leaderboard_crawling_min_delay_milliseconds: 5000,
         hr_leaderboard_crawling_max_delay_milliseconds: 10000
     },
+    INTERVIEWBIT : {
+        selectors :{
+          username_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-info > div > div",
+          rank_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-stats > div.stat.rank.pull-left > div.txt",
+          score_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-stats > div:nth-child(2) > div.txt"
+        },
+        user_profile_url : "https://www.interviewbit.com/profile/${site_user_handle}",
+        ib_cookie : "_ib_session=XXXXX"
+    },
     interviewbit : {
         ib_selectors :{
           username_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-info > div > div",
