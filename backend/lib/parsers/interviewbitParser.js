@@ -15,8 +15,8 @@ module.exports.parsePageSource = function(pageBody, callback){
 
     var objToReturn = {};
 
-    var rank = $(config.interviewbit.ib_selectors.rank_selector).text().trim();
-    var score = $(config.interviewbit.ib_selectors.score_selector).text().trim();
+    var rank = $(selectors.rank_selector).text().trim();
+    var score = $(selectors.score_selector).text().trim();
 
     objToReturn.score = score;
     objToReturn.rank = rank;

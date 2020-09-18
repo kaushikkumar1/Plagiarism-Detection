@@ -27,33 +27,10 @@ module.exports = {
         user_profile_url : "https://www.interviewbit.com/profile/${site_user_handle}",
         ib_cookie : "_ib_session=XXXXX"
     },
-    interviewbit : {
-        ib_selectors :{
-          username_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-info > div > div",
-          rank_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-stats > div.stat.rank.pull-left > div.txt",
-          score_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-stats > div:nth-child(2) > div.txt"
-        },
-        ib_user_profile_url : "https://www.interviewbit.com/profile/${interviewbit_username}",
-        ib_cookie : "_ib_session=XXXXX"
-    },
     LEETCODE : {
         user_profile_url : "https://leetcode.com/${site_user_handle}",
         contest_leaderboard_url : "https://leetcode.com/contest/api/ranking/{leetcode_contest_name}/?pagination={page_number}&region={contest_region}",
         selectors:{
-            rating_xpath : "//*[@id='base_content']/div/div/div[1]/div[2]/ul/li[2]/span",
-            rating_selector : "#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(2) > ul > li:nth-child(2) > span",
-            contests_finished_selector: '#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(2) > ul > li:nth-child(1) > span',
-            contribution_points_selector: '#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(4) > ul > li:nth-child(1) > span',
-            solved_question_selector : "#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(3) > ul > li:nth-child(1) > span",
-            acceptance_rate_selector: "#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(3) > ul > li:nth-child(3) > span",
-            global_ranking_selector: "#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(2) > ul > li:nth-child(3) > span",
-            username_selector: "#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(1) > div.panel-body > p"
-        }
-    },
-    leetcode : {
-        profile_url : "https://leetcode.com/${leetcode_username}",
-        contest_leaderboard_url : "https://leetcode.com/contest/api/ranking/{leetcode_contest_name}/?pagination={page_number}&region={contest_region}",
-        lc_selectors:{
             rating_xpath : "//*[@id='base_content']/div/div/div[1]/div[2]/ul/li[2]/span",
             rating_selector : "#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(2) > ul > li:nth-child(2) > span",
             contests_finished_selector: '#base_content > div > div > div.col-sm-5.col-md-4 > div:nth-child(2) > ul > li:nth-child(1) > span',
