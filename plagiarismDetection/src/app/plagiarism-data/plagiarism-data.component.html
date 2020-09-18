@@ -1,33 +1,63 @@
-<div class="container mt-5" >
-    
-    <h1 class="display-4  text-center"> Plagiarism Report of <strong
-      style="color: green;">{{contest_name}} </strong> 
-        <button class="btn btn-success" (click)="onGen()"><i class="fa fa-download"></i> Download Result </button>
-    </h1>
+<div class="container " style="margin-top: 80px;">
+
+  <h1 class="display-4  text-center"> Plagiarism Report of <strong style="color: green;">{{contest_name}} </strong>
+    <button class="btn btn-success" (click)="onGen()"><i class="fa fa-download"></i> Download Result </button>
+  </h1>
 </div>
 <div class="mar mt-5">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-            <th  *ngFor = "let column of problem">
-                {{column}}
-            </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor = "let person of data">
-          <td>{{person.problemName}}</td>
-          <td><a href={{person.profileOne}}>{{person.UserNameOne}}</a></td>
-          <td>{{person.MatchPercentOne}}%</td>
-          <td><a href={{person.profileTwo}}>{{person.UserNameTwo}}</a></td>
-          <td>{{person.MatchPercentTwo}}%</td>
-          <td>{{person.TotalMatchedLine}}</td>
-          <td><button (click)="onCall(person.SubmissionIdOne,person.SubmissionIdTwo,person.MatchPercentOne,person.MatchPercentTwo)" style="color: rgb(2, 163, 16);">{{person.SubmissionIdOne}}</button></td>
-          <td><button (click)="onCall(person.SubmissionIdTwo,person.SubmissionIdOne,person.MatchPercentTwo,person.MatchPercentOne)" style="color: rgb(2, 163, 16);">{{person.SubmissionIdTwo}}</button></td>
-          <td><a href={{person.MossViewLink}} style="color: red;">View</a></td>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          {{problem[0]}}
+        </th>
+        <th>
+          {{problem[1]}}
+        </th>
+        <!-- <th>
+          {{problem[2]}}
+        </th> -->
+        <th>
+          {{problem[3]}}
+        </th>
+        <th>
+          MatchPercent
+        </th>
+        <th>
+          {{problem[5]}}
+        </th>
+        <th>
+          {{problem[6]}}
+        </th>
+        <th>
+          {{problem[7]}}
+        </th>
+        <th>
+          {{problem[8]}}
+        </th>
+        <th>
+          copied /NOt Copied
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let person of finalData">
+        <td>{{person.problemName}}</td>
+        <td><a href={{person.profileOne}}>{{person.UserNameOne}}</a></td>
+        <!-- <td>{{person.MatchPercentOne}}%</td> -->
+        <td><a href={{person.profileTwo}}>{{person.UserNameTwo}}</a></td>
+        <td>{{person.MatchPercent}}%</td>
+        <td>{{person.TotalMatchedLine}}</td>
+        <td><button
+            (click)="onCall(person.SubmissionIdOne,person.SubmissionIdTwo,person.MatchPercentOne,person.MatchPercentTwo)"
+            style="color: rgb(2, 163, 16);">{{person.SubmissionIdOne}}</button></td>
+        <td><button
+            (click)="onCall(person.SubmissionIdTwo,person.SubmissionIdOne,person.MatchPercentTwo,person.MatchPercentOne)"
+            style="color: rgb(2, 163, 16);">{{person.SubmissionIdTwo}}</button></td>
+        <td><a href={{person.MossViewLink}} style="color: red;">View</a></td>
+        <td>NOT COpied</td>
 
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,18 +1,38 @@
-
-<div class="container mt-5 ">
+<div class="container jumbotron" style="margin-top: 80px;">
     <div class="col-sm-12 ">
-        <h1 class="display-4  text-center">Fetch Submission of the contest <P
-                style="color: green;">ADD cookie : "_hrank_session=XXXXXXXXX; "</P></h1>
+        <h1 class="display-4  text-center text">Request Plagiarism Test for You'r Contest
+        </h1>
+    </div>
+    <div class="col-sm-12 h1 text-center">
+        <P class="text-primary">ADD cookie :
+            <code>_hrank_session=XXXXXXXXX;</code> </P>
     </div>
     <form [formGroup]="findform" (ngSubmit)="onFind()">
 
         <div class="row">
+            <div class="col-lg-9 mt-5">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Email</span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="email">
+                </div>
+            </div>
+            <div class="col-lg-3 mt-5">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Check If Contest Is Active</span>
+                    </div>
+                    <input type="checkbox" class="form-control" formControlName="isActiveContest">
+                </div>
+            </div>
+
             <div class="col-sm-12 mt-3">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Contest Name</span>
                     </div>
-                    <input type="text"  class="form-control" formControlName="contest_name">
+                    <input type="text" class="form-control" formControlName="contest_name">
                 </div>
             </div>
             <div class="col-sm-12 mt-3">
@@ -20,13 +40,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">_hrank_session</span>
                     </div>
-                    <input type="text"  class="form-control" formControlName="_hrank_session">
+                    <input type="text" class="form-control" formControlName="_hrank_session">
                 </div>
             </div>
             <div class="col-sm-2 mt-3">
-                <button class="btn btn-primary" type="submit" [disabled]="!findform.valid">Save</button>
+                <button class="btn btn-primary" type="submit" [disabled]="!findform.valid">Add Request</button>
             </div>
+         
         </div>
     </form>
 </div>
-

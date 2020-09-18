@@ -1,9 +1,9 @@
 const request = require("request-promise");
 const cheerio = require("cheerio");
-const submissionData = require('../files/submissions1.json');
+const submissionData = require('../files/submissions.json');
 const Submission = require('../models/submissionModel');
 const PlagirismData = require("../models/contestPlagiarismDataModel");
-
+const Contest = require('../models/contest');
 var fs = require('fs');
 
 exports.readSubmissionData = async function (req, res) {
@@ -31,9 +31,10 @@ exports.readSubmissionData = async function (req, res) {
                 in_contest_bounds: element.in_contest_bounds,
                 misc_notes: element.misc_notes
             })
-            new_submission.contest_name = new_submission.contest_name + "12-09-2020";
+            // new_submission.contest_name = new_submission.contest_name + "12-09-2020";
 
             new_submission.save();
+            // console.log(new_submission);
 
         });
         res.status(200).send("sucess");
@@ -184,20 +185,5 @@ exports.uniqueGeneratedContestReport = async function (req, res) {
     } catch (error) {
         console.log(error);
         res.status(200).send(error);
-    }
-}
-
-exports.getSubmissionOfContest = async function (req, res) {
-
-    try {
-        console.log(req.body);
-        res.status(200).send({
-            msg: "ok"
-        })
-    } catch {
-        console.log(error);
-        res.status(500).send({
-            error
-        });
     }
 }

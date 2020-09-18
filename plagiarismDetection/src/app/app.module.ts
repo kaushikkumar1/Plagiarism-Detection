@@ -12,6 +12,7 @@ import { CreatePlagiarismDataComponent } from './create-plagiarism-data/create-p
 import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/generate-plagiarism-report.component';
 import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.component';
 import { AuthModule } from './auth/auth.module';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthModule } from './auth/auth.module';
     CreateFileComponent,
     CreatePlagiarismDataComponent,
     GeneratePlagiarismReportComponent,
-    PlagiarismDataComponent
+    PlagiarismDataComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

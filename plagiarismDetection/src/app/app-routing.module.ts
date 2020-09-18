@@ -6,11 +6,12 @@ import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/
 import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.component';
 
 const routes: Routes = [
-  {path:'create/file',component:CreateFileComponent },
+  { path: '', component: GeneratePlagiarismReportComponent },
+  { path: 'create/file', component: CreateFileComponent },
   { path: 'auth', loadChildren: 'src/app/auth/auth.module#AuthModule' },
-  {path:'create/plagiarism/data/:id/:id2/:p1/:p2',component:CreatePlagiarismDataComponent},
-  {path:'generate/plagiarism/report',component:GeneratePlagiarismReportComponent},
-  {path:'plagiarism/result/:cn',component:PlagiarismDataComponent}
+  { path: 'create/plagiarism/data/:id/:id2/:p1/:p2', component: CreatePlagiarismDataComponent },
+  { path: 'generate/plagiarism/report', component: GeneratePlagiarismReportComponent },
+  { path: 'plagiarism/result/:cn', component: PlagiarismDataComponent }
 ];
 
 @NgModule({
