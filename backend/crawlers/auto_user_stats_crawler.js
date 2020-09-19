@@ -20,7 +20,11 @@ function crawlWithDelay(siteOptions, cb){
     console.log("Timeout duration: "+timeoutDurationInMs);
     setTimeout(() => {  
         userStasCrawlerLib.pickNextUserCrawlAndUpdateDB(siteOptions, function(done, res){
-            var crawlerUpdate = {site_name: siteOptions.site_name, status: siteOptions.site_name+" CRAWLED"};
+            var crawlerUpdate = {
+                site_name: siteOptions.site_name, 
+                status: siteOptions.site_name+" CRAWLED",
+                crawled_by_server: require('os').hostname()
+            };
             itemLib.createOrUpdateByQuery({site_name: siteOptions.site_name},  crawlerUpdatesModel, crawlerUpdate, function(){
                 cb();
             })
