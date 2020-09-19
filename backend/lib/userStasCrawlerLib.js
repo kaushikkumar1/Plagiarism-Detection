@@ -92,6 +92,9 @@ module.exports.pickNextUserCrawlAndUpdateDB = function(siteOptions, cb){
     query['$or'] = [{last_crawled_at: {$lt: backinMins}}, {last_crawled_at: null}];
     //query['user_roll_number'] = '18H51A0491';
     itemLib.getSingleItemByQuery(query, codingProfilesModel, function(err, userObject){
+        if(err){
+            console.log("ERROR: getSingleItemByQuery "+err);
+        }
         if(userObject){
             module.exports.crawlAndUpdateDB(userObject.site_user_handle, siteOptions, function(err, res){
                 userObject.last_crawled_at = new Date();
