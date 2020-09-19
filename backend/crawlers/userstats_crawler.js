@@ -3,6 +3,7 @@ const utilityLib = require('../lib/utilityLib');
 const userStasCrawlerLib = require('../lib/userStasCrawlerLib');
 const itemLib = require('../lib/itemLib');
 const codingProfilesModel = require('../models/codingProfilesModel');
+const crawlerUpdatesModel = require('../models/crawlerUpdatesModel');
 
 const async = require('async');
 const moment = require('moment');
@@ -19,7 +20,13 @@ function crawlLoop(n, siteOptions, cb){
         })
     }, function(err){
         console.log("COMPLETED CRAWLING");
-        cb();
+        var updateStatusObj = {
+            site_name:siteOptions.site_name,
+            status: "COMPLETED CRAWLING"
+        };
+        itemLib.createitem(updateStatusObj, crawlerUpdatesModel, function(err, res){
+            cb();
+        })
     });
 }
 

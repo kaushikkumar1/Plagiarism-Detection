@@ -101,13 +101,13 @@ module.exports.pickNextUserCrawlAndUpdateDB = function(siteOptions, cb){
                 if(err)
                     userObject.is_handle_valid = false;
                 itemLib.updateItem(userObject, codingProfilesModel, function(){
-                    cb();
+                    cb(false, null);
                 });
             });
         }
         else{
             console.log("NO MORE USERS TO CRAWL FOR TODAY");
-            cb();
+            cb(true, null);
         }
     });
 }

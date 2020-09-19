@@ -2,6 +2,8 @@ module.exports = {
     common: {
         agent : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36",
         maximum_fetch_window_in_minutes : 240,
+        auto_crawling_min_timeout_delay_ms: 200,
+        auto_crawling_max_timeout_delay_ms: 1000,
         min_crawling_delay : 4000,
         max_crawling_delay : 10000
     },
@@ -19,6 +21,7 @@ module.exports = {
         hr_leaderboard_crawling_max_delay_milliseconds: 10000
     },
     INTERVIEWBIT : {
+        crawl_interval_in_minutes : 1,
         selectors :{
           username_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-info > div > div",
           rank_selector : "body > div.container.user-profile > div.col-xs-12.col-md-4 > div.user-stats > div.stat.rank.pull-left > div.txt",
@@ -28,6 +31,7 @@ module.exports = {
         ib_cookie : "_ib_session=XXXXX"
     },
     LEETCODE : {
+        crawl_interval_in_minutes : 1,
         user_profile_url : "https://leetcode.com/${site_user_handle}",
         contest_leaderboard_url : "https://leetcode.com/contest/api/ranking/{leetcode_contest_name}/?pagination={page_number}&region={contest_region}",
         selectors:{
@@ -42,6 +46,7 @@ module.exports = {
         }
     },
     CODECHEF : {
+        crawl_interval_in_minutes : 1,
         user_profile_url : "https://www.codechef.com/users/${site_user_handle}",
         cc_selectors :{
             username_selector: 'body > main > div > div > div > div > div > section.user-details > ul > li:nth-child(1) > span > span:nth-child(2)',
