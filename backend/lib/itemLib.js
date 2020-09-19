@@ -45,7 +45,6 @@ exports.createOrUpdateByQuery = function(query, itemModel, itemDetails, cb){
         else{
             // INSERT
             exports.createitem(itemDetails, itemModel, cb);
-            cb(err, singleItem);
         }
     });
 }
