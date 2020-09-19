@@ -31,6 +31,25 @@ exports.getItemByQuery = function(query, itemModel, cb){
     });
 }
 
+exports.createOrUpdateByQuery = function(query, itemModel, itemDetails, cb){
+    console.log('Getting Single item with Query '+JSON.stringify(query));
+    itemModel.findOne(query, function (err, singleItem) {
+        if(err)
+            console.log("ERROR: "+err);
+        if(singleItem){
+            // UPDATE
+            itemDetails._id = singleItem._id;
+            itemDetails.updated_at = new Date();
+            exports.updateItem(itemDetails, itemModel, cb);
+        }
+        else{
+            // INSERT
+            exports.createitem(itemDetails, itemModel, cb);
+            cb(err, singleItem);
+        }
+    });
+}
+
 exports.getSingleItemByQuery = function(query, itemModel, cb){
     console.log('Getting Single item with Query '+JSON.stringify(query));
     itemModel.findOne(query, function (err, singleItem) {

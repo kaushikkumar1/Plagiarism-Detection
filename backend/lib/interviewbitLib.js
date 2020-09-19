@@ -5,7 +5,7 @@ const config = require('../config/scraperConfig');
 module.exports.getUserStats = function (urlTemplate, model, headers, callback) {
     try {
         requestLib.makeWebPageSourceRequest(urlTemplate(model), headers, function (err, pageBody, statusCode) {
-            var objToReturn = {site_name: "INTERVIEWBIT", crawled_by_server: require('os').hostname(), site_user_handle: model.site_user_handle};
+            var objToReturn = {site_name: "INTERVIEWBIT", site_user_handle: model.site_user_handle};
             const $ = cheerio.load(pageBody);
             var username = $(config.interviewbit.ib_selectors.username_selector).text().trim();
             if(!username || username.length==0)

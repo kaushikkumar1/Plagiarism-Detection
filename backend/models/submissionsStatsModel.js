@@ -15,7 +15,7 @@ var submissionStatsSchema = new Schema({
     acceptance_percentage             : Number,
     contests_participated             : Number,
     contribution_points               : Number,
-    crawled_by_server                 : String,
+    crawled_by_server                 : {type:String, default: require('os').hostname()},
     misc_notes                        : String,
     created_at_date_string            : String,
     created_at_ms                     : Number,

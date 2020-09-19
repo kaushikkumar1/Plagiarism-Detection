@@ -5,6 +5,8 @@ const util = require('util');
 const utilityLib = require('../lib/utilityLib');
 const scraperConfig = require('../config/scraperConfig');
 const dbconnect = require('../db/connect');
+const itemLib = require('../lib/itemLib');
+const crawlerUpdatesModel = require('../models/crawlerUpdatesModel');
 
 var lbCrawlSchedule = util.format("*/%d * * * *", scraperConfig.LEETCODE.crawl_interval_in_minutes);
 var ccCrawlSchedule = util.format("*/%d * * * *", scraperConfig.CODECHEF.crawl_interval_in_minutes);
@@ -18,7 +20,10 @@ function crawlWithDelay(siteOptions, cb){
     console.log("Timeout duration: "+timeoutDurationInMs);
     setTimeout(() => {  
         userStasCrawlerLib.pickNextUserCrawlAndUpdateDB(siteOptions, function(done, res){
-            cb();
+            var crawlerUpdate = {site_name: siteOptions.site_name, status: siteOptions.site_name+" CRAWLED"};
+            itemLib.createOrUpdateByQuery({site_name: siteOptions.site_name},  crawlerUpdatesModel, crawlerUpdate, function(){
+                cb();
+            })
         })
     }, timeoutDurationInMs);
 }
