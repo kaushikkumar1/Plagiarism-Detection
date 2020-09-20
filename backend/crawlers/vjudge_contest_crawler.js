@@ -6,8 +6,8 @@ const submissionModel = require('../models/submissionModel');
 const itemLib = require('../lib/itemLib');
 const utilityLib = require('../lib/utilityLib');
 
-const judgeSubmissionsUrl = template(scraperConfig.vjudge.vj_judge_submissions_url);
-const contestDetailsUrl = template(scraperConfig.vjudge.vj_contest_details_url);
+const judgeSubmissionsUrl = template(scraperConfig.VJUDGE.vj_judge_submissions_url);
+const contestDetailsUrl = template(scraperConfig.VJUDGE.vj_contest_details_url);
 
 
 const log4js = require('log4js');
@@ -18,7 +18,6 @@ log.level = config.log4jsLevel;
 const dbconnect = require('../db/connect');
 dbconnect.connect(false);
 
-var submissionIdx = 1;
 
 module.exports.crawlVJudgeContest = function(contest_id, options, cb){
     let model = {offset: 0, limit: 20, contest_id: contest_id, res: 0, in_contest: true };
@@ -31,6 +30,7 @@ module.exports.crawlVJudgeContest = function(contest_id, options, cb){
             var allPages = [];
             for (var page = 0; page <= 2000; page++)
                 allPages.push(page);
+            var submissionIdx = 1;
             async.eachSeries(allPages, function(currentPage, next){
                 model.offset = currentPage * model.limit;
                 vjudgeLib.getCurrentLeaderboardPage(judgeSubmissionsUrl, model, function(err, res){
@@ -87,7 +87,11 @@ module.exports.crawlVJudgeContest = function(contest_id, options, cb){
                             if(err)
                                 next(err);
                             else
-                                setTimeout(() => {  next();  }, utilityLib.randInRange(scraperConfig.vjudge.vj_leaderboard_crawling_min_delay_milliseconds, scraperConfig.vjudge.vj_leaderboard_crawling_max_delay_milliseconds));                    
+                                setTimeout(
+                                    () => {  next();  }, 
+                                    utilityLib.randInRange(
+                                        scraperConfig.VJUDGE.vj_leaderboard_crawling_min_delay_milliseconds, 
+                                        scraperConfig.VJUDGE.vj_leaderboard_crawling_max_delay_milliseconds));                    
                         });
                     }
                 });
@@ -101,10 +105,9 @@ module.exports.crawlVJudgeContest = function(contest_id, options, cb){
 }
 
 
-var contest_ids = ['386282', '386717', '387347', '387751', '388631', '391225', '391933', '392424', '393314', '393976'];
 
 function crawlOne(contest_id, cb){
-    var options = {preempt_if_submission_id_found: true};
+    var options = {preempt_if_submission_id_found: false};
     module.exports.crawlVJudgeContest(contest_id, options, cb);
 }
 
@@ -121,5 +124,10 @@ function crawlMultiple(contest_ids){
 }
 
 
+var cmr23b1contest_ids = ['389177', '389994', '390241', '390637', '391334', '392087', '392089', '393439', '394578']
+var cmr23b2contest_ids = ['389230', '390000', '390243', '390640', '391335', '392088', '392090', '393440', '394579']
+var cmr23b3contest_ids = ['389323', '390162', '390244', '390641', '391336', '392091', '392198', '393444', '394580']
+var cmr23b4contest_ids = ['390353', '391406', '392092', '392093', '393319', '393527', '394248', '394249', '395668']
 
-crawlMultiple(contest_ids);
+var combined = [...cmr23b1contest_ids, ...cmr23b2contest_ids, ...cmr23b3contest_ids, ...cmr23b4contest_ids];
+crawlMultiple(combined);

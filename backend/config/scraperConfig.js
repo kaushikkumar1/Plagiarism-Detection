@@ -7,11 +7,13 @@ module.exports = {
         min_crawling_delay : 4000,
         max_crawling_delay : 10000
     },
-    vjudge:{
+    VJUDGE:{
         cookie : "JSESSIONID=XXXXXXX;",
         vj_contest_details_url: 'https://vjudge.net/contest/rank/single/${contest_id}',
         vj_judge_submissions_url : "https://vjudge.net/status/data/?start=${offset}&length=${limit}&un=&num=-&res=${res}&language=&inContest=${in_contest}&contestId=${contest_id}",
-        vj_submission_id_to_code_url: 'https://vjudge.net/solution/data/${site_submission_id}'
+        vj_submission_id_to_code_url: 'https://vjudge.net/solution/data/${site_submission_id}',
+        vj_leaderboard_crawling_min_delay_milliseconds: 4000,
+        vj_leaderboard_crawling_max_delay_milliseconds: 10000
     },
     hackerrank : {
         cookie : "_hrank_session=XXXXX;",

@@ -4,7 +4,7 @@ const requestLib = require('./requestLib');
 
 const headers = {
     'User-Agent': scraperConfig.common.agent,
-    'cookie' : scraperConfig.vjudge.cookie
+    'cookie' : scraperConfig.VJUDGE.cookie
 };
 
 
