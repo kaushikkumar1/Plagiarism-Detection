@@ -11,7 +11,6 @@ var submissionSchema = new mongoose.Schema({
     problem_view_link                 : String,
     submission_code                   : String,
     submission_status                 : String,
-    submission_status                 : String,
     submission_status_normalized      : String,
     submission_points                 : String,
     submission_language               : String,
