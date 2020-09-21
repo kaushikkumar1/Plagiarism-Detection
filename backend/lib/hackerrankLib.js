@@ -1,7 +1,4 @@
-const template = require('lodash.template');
 const requestLib = require('./requestLib');
-
-
 
 module.exports.getOffsetAndPageCount = function (urlTemplate, model, headers, callback) {
 
@@ -14,7 +11,7 @@ module.exports.getOffsetAndPageCount = function (urlTemplate, model, headers, ca
         });
     } catch (error) {
         console.log(error);
-
+        callback(error, null);
     }
 }
 
@@ -28,7 +25,7 @@ module.exports.getCurrentLeaderboardPage = function (urlTemplate, model, headers
         });
     } catch (error) {
         console.log(error);
-
+        callback(error, null);
     }
 }
 
@@ -42,6 +39,6 @@ module.exports.getSubmissionCode = function (urlTemplate, model, headers, callba
         });
     } catch (error) {
         console.log(error);
-
+        callback(error, null);
     }
 }
