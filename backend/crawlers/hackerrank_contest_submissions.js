@@ -15,10 +15,6 @@ var config =require('../config/config').get_active_config();
 log.level = config.log4jsLevel;
 // var contest_name = 'bz-p2-contest';
 
-
-function randInRange(min, max) {  
-    return Math.floor(Math.random() * (max - min) + min); 
-}
 var submissionIdx = 1;
 // dbconnect.connect(false);
 
@@ -56,7 +52,7 @@ module.exports.crawler=async function( user ){
                         if(submissionDbItem){
                             console.log("SKIPPING STORING OF " + currentLBUser.id);
                             nextLB();
-                            //setTimeout(() => {  nextLB();  }, randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
+                            //setTimeout(() => {  nextLB();  }, utilityLib.randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
                         }
                         else{
                             model.site_submission_id = currentLBUser.id;
@@ -90,13 +86,13 @@ module.exports.crawler=async function( user ){
                                 submissionObject.submission_code = result.submission_code;
                                 itemLib.createitem(submissionObject, submissionModel, function(err, res){
                                     //console.log(submissionObject);
-                                    setTimeout(() => {  nextLB();  }, randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
+                                    setTimeout(() => {  nextLB();  }, utilityLib.randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
                                 });
                             });  
                         }
                     });
                 }, function(err){
-                    setTimeout(() => {  next();  }, randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
+                    setTimeout(() => {  next();  }, utilityLib.randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
                 });
             });
         },

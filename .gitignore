@@ -1,1 +1,4 @@
 /node_modules
+*.mine.js
+data/
+miscTools/

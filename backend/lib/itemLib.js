@@ -31,6 +31,24 @@ exports.getItemByQuery = function(query, itemModel, cb){
     });
 }
 
+exports.createOrUpdateByQuery = function(query, itemModel, itemDetails, cb){
+    console.log('Getting Single item with Query '+JSON.stringify(query));
+    itemModel.findOne(query, function (err, singleItem) {
+        if(err)
+            console.log("ERROR: "+err);
+        if(singleItem){
+            // UPDATE
+            itemDetails._id = singleItem._id;
+            itemDetails.updated_at = new Date();
+            exports.updateItem(itemDetails, itemModel, cb);
+        }
+        else{
+            // INSERT
+            exports.createitem(itemDetails, itemModel, cb);
+        }
+    });
+}
+
 exports.getSingleItemByQuery = function(query, itemModel, cb){
     console.log('Getting Single item with Query '+JSON.stringify(query));
     itemModel.findOne(query, function (err, singleItem) {
@@ -60,9 +78,9 @@ exports.createitem = function (itemDetails, itemModel, cb) {
 };
 
 exports.updateItem = function (itemDetails, itemModel, cb) {
-    console.log('Edit Resource ' + itemDetails.id);
-    console.log("MODEL: "+ JSON.stringify(itemModel))
-    itemModel.findById(itemDetails.id, function (err, qObj) {
+    console.log('Edit Resource ' + itemDetails._id);
+    //console.log("MODEL: "+ JSON.stringify(itemModel))
+    itemModel.findById(itemDetails._id, function (err, qObj) {
         if (err || !qObj)
             cb(err, null);
         else {
