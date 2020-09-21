@@ -5,6 +5,7 @@ import { ApiDataService } from '../api-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { link } from 'fs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-leaderboard',
@@ -17,11 +18,20 @@ export class LeaderboardComponent implements OnInit {
   p: number = 1;
   total: number;
   loading: boolean;
-  limit:number;
+  pages:any;
+  findform: FormGroup;
+  limit:any;
 
+  constructor(private apiservice:ApiDataService,private route: ActivatedRoute,
+    private router: Router) { 
+      this.pages=[5,10,25,50,100];
+      this.limit=25;
 
-  constructor(private apiservice:ApiDataService) { 
-    this.limit=25;
+      this.findform = new FormGroup(
+        {
+          pagelimit: new FormControl('', { validators: Validators.required })
+        }
+      )
   }
 
 
@@ -41,6 +51,11 @@ getPage(page: number) {
       this.p=this.p+1;
       this.loading = false;
     })
+}
+onFind(){
+  console.log(this.findform.value);
+  this.limit= parseInt(this.findform.value.pagelimit);
+  this.getPage(this.p);
 }
 
 }
