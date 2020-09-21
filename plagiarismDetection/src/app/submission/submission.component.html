@@ -24,7 +24,7 @@
             </div>
         </form>
     </div>
-    <table class="table mt-3">
+    <table class="table  table-bordered mt-3">
         <thead class="thead-light">
             <tr>
                 <th scope="col">S.No</th>
@@ -36,7 +36,7 @@
                
             </tr>
         </thead>
-        <tbody>
+        <tbody class="">
             <tr
                 *ngFor="let meal of asyncMeals | paginate: { id: 'server', itemsPerPage: limit, currentPage: p, totalItems: total };let i=index">
                 <th scope="row">{{((p-1)*limit) + i+1}}</th>
@@ -50,7 +50,7 @@
     </table>
 
 
-    <div class=" text-center">
+    <div class=" text-right" style="margin-right: 20px;">
         <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
         <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
     </div>
