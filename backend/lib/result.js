@@ -39,6 +39,7 @@ exports.contestResult = async function (req, res) {
             if (ele.userNameOne == ele.userNameTwo)
                 continue;
             var obj = {
+                _id:ele._id,
                 problemName: ele.problem_name,
                 UserNameOne: ele.userNameOne,
                 MatchPercentOne: ele.matchPercentOne,
@@ -50,7 +51,8 @@ exports.contestResult = async function (req, res) {
                 MossViewLink: ele.mossViewLink,
                 problemId: ele.problemId,
                 profileOne,
-                profileTwo
+                profileTwo,
+                copied:ele.copied
             }
 
             resultArray.push(obj);
@@ -64,10 +66,7 @@ exports.contestResult = async function (req, res) {
         })
 
 
-        // res.status(200).send({
-        //     problem: problemArray,
-        //     msg: resultArray
-        // });
+       
 
     } catch (error) {
         console.log(error);

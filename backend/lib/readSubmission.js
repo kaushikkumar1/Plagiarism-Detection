@@ -187,3 +187,32 @@ exports.uniqueGeneratedContestReport = async function (req, res) {
         res.status(200).send(error);
     }
 }
+
+//get all submission of the user 
+
+exports.getAllSubmissionOfUser = async function (req, res) {
+    try {
+        console.log(req.body);
+        var offset=(req.body.page*req.body.limit);
+        Submission.paginate({site_user_handle: req.body.user_handle}, {
+            offset: offset || 0,
+            limit: req.body.limit || 10
+        }, function (err, result) {
+            result.page=req.body.page || 0;
+            
+        res.status(200).send(
+            result
+        );
+            // result.docs
+            // result.total
+            // result.limit - 10
+            // result.offset - 20
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            error
+        });
+    }
+}

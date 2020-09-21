@@ -13,6 +13,9 @@ import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/
 import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.component';
 import { AuthModule } from './auth/auth.module';
 import { NavComponent } from './nav/nav.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import{NgxPaginationModule } from 'ngx-pagination';
+import { SubmissionComponent } from './submission/submission.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +24,13 @@ import { NavComponent } from './nav/nav.component';
     CreatePlagiarismDataComponent,
     GeneratePlagiarismReportComponent,
     PlagiarismDataComponent,
-    NavComponent
+    NavComponent,
+    LeaderboardComponent,
+    SubmissionComponent
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

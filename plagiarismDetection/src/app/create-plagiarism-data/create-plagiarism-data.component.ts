@@ -24,6 +24,8 @@ export class CreatePlagiarismDataComponent implements OnInit {
   profileUrlTwo:any;
   problemId:any;
   problemViewLink:any;
+  statusOne:any;
+  statusTwo:any;
 
   constructor(private route: ActivatedRoute,
     private excelService:ExcelService,
@@ -50,6 +52,7 @@ export class CreatePlagiarismDataComponent implements OnInit {
       this.profileUrlOne=this.profileUrlOne+this.userNameOne;
       this.problemId=d['problem_name'];
       this.problemViewLink=d['problem_view_link'];
+      this.statusOne=d['submission_status'];
     })
 
     this.apiDataService.getD('/submission/code/' + this.submissionId2).subscribe(d => {
@@ -57,6 +60,7 @@ export class CreatePlagiarismDataComponent implements OnInit {
       this.data2 = d['submission_code'];
       this.userNameTwo=d['site_user_handle'];
       this.profileUrlTwo=this.profileUrlTwo+this.userNameTwo;
+      this.statusTwo=d['submission_status'];
 
     })
   }

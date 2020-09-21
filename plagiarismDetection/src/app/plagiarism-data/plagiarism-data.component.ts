@@ -22,6 +22,8 @@ export class PlagiarismDataComponent implements OnInit {
     private excelService: ExcelService) { }
 
   ngOnInit(): void {
+
+ 
     this.contest_name = this.route.snapshot.params.cn;
     console.log(this.contest_name);
 
@@ -41,11 +43,14 @@ export class PlagiarismDataComponent implements OnInit {
         UserNameOne:element.UserNameOne,
         UserNameTwo:element.UserNameTwo,
         MatchPercent:Math.min(element.MatchPercentOne,element.MatchPercentTwo),
+        MatchPercentOne:element.MatchPercentOne,
+        MatchPercentTwo:element.MatchPercentTwo,
         TotalMatchedLine:element.TotalMatchedLine,
         SubmissionIdOne:element.SubmissionIdOne,
         SubmissionIdTwo:element.SubmissionIdTwo,
         MossViewLink:element.MossViewLink,
-        Reported:false
+        _id:element._id,
+        copied:element.copied
         }
 
         this.finalData.push(temp);
@@ -66,4 +71,14 @@ export class PlagiarismDataComponent implements OnInit {
     this.router.navigate(['/create/plagiarism/data/' + id + "/" + id2 + "/" + p1 + "/" + p2]);
   }
 
+
+  onToggle(id:any,status:any,ind:any){
+    ind=parseInt(ind);
+    // console.log(ind);
+    if(status==true) status=false;
+    else status=true;
+    this.apiDataService.postData('/update/plagiarism/data',{_id:id,flag:status}).subscribe(d=>{
+      this.finalData[ind].copied=status;
+    })
+  }
 }

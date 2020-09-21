@@ -17,7 +17,8 @@ const plagarismDataSchema = mongoose.Schema({
     matchPercentTwo           :{ type: Number },
 
     mossViewLink              :{ type: String },
-    matchedLine               :{ type: Number }
+    matchedLine               :{ type: Number },
+    copied                    :{type:Boolean,default: false }
 })
 
 module.exports = mongoose.model("PlagarismData", plagarismDataSchema);

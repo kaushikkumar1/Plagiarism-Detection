@@ -1,0 +1,58 @@
+<div class="mar" style="margin-top: 80px;">
+    <div class="text-center display-4">
+        {{user_handle}} Submission
+    </div>
+    <div>
+        <form [formGroup]="findform" (ngSubmit)="onFind()">
+
+            <div class="row">
+                <div class="col-sm-11 mt-3">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Page Limit</span>
+                        </div>
+                        <select class="form-control" formControlName="pagelimit">
+                    <option *ngFor="let op of pages"[value]="op" >
+                        {{ op}}
+                    </option>
+                </select>
+                    </div>
+                </div>
+                <div class="col-sm-1 mt-3">
+                    <button class="btn btn-primary" [disabled]="!findform.valid">Set</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table class="table mt-3">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">S.No</th>
+                <!-- <th scope="col">Contest Name</th> -->
+                <th scope="col">Submission Id</th>
+                <th scope="col">Problem Name</th>
+                <th scope="col">Language</th>
+                <th scope="col">Status</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let meal of asyncMeals | paginate: { id: 'server', itemsPerPage: limit, currentPage: p, totalItems: total };let i=index">
+                <th scope="row">{{((p-1)*limit) + i+1}}</th>
+                <!-- <td> {{ meal.contest_name }}</td> -->
+                <td> {{ meal.site_submission_id }}</td>
+                <td>{{ meal.problem_name }}</td>
+                <td>{{meal.submission_language}}</td>
+                <td>{{meal.submission_status}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class=" text-center">
+        <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+        <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+    </div>
+
+</div>

@@ -64,18 +64,19 @@ module.exports.crawler=async function( user ){
                             s=s.replace("/", "-");
                             s=s.replace("/", "-");
                             var tempName=model.contest_name+"-"+s;
-                            console.log(tempName);
-
-                            console.log( chalk.red(tempName));
+                            // console.log( chalk.red(tempName));
+                            console.log("SCORE: ",chalk.blue(currentLBUser.score));
                             var submissionObject = {
                                 submission_code: '',
-                                contest_name : tempName,
+                                contest_name : model.contest_name,
                                 site_name: 'HACKERRANK',
                                 site_submission_id: currentLBUser.id,
                                 contest_id: currentLBUser.contest_id,
+                                plagiarism_contest_name:tempName,
                                 problem_id: currentLBUser.challenge_id,
                                 site_user_id: currentLBUser.hacker_id,
                                 submission_status: currentLBUser.status,
+                                submission_points: currentLBUser.score,
                                 submission_language: currentLBUser.language,
                                 site_user_handle: currentLBUser.hacker_username,
                                 in_contest_bounds: currentLBUser.in_contest_bounds,
@@ -89,7 +90,7 @@ module.exports.crawler=async function( user ){
                             hackerrankLib.getSubmissionCode(codeSubmissionsUrl, model,headers, function(err, result){
                                 submissionObject.submission_code = result.submission_code;
                                 itemLib.createitem(submissionObject, submissionModel, function(err, res){
-                                    //console.log(submissionObject);
+                                    // console.log(submissionObject);
                                     setTimeout(() => {  nextLB();  }, randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
                                 });
                             });  

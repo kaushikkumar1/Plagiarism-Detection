@@ -1,5 +1,6 @@
-<div class="h1 text-center " style="margin-top: 80px;" ><a href={{problemViewLink}} style="color: rgb(0, 182, 0);">    {{problemId}}
-</a>
+<div class="h1 text-center " style="margin-top: 80px;"><a href={{problemViewLink}} style="color: rgb(0, 182, 0);">
+        {{problemId}}
+    </a>
 
 </div>
 <div class="container">
@@ -8,11 +9,24 @@
             <a href={{profileUrlOne}}> {{userNameOne}}
             </a>
             ({{p1}}%)
+            <div *ngIf="statusOne=='Accepted'" style="color: rgb(0, 182, 0);">
+                Status : {{statusOne}}
+            </div>
+            <div *ngIf="statusOne!='Accepted'" style="color: rgb(241, 52, 52);">
+                Status : {{statusOne}}
+            </div>
         </div>
         <div class="h2 text-center col-sm-6 mt-3">
             <a href={{profileUrlTwo}}> {{userNameTwo}}
             </a>({{p2}}%)
+            <div *ngIf="statusOne=='Accepted'" style="color: rgb(0, 182, 0);">
+                Status : {{statusTwo}}
+            </div>
+            <div *ngIf="statusOne!='Accepted'" style="color: rgb(241, 52, 52);">
+                Status : {{statusTwo}}
+            </div>
         </div>
+
     </div>
 </div>
 

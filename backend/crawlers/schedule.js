@@ -4,7 +4,7 @@ var temp_contest_name, temp_cookie;
 var hackerank_contest_submission=require('./hackerrank_contest_submissions');
 
 
-cron.schedule(' */47 * * * *', async () => {
+cron.schedule(' */56 * * * *', async () => {
 
     try{
 
@@ -13,7 +13,6 @@ cron.schedule(' */47 * * * *', async () => {
     }).limit(1);
 
     if (user) {
-
         await Contest.findOneAndUpdate({
             "_id": user._id
         }, {
@@ -21,11 +20,21 @@ cron.schedule(' */47 * * * *', async () => {
                 "lrTime": new Date()
             }
         })
-        // hackerank_contest_submission.crawler(user);
+
+        hackerank_contest_submission.crawler(user);
     }
+
+    // var user ={
+    //     contest_name:"XXXXXXXXXXXXX",                   //specify the contest_name to run locally
+    //     _hrank_session:"XXXXXXXXXXX"                   //specify the cookie over here to run locally
+    // }
+    // hackerank_contest_submission.crawler(user);       //
+
 
     console.log(new Date());
 }catch(error){
     console.log({error:error})
 }
 });
+
+// document.querySelectorAll('#code-content')[0].innerText

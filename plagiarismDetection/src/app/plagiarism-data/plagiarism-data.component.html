@@ -1,6 +1,6 @@
 <div class="container " style="margin-top: 80px;">
 
-  <h1 class="display-4  text-center"> Plagiarism Report of <strong style="color: green;">{{contest_name}} </strong>
+  <h1 class="display-4  text-center"> <strong style="color: green;">{{contest_name}} </strong>
     <button class="btn btn-success" (click)="onGen()"><i class="fa fa-download"></i> Download Result </button>
   </h1>
 </div>
@@ -8,56 +8,54 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>
+        <th >
           {{problem[0]}}
         </th>
         <th>
           {{problem[1]}}
         </th>
-        <!-- <th>
-          {{problem[2]}}
-        </th> -->
         <th>
           {{problem[3]}}
         </th>
-        <th>
+        <th class="text-center" >
           MatchPercent
         </th>
-        <th>
+        <th class="text-center">
           {{problem[5]}}
         </th>
-        <th>
-          {{problem[6]}}
+        <th class="text-center">
+          CompareCode
         </th>
-        <th>
-          {{problem[7]}}
-        </th>
-        <th>
+        <th class="text-center">
           {{problem[8]}}
         </th>
         <th>
-          copied /NOt Copied
+          ClickToMarkCopied
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let person of finalData">
+      <tr *ngFor="let person of finalData; let i = index">
         <td>{{person.problemName}}</td>
         <td><a href={{person.profileOne}}>{{person.UserNameOne}}</a></td>
-        <!-- <td>{{person.MatchPercentOne}}%</td> -->
         <td><a href={{person.profileTwo}}>{{person.UserNameTwo}}</a></td>
-        <td>{{person.MatchPercent}}%</td>
-        <td>{{person.TotalMatchedLine}}</td>
-        <td><button
+        <td class="text-center">{{person.MatchPercent}}%</td>
+        <td class="text-center">{{person.TotalMatchedLine}}</td>
+        <td class="text-center"><button
             (click)="onCall(person.SubmissionIdOne,person.SubmissionIdTwo,person.MatchPercentOne,person.MatchPercentTwo)"
-            style="color: rgb(2, 163, 16);">{{person.SubmissionIdOne}}</button></td>
-        <td><button
+            style="color: rgb(2, 163, 16);">{{person.SubmissionIdOne}}</button>
+          <button
             (click)="onCall(person.SubmissionIdTwo,person.SubmissionIdOne,person.MatchPercentTwo,person.MatchPercentOne)"
             style="color: rgb(2, 163, 16);">{{person.SubmissionIdTwo}}</button></td>
-        <td><a href={{person.MossViewLink}} style="color: red;">View</a></td>
-        <td>NOT COpied</td>
-
+        <td class="text-center"><a href={{person.MossViewLink}} style="color: red;">View</a></td>
+        <td *ngIf="!person.copied">
+          <button class="btn btn-outline-success" (click)="onToggle(person._id,person.copied,i)">Not Copied</button>
+        </td>
+        <td *ngIf="person.copied">
+          <button class="btn btn-outline-danger" (click)="onToggle(person._id,person.copied,i)">Copied</button>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+

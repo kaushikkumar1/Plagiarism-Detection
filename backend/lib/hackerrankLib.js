@@ -21,6 +21,7 @@ module.exports.getOffsetAndPageCount = function (urlTemplate, model, headers, ca
 module.exports.getCurrentLeaderboardPage = function (urlTemplate, model, headers, callback) {
     try {
         requestLib.makeAPIRequest(urlTemplate(model), headers, function (err, jsonBody) {
+            // console.log(jsonBody.models);
             callback(err, {
                 models: jsonBody.models
             })

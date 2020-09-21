@@ -1,4 +1,6 @@
 const mongoose =require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
+
 var submissionSchema = new mongoose.Schema({
     // user_id:                        { type: Schema.Types.ObjectId, ref: 'user', required: true },
 
@@ -6,12 +8,13 @@ var submissionSchema = new mongoose.Schema({
     site_submission_id                : {type: Number, unique:true, require: true},
     contest_id                        : String,
     contest_name                      : String,
+    plagiarism_contest_name           : String,
     problem_name                      : String,
     problem_view_link                 : String,
     submission_code                   : String,
     submission_status                 : String,
     submission_status_code            : Number,
-    submission_points                 : String,
+    submission_points                 : {type: Number, default: 0 } ,
     submission_language               : String,
     submission_view_link              : String,
     site_user_handle                  : String,
@@ -25,5 +28,7 @@ var submissionSchema = new mongoose.Schema({
     submission_entry_created_at       : {type: Date, default: Date.now },
     submission_entry_updated_at       : {type: Date }
 })
+
+submissionSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Submission", submissionSchema);
