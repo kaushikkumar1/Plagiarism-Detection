@@ -1,0 +1,78 @@
+<div class="h1 profileName ">{{user_handle}} Profile</div>
+
+<div class="container text-center" id="myChart">
+
+</div>
+
+<div class="container mt-5">
+    <div class="h1 text-muted">Detail Of Different Programming Sites</div>
+
+    <table class="table  table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <!-- <th scope="col">S.No</th> -->
+                <!-- <th scope="col">Contest Name</th> -->
+                <th scope="col">Site</th>
+                <th scope="col">Score</th>
+                <th scope="col">Solved Count</th>
+                <th scope="col">User Rating</th>
+                <th scope="col">Star Rating</th>
+                <th scope="col">Country Rank</th>
+                <th scope="col">Global Rank</th>
+                <th scope="col">Acceptance Percentage</th>
+                <th scope="col">Updated At</th>
+            </tr>
+        </thead>
+        <tbody class="">
+            <tr *ngFor="let data of userSiteDetail ;let i=index">
+                <!-- <th >{{i+1}}</th> -->
+                <th scope="row">{{data.site_name}}</th>
+                <td scope="row">{{data.score}}</td>
+                <td scope="row">{{data.solved_count}}</td>
+                <td>{{data.user_rating}}</td>
+                <td>{{data.star_rating}}</td>
+                <td>{{data.country_rank}}</td>
+                <td *ngIf="!data.rank">{{data.global_rank}}</td>
+                <td *ngIf="data.rank">{{data.rank}}</td>
+                <td>{{ data.acceptance_percentage}}</td>
+                <td>{{data.updated_at}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<div class="container mt-5">
+    <div class="h1 text-muted">Recent Submission</div>
+
+    <table class="table  table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <!-- <th scope="col">S.No</th> -->
+                <!-- <th scope="col">Contest Name</th> -->
+                <th scope="col">Submission Id</th>
+                <th scope="col">Problem Name</th>
+                <th scope="col">Language</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time</th>
+               
+            </tr>
+        </thead>
+        <tbody class="">
+            <tr
+                *ngFor="let meal of submissionData ;let i=index">
+                <!-- <th scope="row">{{i+1}}</th> -->
+                <!-- <td> {{ meal.contest_name }}</td> -->
+                <td> {{ meal.site_submission_id }}</td>
+                <td>{{ meal.problem_name }}</td>
+                <td>{{meal.submission_language}}</td>
+                <td>{{meal.submission_status}}</td>
+                <td class="text-center">{{meal.created_at_ms}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-outline-dark pull-right mb-5" (click)="onSubmission()">View All Submission</button>
+
+</div>

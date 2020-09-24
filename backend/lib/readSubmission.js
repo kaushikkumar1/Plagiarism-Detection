@@ -5,6 +5,8 @@ const Submission = require('../models/submissionModel');
 const PlagirismData = require("../models/contestPlagiarismDataModel");
 const Contest = require('../models/contest');
 var fs = require('fs');
+const mapData = require("../files/map.json");    //json file which has all the mapping 
+
 
 exports.readSubmissionData = async function (req, res) {
     try {
@@ -50,7 +52,7 @@ exports.uniqueContests = async function (req, res) {
 
     try {
 
-        var distinct_contests = await Submission.distinct('contest_name');
+        var distinct_contests = await Submission.distinct('plagiarism_contest_name',{in_contest_bounds: true });
 
         res.status(200).send(distinct_contests);
     } catch (error) {
@@ -70,7 +72,8 @@ exports.generateFileForSubmission = async function (req, res) {
         var allFiels = [];
 
         var submission_data = await Submission.find({
-            contest_name: req.body.contest_name
+            plagiarism_contest_name: req.body.contest_name,
+            in_contest_bounds: true
         });
 
 
@@ -189,14 +192,38 @@ exports.uniqueGeneratedContestReport = async function (req, res) {
 }
 
 //get all submission of the user 
-
 exports.getAllSubmissionOfUser = async function (req, res) {
     try {
+
+
+
+        var new_user_handle=[];
+        new_user_handle.push(req.body.user_handle);
+
+        for(var i=0;i<mapData.length;i++)
+        {
+            if(mapData[i].hackerrank_username==req.body.user_handle)
+            {
+                if(mapData[i].vjudge_username)
+                new_user_handle.push(mapData[i].vjudge_username);
+                break;
+            }
+        }
+
+        console.log(new_user_handle);
+
+
+        var query = {
+            site_user_handle: {$in: new_user_handle}
+        };
+
         console.log(req.body);
         var offset=(req.body.page*req.body.limit);
-        Submission.paginate({site_user_handle: req.body.user_handle}, {
+        
+        Submission.paginate(query, {
             offset: offset || 0,
-            limit: req.body.limit || 10
+            limit: req.body.limit || 10,
+            sort : {created_at_ms :-1}
         }, function (err, result) {
             result.page=req.body.page || 0;
             

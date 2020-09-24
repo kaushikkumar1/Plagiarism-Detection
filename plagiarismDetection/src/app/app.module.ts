@@ -16,6 +16,7 @@ import { NavComponent } from './nav/nav.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import{NgxPaginationModule } from 'ngx-pagination';
 import { SubmissionComponent } from './submission/submission.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SubmissionComponent } from './submission/submission.component';
     PlagiarismDataComponent,
     NavComponent,
     LeaderboardComponent,
-    SubmissionComponent
+    SubmissionComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

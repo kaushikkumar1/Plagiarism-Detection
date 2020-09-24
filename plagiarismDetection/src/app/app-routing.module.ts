@@ -5,6 +5,7 @@ import { CreatePlagiarismDataComponent } from './create-plagiarism-data/create-p
 import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/generate-plagiarism-report.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SubmissionComponent } from './submission/submission.component';
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'generate/plagiarism/report', component: GeneratePlagiarismReportComponent },
   { path: 'plagiarism/result/:cn', component: PlagiarismDataComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
-  { path: 'submission/:user_handle', component:SubmissionComponent}
+  { path: 'submission/:user_handle', component:SubmissionComponent},
+  { path: 'profile/:user_handle',component:ProfileComponent}
 ];
 
 @NgModule({

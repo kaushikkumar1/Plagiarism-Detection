@@ -80,7 +80,7 @@ exports.ScrapContestPlagiarismData = async function (urll, callback) {
                     console.log(chalk.red(`skip record ${i}`));
                 } else {
                     var new_PDO = new PlagirismData({
-                        contestName: newone_submissionOne.contest_name,
+                        contestName: newone_submissionOne.plagiarism_contest_name,
                         contestId: newone_submissionOne.contest_id,
                         problemId: newone_submissionOne.problem_id,
                         language: newone_submissionOne.submission_language,

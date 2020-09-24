@@ -8,6 +8,7 @@ const judgeSubmissionsUrl = template(scraperConfig.hackerrank.hr_judge_submissio
 const codeSubmissionsUrl = template(scraperConfig.hackerrank.hr_submission_id_to_code_url);
 const itemLib = require('../lib/itemLib');
 const chalk =require('chalk');
+const utilityLib =require('../lib/utilityLib');
 
 const log4js = require('log4js');
 const log = log4js.getLogger('hrSubmissionsCrawler');
@@ -48,15 +49,21 @@ module.exports.crawler=async function( user ){
                         site_submission_id: currentLBUser.id,
                         site_name: 'HACKERRANK'
                     };
-                    itemLib.getSingleItemByQuery(searchQuery, submissionModel, function(err, submissionDbItem){
+                    itemLib.getSingleItemByQuery(searchQuery, submissionModel, async function(err, submissionDbItem){
                         if(submissionDbItem){
                             console.log("SKIPPING STORING OF " + currentLBUser.id);
+                            // console.log(chalk.green( currentLBUser.created_at));
+                            // var timestamp=currentLBUser.created_at*1000;
+                            // var new_update= await submissionModel.updateOne({site_submission_id:currentLBUser.id,site_name:"HACKERRANK"},{created_at_ms:timestamp});
+                            // console.log(chalk.red(currentLBUser.score));
                             nextLB();
                             //setTimeout(() => {  nextLB();  }, utilityLib.randInRange(scraperConfig.hackerrank.hr_leaderboard_crawling_min_delay_milliseconds, scraperConfig.hackerrank.hr_leaderboard_crawling_max_delay_milliseconds));                    
                         }
                         else{
+    
                             model.site_submission_id = currentLBUser.id;
                             var s = new Date(parseInt(currentLBUser.created_at)*1000).toLocaleDateString("en-US");
+                            var timestamp=currentLBUser.created_at*1000;
                             s=s.replace("/", "-");
                             s=s.replace("/", "-");
                             var tempName=model.contest_name+"-"+s;
@@ -79,10 +86,12 @@ module.exports.crawler=async function( user ){
                                 submission_status_code: currentLBUser.status_code,
                                 problem_name: currentLBUser.challenge.name,
                                 problem_view_link: currentLBUser.challenge.slug,
-                                created_at_ms: currentLBUser.created_at,
+                                created_at_ms: timestamp,
                                 updated_at_ms: currentLBUser.inserttime,
                                 misc_notes: JSON.stringify(currentLBUser.testcase_message)
                             };
+
+                           
                             hackerrankLib.getSubmissionCode(codeSubmissionsUrl, model,headers, function(err, result){
                                 submissionObject.submission_code = result.submission_code;
                                 itemLib.createitem(submissionObject, submissionModel, function(err, res){
