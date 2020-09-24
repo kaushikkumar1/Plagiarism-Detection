@@ -6,7 +6,7 @@ exports.getAllItems = function (itemModel, cb) {
     });
 };
 
-// { path: 'fans', select: 'name' }
+// populateJson = { path: 'fans', select: 'name' }
 exports.getAllItemsWithPopulate = function (itemModel, populateJson, cb) {
     console.log('Getting All Items With Populate');
     var query = {}; // get all
@@ -28,6 +28,21 @@ exports.getItemByQuery = function(query, itemModel, cb){
         if(err)
             console.log("ERROR: "+err);
         cb(err, allDBItems);
+    });
+}
+
+exports.createOrSkipByQuery = function(query, itemModel, itemDetails, cb){
+    console.log('Getting Single item with Query '+JSON.stringify(query));
+    itemModel.findOne(query, function (err, singleItem) {
+        if(err)
+            console.log("ERROR: "+err);
+        if(singleItem){
+            cb({message: 'Skipping as this already exists'}, singleItem);
+        }
+        else{
+            // INSERT
+            exports.createitem(itemDetails, itemModel, cb);
+        }
     });
 }
 
