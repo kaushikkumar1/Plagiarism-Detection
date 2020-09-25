@@ -1,4 +1,4 @@
-const Batch =require('../models/batchModel');
+const Batch =require('../models/batchProfilesModel');
 const profile = require('../models/codingProfilesModel');
 
 
@@ -27,33 +27,31 @@ exports.getDataOfBatch = async (req,res)=>{
 
         var query = {
             site_name: {$in : ['HACKERRANK','VJUDGE']},
-           user_roll_number : {$in: all_roll_numbers}
+            user_roll_number : {$in: all_roll_numbers}
         };
 
 
-        res.status(200).send({all_roll_numbers});
+        // res.status(200).send({all_roll_numbers});
 
-        // var all_hackerrank_user_name = await profile.aggregate(
-        //     [{
-        //             $match: query
-        //         },
-        //         {
-        //             $project: {
-                        
-                    
-        //             },
-        //         },
-        //         {
-        //             $group: {
-        //                 _id: {
-        //                     handle: "$user_name",
-        //                     date: "$date",
-        //                     problem_id: "$problem_id"
-        //                 }
-        //             }
-        //         }
-        //     ]
-        // )
+
+
+        var all_hackerrank_user_name = await profile.aggregate(
+            [{
+                    $match: query
+                },
+                {
+                    $group: {
+                        _id: {
+                            handle: "$site_user_handle",
+                            site_name: "$site_name",
+                        }
+                    }
+                }
+            ]
+        )
+        res.status(200).send({all_hackerrank_user_name});
+
+
     }catch(error)
     {
         console.log(error);
