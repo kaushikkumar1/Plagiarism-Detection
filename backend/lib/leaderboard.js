@@ -7,8 +7,8 @@ const PlagirismData = require("../models/contestPlagiarismDataModel");
 const Contest = require('../models/contest');
 const paginate = require('mongoose-pagination');
 var fs = require('fs');
-const mapData = require("../files/map.json");
-
+const mapData = require("../files/map.json");    //json file which has all the mapping 
+const ScoreLib = require("../lib/scoreLib");
 
 exports.getLeaderBoardData = async function (req, res) {
 
@@ -59,7 +59,37 @@ exports.getLeaderBoardData = async function (req, res) {
             ]
         )
 
+
+
+for(var j=0;j<ans.length;j++)
+{
+        for(var i=0;i<mapData.length;i++)
+        {
+            if(mapData[i].hackerrank_username==ans[j]._id.user_name)
+            {
+                if(mapData[i].interviewbit_handle!=null)
+                {
+                    var new_site_detail = await submissionsStatsModel.findOne({site_user_handle: mapData[i].interviewbit_handle,site_name: "INTERVIEWBIT"})
+                    .sort({ created_at: -1});
+                    // console.log(new_site_detail,mapData[i].interviewbit_handle);
+                    if(new_site_detail!=null){
+                    ScoreLib.interviewbitScore(new_site_detail.score, async (err,data)=>{
+                        if(!err)
+                        {
+                        // console.log(mapData[i].interviewbit_handle,data);
+                        ans[j].interviewbitScore=data.score;
+                        }
+                    })}
+                }
+                break;
+            }
+        }
+
+}
+
         var result = await ans.slice((page * limit), (page * limit) + limit);
+
+        // console.log(new_user_handle);
 
         res.status(200).send({
             total: ans.length,
