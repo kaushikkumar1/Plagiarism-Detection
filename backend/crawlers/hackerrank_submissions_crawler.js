@@ -63,6 +63,7 @@ module.exports.crawlContestSubmissions = function(contest_name, hackerrank_optio
                                     problem_id: currentLBUser.challenge_id,
                                     site_user_id: currentLBUser.hacker_id,
                                     submission_status: currentLBUser.status,
+                                    submission_points: currentLBUser.score,
                                     submission_language: currentLBUser.language,
                                     site_user_handle: currentLBUser.hacker_username,
                                     in_contest_bounds: currentLBUser.in_contest_bounds,
