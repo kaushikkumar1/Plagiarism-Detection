@@ -14,6 +14,9 @@ var BatchSchemaProfiles = new Schema({
         type: String,
         required: true
     },
+    sub_batch_name: {
+        type: String
+    }
 });
 
 
