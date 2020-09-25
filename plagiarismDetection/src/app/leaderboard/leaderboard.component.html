@@ -37,7 +37,7 @@
             <tr
                 *ngFor="let meal of asyncMeals | paginate: { id: 'server', itemsPerPage: limit, currentPage: p, totalItems: total };let i=index">
                 <th scope="row">{{((p-1)*limit) + i+1}}</th>
-                <td><a [routerLink]="['/submission/',meal._id.user_name]"> {{ meal._id.user_name }}</a></td>
+                <td><a [routerLink]="['/profile/',meal._id.user_name]"> {{ meal._id.user_name }}</a></td>
                 <td>{{ meal.total }}</td>
             </tr>
         </tbody>
