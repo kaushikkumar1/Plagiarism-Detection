@@ -21,7 +21,7 @@ app.get('/submission/data',ReadSubmissionLib.readSubmissionData);
 app.post('/generate/file',verify,ReadSubmissionLib.generateFileForSubmission);
 app.get('/unique/contest',verify,ReadSubmissionLib.uniqueContests);
 app.get('/unique/contest/result',verify,ReadSubmissionLib.uniqueGeneratedContestReport);
-app.post('/submission/user',ReadSubmissionLib.getAllSubmissionOfUser);//admin
+app.post('/submission/user',verify,ReadSubmissionLib.getAllSubmissionOfUser);//admin
 
 
 //result routes
@@ -37,7 +37,7 @@ app.post('/submission/contest',ContestLib.getContestDetail) //non admin
 
 
 //leaderboard routes
-app.post('/leaderboard/data',LeaderboardLib.getLeaderBoardData)//admin
+app.post('/leaderboard/data',verify,LeaderboardLib.getLeaderBoardData)//admin
 app.post('/site/recent/user',LeaderboardLib.getUserDetailOfDifferentSites) // non admin
 
 //profile routes
