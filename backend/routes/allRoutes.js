@@ -13,7 +13,7 @@ var verify =require('../verifytoken');
 
 //data scraping routes
 app.post('/scrap/data',verify, ScrapMossLib.ScrapContestPlagiarismData);
-app.post('/update/plagiarism/data',ScrapMossLib.UpdatePlagiarismData);
+app.post('/update/plagiarism/data',verify,ScrapMossLib.UpdatePlagiarismData);
 
 
 //submission routes
@@ -27,8 +27,8 @@ app.post('/submission/user',ReadSubmissionLib.getAllSubmissionOfUser);//admin
 //result routes
 app.get('/submission/code/:id',ResultLib.submissionCode); //non admin
 app.get('/exe',ResultLib.childProcess);
-app.post('/plagiarism/result',ResultLib.contestResult);//non admin
-app.post('/plagiarism/result/csv',ResultLib.contestResultCSV);//non admin
+app.post('/plagiarism/result',verify,ResultLib.contestResult);//non admin
+app.post('/plagiarism/result/csv',verify,ResultLib.contestResultCSV);//non admin
 app.post('/exe/delete',ResultLib.deleteFiles);
 
 
