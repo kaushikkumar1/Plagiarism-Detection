@@ -17,6 +17,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import{NgxPaginationModule } from 'ngx-pagination';
 import { SubmissionComponent } from './submission/submission.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BatchDataComponent } from './batch-data/batch-data.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProfileComponent } from './profile/profile.component';
     NavComponent,
     LeaderboardComponent,
     SubmissionComponent,
-    ProfileComponent
+    ProfileComponent,
+    BatchDataComponent
   ],
   imports: [
     BrowserModule,

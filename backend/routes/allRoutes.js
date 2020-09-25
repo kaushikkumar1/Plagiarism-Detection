@@ -17,23 +17,23 @@ app.post('/update/plagiarism/data',verify,ScrapMossLib.UpdatePlagiarismData);
 
 
 //submission routes
-app.get('/submission/data',ReadSubmissionLib.readSubmissionData);
+app.get('/submission/data',verify,ReadSubmissionLib.readSubmissionData);
 app.post('/generate/file',verify,ReadSubmissionLib.generateFileForSubmission);
 app.get('/unique/contest',verify,ReadSubmissionLib.uniqueContests);
 app.get('/unique/contest/result',verify,ReadSubmissionLib.uniqueGeneratedContestReport);
-app.post('/submission/user',verify,ReadSubmissionLib.getAllSubmissionOfUser);//admin
+app.post('/submission/user',ReadSubmissionLib.getAllSubmissionOfUser);//admin
 
 
 //result routes
-app.get('/submission/code/:id',ResultLib.submissionCode); //non admin
-app.get('/exe',ResultLib.childProcess);
+app.get('/submission/code/:id',verify,ResultLib.submissionCode); //non admin
+app.get('/exe',verify,ResultLib.childProcess);
 app.post('/plagiarism/result',verify,ResultLib.contestResult);//non admin
 app.post('/plagiarism/result/csv',verify,ResultLib.contestResultCSV);//non admin
-app.post('/exe/delete',ResultLib.deleteFiles);
+app.post('/exe/delete',verify,ResultLib.deleteFiles);
 
 
 //contest routes
-app.post('/submission/contest',ContestLib.getContestDetail) //non admin
+app.post('/submission/contest',verify,ContestLib.getContestDetail) //non admin
 
 
 //leaderboard routes
@@ -42,7 +42,7 @@ app.post('/site/recent/user',LeaderboardLib.getUserDetailOfDifferentSites) // no
 
 //profile routes
 app.post('/profile/user',ProfileLib.getDayLevelReport) //non admin
-app.get('/check',ProfileLib.getAllSubmission);
+app.get('/check',verify,ProfileLib.getAllSubmission);
 
 
 //batch routes

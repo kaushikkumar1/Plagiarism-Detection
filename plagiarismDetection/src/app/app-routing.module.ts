@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BatchDataComponent } from './batch-data/batch-data.component';
 import { CreateFileComponent } from './create-file/create-file.component';
 import { CreatePlagiarismDataComponent } from './create-plagiarism-data/create-plagiarism-data.component';
 import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/generate-plagiarism-report.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'plagiarism/result/:cn', component: PlagiarismDataComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'submission/:user_handle', component:SubmissionComponent},
-  { path: 'profile/:user_handle',component:ProfileComponent}
+  { path: 'profile/:user_handle',component:ProfileComponent},
+  { path: 'batch',component:BatchDataComponent},
 ];
 
 @NgModule({

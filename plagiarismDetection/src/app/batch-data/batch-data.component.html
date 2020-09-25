@@ -1,0 +1,57 @@
+
+<div class="container marTop">
+
+    <form [formGroup]="findform" (ngSubmit)="onFind()">
+
+        <div class="row">
+            <div class="col-sm-11 mt-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Contest Name</span>
+                    </div>
+                    <select class="form-control" formControlName="batch_name">
+                        <option *ngFor="let op of allBatchName" [value]="op">
+                            {{ op}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-1 mt-3">
+                <button class="btn btn-primary" [disabled]="!findform.valid">Select</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div *ngIf="batchData" class="container mt-5">
+    <div class="h1 text-muted">{{findform.value.batch_name}}</div>
+
+    <table class="table  table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <!-- <th scope="col">S.No</th> -->
+                <!-- <th scope="col">Contest Name</th> -->
+                <th scope="col">Roll Number</th>
+                <th scope="col">Hackerrank Username</th>
+                <th scope="col">Hackerrank Score</th>
+                <th scope="col">Vjudge Username</th>
+                <th scope="col">Vjudge Score</th>
+                <th scope="col">Total Score</th>
+            </tr>
+        </thead>
+        <tbody class="">
+            <tr
+                *ngFor="let d of batchData ;let i=index">
+                <td><a [routerLink]="['/profile/',d.hackerrank_username]"> {{ d.roll_number}}</a></td>
+                <td> {{ d.hackerrank_username }}</td>
+                <td>{{d.hackerrank_score}}</td>
+                <td>{{d.vjudge_username}}</td>
+                <td>{{d.vjudge_score}}</td>
+                <td>{{d.score}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>
