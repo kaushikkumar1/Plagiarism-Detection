@@ -10,8 +10,8 @@ var BatchSchema = new Schema({
         type: String,
         required: true
     },
-    user_batch_name: {
-        type: string,
+    batch_name: {
+        type: String,
         required: true
     },
 });

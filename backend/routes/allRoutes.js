@@ -6,6 +6,7 @@ const ResultLib  = require('../lib/result');
 const ContestLib = require('../lib/contestLib');
 const LeaderboardLib =require('../lib/leaderboard');
 const ProfileLib = require('../lib/profileLib');
+const BatchLib = require('../lib/batchLib')
 var json2xls = require('json2xls');
 var verify =require('../verifytoken');
 
@@ -43,5 +44,9 @@ app.post('/site/recent/user',LeaderboardLib.getUserDetailOfDifferentSites) // no
 app.post('/profile/user',ProfileLib.getDayLevelReport) //non admin
 app.get('/check',ProfileLib.getAllSubmission);
 
+
+//batch routes
+app.get('/batch/unique',BatchLib.uniqueBatch);
+app.post('/batch/data',BatchLib.getDataOfBatch);
 
 module.exports = app;
