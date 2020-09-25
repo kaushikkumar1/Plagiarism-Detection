@@ -61,31 +61,31 @@ exports.getLeaderBoardData = async function (req, res) {
 
 
 
-for(var j=0;j<ans.length;j++)
-{
-        for(var i=0;i<mapData.length;i++)
-        {
-            if(mapData[i].hackerrank_username==ans[j]._id.user_name)
-            {
-                if(mapData[i].interviewbit_handle!=null)
-                {
-                    var new_site_detail = await submissionsStatsModel.findOne({site_user_handle: mapData[i].interviewbit_handle,site_name: "INTERVIEWBIT"})
-                    .sort({ created_at: -1});
-                    // console.log(new_site_detail,mapData[i].interviewbit_handle);
-                    if(new_site_detail!=null){
-                    ScoreLib.interviewbitScore(new_site_detail.score, async (err,data)=>{
-                        if(!err)
-                        {
-                        // console.log(mapData[i].interviewbit_handle,data);
-                        ans[j].interviewbitScore=data.score;
-                        }
-                    })}
-                }
-                break;
-            }
-        }
+// for(var j=0;j<ans.length;j++)
+// {
+//         for(var i=0;i<mapData.length;i++)
+//         {
+//             if(mapData[i].hackerrank_username==ans[j]._id.user_name)
+//             {
+//                 if(mapData[i].interviewbit_handle!=null)
+//                 {
+//                     var new_site_detail = await submissionsStatsModel.findOne({site_user_handle: mapData[i].interviewbit_handle,site_name: "INTERVIEWBIT"})
+//                     .sort({ created_at: -1});
+//                     // console.log(new_site_detail,mapData[i].interviewbit_handle);
+//                     if(new_site_detail!=null){
+//                     ScoreLib.interviewbitScore(new_site_detail.score, async (err,data)=>{
+//                         if(!err)
+//                         {
+//                         // console.log(mapData[i].interviewbit_handle,data);
+//                         ans[j].interviewbitScore=data.score;
+//                         }
+//                     })}
+//                 }
+//                 break;
+//             }
+//         }
 
-}
+// }
 
         var result = await ans.slice((page * limit), (page * limit) + limit);
 

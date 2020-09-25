@@ -1,8 +1,6 @@
 const Batch =require('../models/batchProfilesModel');
 const profile = require('../models/codingProfilesModel');
 
-
-
 //get all unique batch
 exports.uniqueBatch = async (req,res)=>{
 
@@ -29,10 +27,6 @@ exports.getDataOfBatch = async (req,res)=>{
             site_name: {$in : ['HACKERRANK','VJUDGE']},
             user_roll_number : {$in: all_roll_numbers}
         };
-
-
-        // res.status(200).send({all_roll_numbers});
-
 
 
         var all_hackerrank_user_name = await profile.aggregate(
