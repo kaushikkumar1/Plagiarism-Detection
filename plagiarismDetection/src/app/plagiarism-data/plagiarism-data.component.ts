@@ -61,10 +61,14 @@ export class PlagiarismDataComponent implements OnInit {
 
   onGen() {
     console.log("generate xlsx");
-    this.apiDataService.postData('/plagiarism/result/csv', { contest_name: this.contest_name }).subscribe(d => {
-      console.log(d);
-      this.excelService.exportAsExcelFile(d['msg'], this.contest_name);
-    })
+    console.log(this.finalData);
+    // this.apiDataService.postData('/plagiarism/result/csv', { contest_name: this.contest_name }).subscribe(d => {
+    //   console.log(d);
+    //   this.excelService.exportAsExcelFile(d['msg'], this.contest_name);
+
+    // })
+    this.excelService.exportAsExcelFile(this.finalData, this.contest_name);
+
   }
   onCall(id: any, id2: any, p1: any, p2: any) {
     //  console.log(id);

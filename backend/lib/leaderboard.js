@@ -22,7 +22,8 @@ exports.getLeaderBoardData = async function (req, res) {
         // var query ={site_name:'HACKERRANK',submission_points:{$gt:0},contest_id:'111223',site_user_handle:'17H51A0526'}
         // var query ={site_name:'HACKERRANK',submission_points:{$gt:0},contest_id:'111223',in_contest_bounds:true}
         var query = {
-            in_contest_bounds: true
+            in_contest_bounds: true,
+            site_name:'HACKERRANK'
         }
 
         var ans = await Submission.aggregate(

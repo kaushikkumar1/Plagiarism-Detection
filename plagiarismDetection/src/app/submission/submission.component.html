@@ -1,4 +1,4 @@
-<div class="mar" style="margin-top: 80px;">
+<div class="container" style="margin-top: 80px;">
     <div class="text-center display-4">
         {{user_handle}} Submission
     </div>
@@ -6,7 +6,7 @@
         <form [formGroup]="findform" (ngSubmit)="onFind()">
 
             <div class="row">
-                <div class="col-sm-11 mt-3">
+                <div class="col-sm-10 mt-3">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Page Limit</span>
@@ -18,8 +18,8 @@
                 </select>
                     </div>
                 </div>
-                <div class="col-sm-1 mt-3">
-                    <button class="btn btn-primary" [disabled]="!findform.valid">Set</button>
+                <div class="col-sm-2 mt-3">
+                    <button class="btn btn-info" [disabled]="!findform.valid">Set Page Limit</button>
                 </div>
             </div>
         </form>

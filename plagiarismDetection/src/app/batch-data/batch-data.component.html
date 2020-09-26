@@ -4,7 +4,7 @@
     <form [formGroup]="findform" (ngSubmit)="onFind()">
 
         <div class="row">
-            <div class="col-sm-11 mt-3">
+            <div class="col-sm-10 mt-3">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Batch Name</span>
@@ -16,8 +16,8 @@
                     </select>
                 </div>
             </div>
-            <div class="col-sm-1 mt-3">
-                <button class="btn btn-primary" [disabled]="!findform.valid">Select</button>
+            <div class="col-sm-2 mt-3">
+                <button class="btn btn-info " [disabled]="!findform.valid">Select Batch</button>
             </div>
         </div>
     </form>
@@ -33,7 +33,7 @@
 </div>
 
 <div *ngIf="batchData" class="container mt-5">
-    <div class="h1 text-muted">{{findform.value.batch_name}}<button class="btn btn-success" style="margin-left: 20px;" (click)="onGen()"><i class="fa fa-download"></i> Download Report </button></div>
+    <div class="h1 text-muted">{{findform.value.batch_name}}<button class="btn   btn-outline-info  float-right" style="margin-left: 20px;" (click)="onGen()"><i class="fa fa-download"></i> Download Report </button></div>
  
     <table class="table  table-bordered">
         <thead class="thead-light">
