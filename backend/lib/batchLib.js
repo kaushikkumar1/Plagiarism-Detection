@@ -182,6 +182,7 @@ exports.getDataOfBatch = async (req, res) => {
 
 
             }
+            data.totalScore=Math.round(data.totalScore*100)/100;
 
             final_result.push(data);
         }
