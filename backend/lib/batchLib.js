@@ -95,6 +95,10 @@ exports.getDataOfBatch = async (req, res) => {
             in_contest_bounds: true
         };
 
+        //updating the accepted submission of vjudge with score of hundred and marking in_contest_bound true
+        var updated_vjudge_score= await Submission.updateMany({site_name:"VJUDGE",submission_status:"Accepted"},{submission_points:100,in_contest_bounds: true });
+        console.log(updated_vjudge_score);
+
         var all_score = await Submission.aggregate(
             [{
                     $match: query
