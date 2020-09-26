@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { templateJitUrl } from '@angular/compiler';
+import { ExcelService } from '../excel.service';
 
 @Component({
   selector: 'app-batch-data',
@@ -22,7 +23,8 @@ export class BatchDataComponent implements OnInit {
   constructor(private apiDataService: ApiDataService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private excelService: ExcelService) {
 
     //constructor code
     this.findform = new FormGroup({
@@ -39,6 +41,8 @@ export class BatchDataComponent implements OnInit {
 
   }
 
+
+
   ngOnInit(): void {
 
   }
@@ -54,6 +58,11 @@ export class BatchDataComponent implements OnInit {
     })
 
   }
-
+onGen() {
+    
+      console.log(this.batchData);
+      this.excelService.exportAsExcelFile(this.batchData, this.findform.value.batch_name);
+    
+  }
 
 }

@@ -33,13 +33,14 @@
 </div>
 
 <div *ngIf="batchData" class="container mt-5">
-    <div class="h1 text-muted">{{findform.value.batch_name}}</div>
-
+    <div class="h1 text-muted">{{findform.value.batch_name}}<button class="btn btn-success" style="margin-left: 20px;" (click)="onGen()"><i class="fa fa-download"></i> Download Report </button></div>
+ 
     <table class="table  table-bordered">
         <thead class="thead-light">
             <tr>
                 <!-- <th scope="col">S.No</th> -->
                 <!-- <th scope="col">Contest Name</th> -->
+                <th scope="col">SR</th>
                 <th scope="col">Roll Number</th>
                 <th scope="col">Hackerrank Username</th>
                 <th scope="col">Hackerrank Score</th>
@@ -51,12 +52,13 @@
         <tbody class="">
             <tr
                 *ngFor="let d of batchData ;let i=index">
+                <td>{{i+1}}</td>
                 <td><a [routerLink]="['/profile/',d.hackerrank_username]"> {{ d.roll_number}}</a></td>
                 <td> {{ d.hackerrank_username }}</td>
                 <td>{{d.hackerrank_score}}</td>
                 <td>{{d.vjudge_username}}</td>
                 <td>{{d.vjudge_score}}</td>
-                <td>{{d.score}}</td>
+                <td>{{d.totalScore}}</td>
 
             </tr>
         </tbody>

@@ -5,7 +5,7 @@ const Submission = require('../models/submissionModel');
 
 
 function cmp(a, b) {
-    if (a.score > b.score)
+    if (a.totalScore > b.totalScore)
         return -1;
     return 1;
 }
@@ -147,19 +147,19 @@ exports.getDataOfBatch = async (req, res) => {
             element = result[key];
             var data = {}
             data.roll_number = roll_number;
-            data.score = 0;
+            data.totalScore = 0;
 
 
             if (element.VJUDGE) {
                 data.vjudge_score = element.VJUDGE.score;
                 data.vjudge_username = element.VJUDGE._id.site_user_handle;
-                data.score = element.VJUDGE.score + data.score;
+                data.totalScore = element.VJUDGE.score + data.totalScore;
             }
 
             if (element.HACKERRANK) {
                 data.hackerrank_score = element.HACKERRANK.score;
                 data.hackerrank_username = element.HACKERRANK._id.site_user_handle;
-                data.score = element.HACKERRANK.score + data.score;
+                data.totalScore = element.HACKERRANK.score + data.totalScore;
             }
 
             if(element.HACKERRANK==null || element.VJUDGE==null)
