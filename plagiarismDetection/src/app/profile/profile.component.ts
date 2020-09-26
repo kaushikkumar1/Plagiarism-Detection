@@ -37,6 +37,14 @@ export class ProfileComponent implements OnInit {
     this.apiDataService.postData('/site/recent/user',{user_handle:this.user_handle}).subscribe(d=>{
       console.log(d);
       this.userSiteDetail=d['site_result'];
+
+      for(var i=0;i<this.userSiteDetail.length;i++)
+      {
+        var timeagoo= timeago.format(this.userSiteDetail[i].created_at_date_string);  
+        this.userSiteDetail[i].created_at_date_string=timeagoo;
+
+      }
+      console.log(this.userSiteDetail);
     })
   }
 
@@ -80,7 +88,7 @@ export class ProfileComponent implements OnInit {
     var mapYear={}
 
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i]._id.date);
+      // console.log(data[i]._id.date);
       new_data.push([new Date(data[i]._id.date), data[i].accepted_count]);
       mapYear[data[i]._id.date.slice(0,4)]=1;
     }
@@ -88,8 +96,8 @@ export class ProfileComponent implements OnInit {
     siz = Object.keys(mapYear).length;   //get the no of diffrent years
     console.log(siz);
 
-    for( var k in mapYear)
-    console.log(k);
+    // for( var k in mapYear)
+    // console.log(k);
 
     console.log("GraphData",new_data);
     var dataTable = new google.visualization.DataTable();
