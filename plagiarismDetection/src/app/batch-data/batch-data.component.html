@@ -23,6 +23,14 @@
     </form>
 </div>
 
+<div *ngIf="isloding" class="text-center">
+    <div class="spinner-grow text-primary spinner-grow-lg" role="status" style="margin-right: 10px;">
+    </div>
+    <div class="spinner-grow text-danger spinner-grow-lg" role="status" style="margin-right: 10px;">
+    </div>
+    <div class="spinner-grow text-warning spinner-grow-lg" role="status" style="margin-right: 10px;">
+    </div>
+</div>
 
 <div *ngIf="batchData" class="container mt-5">
     <div class="h1 text-muted">{{findform.value.batch_name}}</div>

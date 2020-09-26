@@ -16,39 +16,41 @@ export class BatchDataComponent implements OnInit {
   //declere variable here
   findform: FormGroup;
   allBatchName: any;
-  batchData:any;
+  batchData: any;
+  isloding: boolean;
 
   constructor(private apiDataService: ApiDataService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authService:AuthService) { 
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) {
 
     //constructor code
     this.findform = new FormGroup({
       batch_name: new FormControl('', { validators: Validators.required })
     })
 
-    this.apiDataService.getData('/batch/unique').subscribe(d=>{
-
-      this.allBatchName=d['all_batch'];
+    this.isloding = true;
+    this.apiDataService.getData('/batch/unique').subscribe(d => {
+      this.isloding = false;
+      this.allBatchName = d['all_batch'];
       console.log(d);
     })
 
 
-   }
+  }
 
   ngOnInit(): void {
 
   }
 
-  onFind()
-  {
+  onFind() {
     console.log(this.findform.value);
+    this.isloding = true;
+    this.apiDataService.postData('/batch/data', this.findform.value).subscribe(d => {
 
-    this.apiDataService.postData('/batch/data',this.findform.value).subscribe(d=>{
-
-      this.batchData=d['final_result'];
+      this.batchData = d['final_result'];
       console.log(this.batchData);
+      this.isloding = false;
     })
 
   }

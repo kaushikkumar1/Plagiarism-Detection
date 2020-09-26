@@ -7,14 +7,15 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 declare var google: any;
-
-
+import * as timeago from 'timeago.js';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  //declear variable here
   user_handle: any;
   data:any;
   submissionData:any;
@@ -24,7 +25,7 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) {
 
-    this.user_handle = this.route.snapshot.params.user_handle;
+      this.user_handle = this.route.snapshot.params.user_handle;
 
     //get data for the calendar graph
     this.apiDataService.postData('/profile/user', { user_handle: this.user_handle }).subscribe(d => {
@@ -49,17 +50,18 @@ export class ProfileComponent implements OnInit {
 
       for(var i=0;i<this.submissionData.length;i++)
       {
-        var timestamp = new Date(this.submissionData[i].created_at_ms*1000);
+        // var timestamp = new Date(this.submissionData[i].created_at_ms*1000);
         // var todate=new Date(timestamp).getDate();
-        // var tomonth=new Date(timestamp).getMonth()+1;
+        // var tomonth=new Date(timestamp).getMonth();
         // var toyear=new Date(timestamp).getFullYear();
         // var original_date=tomonth+'/'+todate+'/'+toyear;
         // this.submissionData[i].created_at_ms=original_date;
 
         // this.submissionData[i].created_at_ms=timestamp.toISOString();
+        var timeagoo= timeago.format(this.submissionData[i].created_at_ms);  
+        console.log(timeagoo);
 
-
-        this.submissionData[i].created_at_ms=new Date(this.submissionData[i].created_at_ms);
+        this.submissionData[i].created_at_ms=timeagoo;
         // this.submissionData[i].created_at_ms=JSON.stringify(this.submissionData[i].created_at_ms).slice(0,20);
         
 

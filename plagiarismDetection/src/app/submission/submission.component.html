@@ -33,6 +33,7 @@
                 <th scope="col">Problem Name</th>
                 <th scope="col">Language</th>
                 <th scope="col">Status</th>
+                <th scope="col">Submission Time</th>
                
             </tr>
         </thead>
@@ -45,6 +46,7 @@
                 <td>{{ meal.problem_name }}</td>
                 <td>{{meal.submission_language}}</td>
                 <td>{{meal.submission_status}}</td>
+                <td>{{meal.timeago}}</td>
             </tr>
         </tbody>
     </table>
