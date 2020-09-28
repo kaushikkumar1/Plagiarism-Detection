@@ -18,25 +18,37 @@ exports.getDayLevelReport = async function (req, res) {
         console.log(req.body);
 
         // var updated_record= await Submission.updateMany({created_at_ms :{$lte:9999999999} }, { $mul: { created_at_ms : 1000 } });
-        // console.log(updated_record);
-
-        // var query ={site_name:'HACKERRANK',submission_points:{$gt:0},problem_id:'181363'}
-        // var query ={site_name:'HACKERRANK',submission_points:{$gt:0},contest_id:'111223',site_user_handle:'17H51A0526'}
 
 
         var new_user_handle=[];
-        new_user_handle.push(req.body.user_handle);
 
-        for(var i=0;i<mapData.length;i++)
+        let all_username = await Profile.aggregate(
+            [
+                {
+                    $match: {
+                        user_roll_number: req.body.user_handle,
+                        site_name:{$in:['HACKERRANK','VJUDGE']}
+                    }
+                },
+                {
+                    $group: {
+                        _id: {
+                            site_name: "$site_name",
+                            site_user_handle: "$site_user_handle"
+                        }
+                    }
+                },{
+                    $project:{
+                        site_user_handle:"$_id.site_user_handle"
+                    }
+                }
+            ]
+        )
+
+        for(var i=0;i<all_username.length;i++)
         {
-            if(mapData[i].hackerrank_username==req.body.user_handle)
-            {
-                if(mapData[i].vjudge_username)
-                new_user_handle.push(mapData[i].vjudge_username);
-                break;
-            }
+            new_user_handle.push(all_username[i]._id.site_user_handle);
         }
-
         console.log(new_user_handle);
 
 

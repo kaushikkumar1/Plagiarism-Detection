@@ -44,7 +44,7 @@ exports.getDataOfBatch = async (req, res) => {
         // console.log(all_roll_numbers);
 
         var vjudge_submission= await Submission.find({site_name:"VJUDGE"}).limit(1);
-        console.log(vjudge_submission);
+        // console.log(vjudge_submission);
 
         var query = {
             site_name: {

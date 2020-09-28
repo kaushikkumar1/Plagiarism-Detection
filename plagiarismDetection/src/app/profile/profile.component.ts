@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
         this.userSiteDetail[i].created_at_date_string=timeagoo;
 
       }
-      console.log(this.userSiteDetail);
+      // console.log(this.userSiteDetail);
     })
   }
 
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
     this.apiDataService.postData('/submission/user',{user_handle:this.user_handle,page:0,limit:10}).subscribe(d=>{
 
       this.submissionData=d['docs'];
-      console.log(this.submissionData);
+      // console.log(this.submissionData);
 
       for(var i=0;i<this.submissionData.length;i++)
       {
@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
 
         // this.submissionData[i].created_at_ms=timestamp.toISOString();
         var timeagoo= timeago.format(this.submissionData[i].created_at_ms);  
-        console.log(timeagoo);
+        // console.log(timeagoo);
 
         this.submissionData[i].created_at_ms=timeagoo;
         // this.submissionData[i].created_at_ms=JSON.stringify(this.submissionData[i].created_at_ms).slice(0,20);
@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
    drawChart(data:any) {
 
     var siz=0;
-     console.log(data);
+    //  console.log(data);
     var new_data = [];
     var mapYear={}
 
@@ -94,12 +94,12 @@ export class ProfileComponent implements OnInit {
     }
 
     siz = Object.keys(mapYear).length;   //get the no of diffrent years
-    console.log(siz);
+    // console.log(siz);
 
     // for( var k in mapYear)
     // console.log(k);
 
-    console.log("GraphData",new_data);
+    // console.log("GraphData",new_data);
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn({ type: 'date', id: 'Date' });
     dataTable.addColumn({ type: 'number', id: 'Won/Loss' });

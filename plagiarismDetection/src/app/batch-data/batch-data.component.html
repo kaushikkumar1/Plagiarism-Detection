@@ -53,7 +53,7 @@
             <tr
                 *ngFor="let d of batchData ;let i=index">
                 <td>{{i+1}}</td>
-                <td><a [routerLink]="['/profile/',d.hackerrank_username]"> {{ d.roll_number}}</a></td>
+                <td><a [routerLink]="['/profile/',d.roll_number]"> {{ d.roll_number}}</a></td>
                 <td> {{ d.hackerrank_username }}</td>
                 <td>{{d.hackerrank_score}}</td>
                 <td>{{d.vjudge_username}}</td>

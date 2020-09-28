@@ -1,44 +1,68 @@
-
 <div class="container" style="margin-top: 80px;">
     <div class="text-center display-4">
         Leaderboard
     </div>
-    <div>
-        <form [formGroup]="findform" (ngSubmit)="onFind()">
 
-            <div class="row">
-                <div class="col-sm-10 mt-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Page Limit</span>
-                        </div>
-                        <select class="form-control" formControlName="pagelimit">
-                    <option *ngFor="let op of pages"[value]="op" >
-                        {{ op}}
-                    </option>
-                </select>
+    <form [formGroup]="findform" (ngSubmit)="onFind()">
+        <div class="row">
+
+            <div class="col-sm-8 mt-3">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Page Limit</span>
                     </div>
-                </div>
-                <div class="col-sm-2 mt-3">
-                    <button class="btn btn-info" [disabled]="!findform.valid">Set Page Limit</button>
+                    <select class="form-control" formControlName="pagelimit">
+                        <option *ngFor="let op of pages" [value]="op">
+                            {{ op}}
+                        </option>
+                    </select>
                 </div>
             </div>
-        </form>
+            <div class="col-sm-2 mt-3">
+                <button class="btn btn-info" type="submit" [disabled]="!findform.valid">Set Page Limit</button>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-outline-info  float-right" type="button" (click)="onGen()" [disabled]="loading" ><i class="fa fa-download" ></i> Download Report </button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+    <div *ngIf="loading" class="text-center">
+        <div class="spinner-grow text-primary spinner-grow-lg" role="status" style="margin-right: 10px;">
+        </div>
+        <div class="spinner-grow text-danger spinner-grow-lg" role="status" style="margin-right: 10px;">
+        </div>
+        <div class="spinner-grow text-warning spinner-grow-lg" role="status" style="margin-right: 10px;">
+        </div>
     </div>
-    <table class="table table-bordered mt-3 " >
+
+    <table *ngIf="!loading" class="table table-bordered mt-3 ">
         <thead class="thead-light">
             <tr>
                 <th scope="col">S.No</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Score</th>
+                <th scope="col">Roll Number</th>
+                <th scope="col">Hackerrank Score</th>
+                <th scope="col">Vjudge Score</th>
+                <th scope="col">Leetcode Score</th>
+                <th scope="col">Codechef Score</th>
+                <th scope="col">Interviewbit Score</th>
+                <th scope="col">Total</th>
             </tr>
         </thead>
         <tbody class="">
             <tr
-                *ngFor="let meal of asyncMeals | paginate: { id: 'server', itemsPerPage: limit, currentPage: p, totalItems: total };let i=index">
+                *ngFor="let d of asyncMeals | paginate: { id: 'server', itemsPerPage: limit, currentPage: p, totalItems: total };let i=index">
                 <th scope="row">{{((p-1)*limit) + i+1}}</th>
-                <td><a [routerLink]="['/profile/',meal._id.user_name]"> {{ meal._id.user_name }}</a></td>
-                <td>{{ meal.total }}</td>
+                <td><a [routerLink]="['/profile/',d.roll_number]"> {{ d.roll_number }}</a></td>
+                <td>{{ d.hackerrank_score }}</td>
+                <td>{{ d.vjudge_score }}</td>
+                <td>{{ d.leetcode_score }}</td>
+                <td>{{ d.codechef_score }}</td>
+                <td>{{ d.interviewbit_score }}</td>
+                <td>{{d.total}}</td>
             </tr>
         </tbody>
     </table>

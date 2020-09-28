@@ -35,7 +35,7 @@ export class BatchDataComponent implements OnInit {
     this.apiDataService.getData('/batch/unique').subscribe(d => {
       this.isloding = false;
       this.allBatchName = d['all_batch'];
-      console.log(d);
+      // console.log(d);
     })
 
 
@@ -53,14 +53,14 @@ export class BatchDataComponent implements OnInit {
     this.apiDataService.postData('/batch/data', this.findform.value).subscribe(d => {
 
       this.batchData = d['final_result'];
-      console.log(this.batchData);
+      // console.log(this.batchData);
       this.isloding = false;
     })
 
   }
 onGen() {
     
-      console.log(this.batchData);
+      // console.log(this.batchData);
       this.excelService.exportAsExcelFile(this.batchData, this.findform.value.batch_name);
     
   }
