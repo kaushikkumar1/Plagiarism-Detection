@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: '', component: GeneratePlagiarismReportComponent },
   { path: 'create/file', component: CreateFileComponent },
   { path: 'auth', loadChildren: 'src/app/auth/auth.module#AuthModule' },
+  { path: 'virtual', loadChildren:'src/app/virtual-judge/virtual-judge.module#VirtualJudgeModule'},
   { path: 'create/plagiarism/data/:id/:id2/:p1/:p2', component: CreatePlagiarismDataComponent },
   { path: 'generate/plagiarism/report', component: GeneratePlagiarismReportComponent },
   { path: 'plagiarism/result/:cn', component: PlagiarismDataComponent },

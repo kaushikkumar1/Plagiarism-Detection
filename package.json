@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/kaushikkumar1/Plagiarism-Detection#readme",
   "dependencies": {
+    "@materia-ui/ngx-monaco-editor": "^4.0.2",
     "async": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -32,6 +33,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.template": "^4.5.0",
     "log4js": "^6.3.0",
+    "monaco-editor": "^0.21.2",
     "mongoose": "^5.10.3",
     "mongoose-paginate": "^5.0.3",
     "mongoose-pagination": "^1.0.0",

@@ -1,8 +1,7 @@
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,10 +13,14 @@ import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.compo
 import { AuthModule } from './auth/auth.module';
 import { NavComponent } from './nav/nav.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import{NgxPaginationModule } from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SubmissionComponent } from './submission/submission.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BatchDataComponent } from './batch-data/batch-data.component';
+import { CodeEditorComponent } from './virtual-judge/code-editor/code-editor.component';
+import { ProblemComponent } from './virtual-judge/problem/problem.component';
+import { VirtualJudgeModule } from './virtual-judge/virtual-judge.module';
+import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -37,10 +40,14 @@ import { BatchDataComponent } from './batch-data/batch-data.component';
     NgxPaginationModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    AuthModule
+    AuthModule,
+    VirtualJudgeModule,
+    
+    MonacoEditorModule
     ],
   providers: [],
   bootstrap: [AppComponent]

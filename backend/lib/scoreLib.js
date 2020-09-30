@@ -1,3 +1,4 @@
+//score calculation for interviewbit
 module.exports.interviewbitScore = async function (score,handle, callback) {
     try {
         let calculated_score = score / 3;
@@ -14,6 +15,7 @@ module.exports.interviewbitScore = async function (score,handle, callback) {
     }
 }
 
+//score calculation for leetcode
 module.exports.leetcodeScore = async function (solvedCount,handle, callback) {
     try {
         let calculated_score =solvedCount*10;
@@ -29,9 +31,20 @@ module.exports.leetcodeScore = async function (solvedCount,handle, callback) {
     }
 }
 
-
+//score calculation for codechef
 module.exports.codechefScore = async function (solvedCount,rating,handle, callback) {
     try {
+        console.log(solvedCount,rating);
+        if(solvedCount==null || rating==null)
+        {
+            console.log("check");
+            callback(null,{
+                score: 0,
+                handle
+            })
+
+        }
+        else{
         let calculated_score =solvedCount*10;
         // console.log(calculated_score);
 
@@ -48,6 +61,7 @@ module.exports.codechefScore = async function (solvedCount,rating,handle, callba
             score: total_score,
             handle
         })
+    }
 
     } catch (error) {
         console.log(error);

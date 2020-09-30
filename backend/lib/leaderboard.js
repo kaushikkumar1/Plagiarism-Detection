@@ -348,13 +348,14 @@ exports.getLeaderBoardData = async function (req, res) {
 
 
         final_result.sort(cmp);
+        let total_length = final_result.length
 
         final_result = await final_result.slice((page * limit), (page * limit) + limit);
 
         // console.log(new_user_handle);
 
         res.status(200).send({
-            total: ans.length,
+            total: total_length,
             page: page,
             limit: limit,
             data: final_result
