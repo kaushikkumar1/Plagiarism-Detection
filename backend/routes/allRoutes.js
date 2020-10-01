@@ -42,7 +42,8 @@ app.post('/site/recent/user',LeaderboardLib.getUserDetailOfDifferentSites) // no
 
 //profile routes
 app.post('/profile/user',ProfileLib.getDayLevelReport) //non admin
-app.get('/check',verify,ProfileLib.getAllSubmission);
+app.get('/check',verify,ProfileLib.getAllSubmission); 
+app.post('/submission/user/day',ProfileLib.getAllSubmissionOfUserOfADay) //nom admin
 
 
 //batch routes

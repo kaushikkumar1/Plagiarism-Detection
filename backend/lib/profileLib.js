@@ -18,7 +18,8 @@ exports.getDayLevelReport = async function (req, res) {
         console.log(req.body);
 
         // var updated_record= await Submission.updateMany({created_at_ms :{$lte:9999999999} }, { $mul: { created_at_ms : 1000 } });
-
+        // let update_record_normalize = await Submission.updateMany({submission_status:"Compilation error"},{submission_status_normalized:"CE"});
+        // console.log(update_record_normalize);
 
         var new_user_handle=[];
 
@@ -53,7 +54,8 @@ exports.getDayLevelReport = async function (req, res) {
 
 
         var query = {
-            submission_status: 'Accepted',
+            // submission_status: 'Accepted',
+            site_name:{$in:['HACKERRANK','VJUDGE']},
             site_user_handle: {$in: new_user_handle}
         };
 
@@ -69,7 +71,8 @@ exports.getDayLevelReport = async function (req, res) {
                             }]
                         },
                         user_name: "$site_user_handle",
-                        problem_id: "$problem_id"
+                        problem_id: "$problem_id",
+                        submission_status:"$submission_status_normalized"
                     },
                 },
                 {
@@ -81,7 +84,8 @@ exports.getDayLevelReport = async function (req, res) {
                             }
                         },
                         user_name: "$user_name",
-                        problem_id: "$problem_id"
+                        problem_id: "$problem_id",
+                        submission_status:"$submission_status"
                     }
                 },
                 {
@@ -89,17 +93,19 @@ exports.getDayLevelReport = async function (req, res) {
                         _id: {
                             handle: "$user_name",
                             date: "$date",
-                            problem_id: "$problem_id"
+                            problem_id: "$problem_id",
+                            submission_status:"$submission_status"
                         }
                     }
                 },
                 {
                     $group: {
                         _id: {
-                            handle: "$_id.user_name",
+                            handle: "$_id.handle",
                             date: "$_id.date",
+                            submission_status:"$_id.submission_status"
                         },
-                        accepted_count: {
+                        count: {
                             $sum: 1
                         }
                     }
@@ -108,9 +114,34 @@ exports.getDayLevelReport = async function (req, res) {
             ]
         )
 
+
+        let result={};
+        for(let i=0;i<ans.length;i++)
+        {
+            let ele=ans[i];
+
+            if(result[ele._id.date]==null)
+            result[ele._id.date]={};
+
+            result[ele._id.date][ele._id.submission_status]=ele.count;
+
+        }
+
+        let final_data=[];
+        for(key in result)
+        {
+            let temp={};
+            temp=result[key];
+            temp.date=key;
+            final_data.push(temp);
+        }
+        // for()
+        console.log(final_data);
+
+
         res.status(200).send({
-            total: ans.length,
-            data: ans
+            total: final_data.length,
+            data: final_data
         })
 
 
@@ -119,6 +150,28 @@ exports.getDayLevelReport = async function (req, res) {
         res.status(500).send({
             error
         });
+    }
+}
+
+//get submission of a day of a particular user
+exports.getAllSubmissionOfUserOfADay =async function(req,res){
+
+    try{
+        let start=new Date(req.body.date);
+        start.setHours(0,0,0,0);
+
+        let end = new Date(req.body.date);
+        end.setHours(23,59,59,999);
+
+        let all_username= await Profile.distinct('site_user_handle',{ site_name:{$in:['HACKERRANK','VJUDGE']},user_roll_number: req.body.roll_number});
+        let all_submission_of_day = await Submission.find({site_name:{$in:['HACKERRANK','VJUDGE']},site_user_handle : {$in:all_username},created_at_ms : {$gte : start, $lte : end}});
+        
+        console.log(all_submission_of_day.length);
+
+        res.status(200).send({all_submission_of_day});
+    }catch(error){
+        console.log(error);
+        res.status(500).send({error});
     }
 }
 

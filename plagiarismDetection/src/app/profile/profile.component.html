@@ -4,6 +4,45 @@
 
 </div>
 
+
+<div *ngIf="loading" class="text-center">
+    <div class="spinner-grow text-primary spinner-grow-lg" role="status" style="margin-right: 10px;">
+    </div>
+    <div class="spinner-grow text-danger spinner-grow-lg" role="status" style="margin-right: 10px;">
+    </div>
+    <div class="spinner-grow text-warning spinner-grow-lg" role="status" style="margin-right: 10px;">
+    </div>
+</div>
+
+<div *ngIf="daySubmission" class="container mt-5">
+    <div class="h3 text-info">{{selectedDay}}-Submission</div>
+
+    <table class="table  table-bordered">
+        <thead class="thead-light">
+            <tr>
+             
+                <th scope="col">Submission Id</th>
+                <th scope="col">Problem Name</th>
+                <th scope="col">Language</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time</th>
+               
+            </tr>
+        </thead>
+        <tbody class="">
+            <tr
+                *ngFor="let meal of daySubmission;let i=index">
+                <td> {{ meal.site_submission_id }}</td>
+                <td>{{ meal.problem_name }}</td>
+                <td>{{meal.submission_language}}</td>
+                <td>{{meal.submission_status}}</td>
+                <td class="text-center">{{meal.created_at_ms}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
 <div class="container mt-5">
     <div class="h1 text-muted">Detail Of Different Programming Sites</div>
 
@@ -76,3 +115,5 @@
     <button class="btn btn-outline-dark pull-right mb-5" (click)="onSubmission()">View All Submission</button>
 
 </div>
+
+<h6></h6>
