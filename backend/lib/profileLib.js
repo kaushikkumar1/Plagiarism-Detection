@@ -18,8 +18,8 @@ exports.getDayLevelReport = async function (req, res) {
         console.log(req.body);
 
         // var updated_record= await Submission.updateMany({created_at_ms :{$lte:9999999999} }, { $mul: { created_at_ms : 1000 } });
-        // let update_record_normalize = await Submission.updateMany({submission_status:"Compilation error"},{submission_status_normalized:"CE"});
-        // console.log(update_record_normalize);
+        let update_record_normalize = await Submission.updateMany({submission_status:"Terminated due to timeout"},{submission_status_normalized:"TLE"});
+        console.log(update_record_normalize);
 
         var new_user_handle=[];
 
@@ -72,7 +72,7 @@ exports.getDayLevelReport = async function (req, res) {
                         },
                         user_name: "$site_user_handle",
                         problem_id: "$problem_id",
-                        submission_status:"$submission_status_normalized"
+                        submission_status_normalized:"$submission_status_normalized"
                     },
                 },
                 {
@@ -85,25 +85,23 @@ exports.getDayLevelReport = async function (req, res) {
                         },
                         user_name: "$user_name",
                         problem_id: "$problem_id",
-                        submission_status:"$submission_status"
+                        submission_status_normalized:"$submission_status_normalized"
                     }
                 },
                 {
                     $group: {
                         _id: {
-                            handle: "$user_name",
                             date: "$date",
                             problem_id: "$problem_id",
-                            submission_status:"$submission_status"
+                            submission_status_normalized:"$submission_status_normalized"
                         }
                     }
                 },
                 {
                     $group: {
                         _id: {
-                            handle: "$_id.handle",
                             date: "$_id.date",
-                            submission_status:"$_id.submission_status"
+                            submission_status:"$_id.submission_status_normalized"
                         },
                         count: {
                             $sum: 1

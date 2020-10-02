@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   selectedDay: any;
   loading: boolean;
 
-  constructor(private apiDataService: ApiDataService,private route: ActivatedRoute, private router: Router) {
+  constructor(private apiDataService: ApiDataService, private route: ActivatedRoute, private router: Router) {
 
     this.loading = false;
     this.user_handle = this.route.snapshot.params.user_handle;
@@ -99,7 +99,7 @@ export class ProfileComponent implements OnInit {
 
 
     var greenRedAxis = {
-      colors: ['#CA1717', '#FFFFFF', '#27CE05'],
+      colors: ['#FA2024', '#FFFFFF', '#10ADAD'],
       values: [-5, 0, 5],
       maxValue: 5,
       minValue: -5
@@ -108,10 +108,25 @@ export class ProfileComponent implements OnInit {
     var options = {
       title: "Problem solved day wise",
       height: 200 * siz,
-      calendar: { cellSize: 19 },
       tooltip: { isHtml: true },
       colorAxis: greenRedAxis,
       noDataPattern: { backgroundColor: '#eeeeee', color: '#eeeeee' },
+      calendar: {
+        cellSize: 19,
+        monthOutlineColor: {
+          stroke: '#ffffff',
+          strokeWidth: 2
+        },
+        unusedMonthOutlineColor: {
+          stroke: '#ffffff',
+          strokeWidth: 2
+        },
+        focusedCellColor: {
+          stroke: 'grey',
+          strokeOpacity: 0.8,
+          strokeWidth: 1
+        }
+      }
     };
 
     chart.draw(dataTable, options);
@@ -145,6 +160,7 @@ export class ProfileComponent implements OnInit {
         this.daySubmission[i].created_at_ms = timeagoo;
 
       }
+      window.scrollBy(0, 250);
 
     })
   }
