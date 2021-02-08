@@ -3,6 +3,7 @@ const cheerio = require("cheerio");
 const submissionData = require('../files/submissions.json');
 const Submission = require('../models/submissionModel');
 const PlagirismData = require("../models/contestPlagiarismDataModel");
+const Profile = require('../models/codingProfilesModel');
 const Contest = require('../models/contest');
 var fs = require('fs');
 const mapData = require("../files/map.json");    //json file which has all the mapping 
@@ -198,18 +199,34 @@ exports.getAllSubmissionOfUser = async function (req, res) {
 
 
         var new_user_handle=[];
-        new_user_handle.push(req.body.user_handle);
 
-        for(var i=0;i<mapData.length;i++)
+        let all_username = await Profile.aggregate(
+            [
+                {
+                    $match: {
+                        user_roll_number: req.body.user_handle,
+                        site_name:{$in:['HACKERRANK','VJUDGE']}
+                    }
+                },
+                {
+                    $group: {
+                        _id: {
+                            site_name: "$site_name",
+                            site_user_handle: "$site_user_handle"
+                        }
+                    }
+                },{
+                    $project:{
+                        site_user_handle:"$_id.site_user_handle"
+                    }
+                }
+            ]
+        )
+
+        for(var i=0;i<all_username.length;i++)
         {
-            if(mapData[i].hackerrank_username==req.body.user_handle)
-            {
-                if(mapData[i].vjudge_username)
-                new_user_handle.push(mapData[i].vjudge_username);
-                break;
-            }
+            new_user_handle.push(all_username[i]._id.site_user_handle);
         }
-
         console.log(new_user_handle);
 
 

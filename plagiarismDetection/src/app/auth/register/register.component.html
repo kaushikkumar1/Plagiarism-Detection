@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <header class="card-header"> <a [routerLink]="[ '/auth/login']" class="float-right btn btn-outline-primary mt-1"> Log in</a>
+                <header class="card-header"> <a [routerLink]="[ '/auth/login']" class="float-right btn btn-outline-info mt-1"> Log in</a>
                     <h4 class="card-title mt-2"> Sign up</h4>
                 </header>
                 <article class="card-body">
@@ -11,7 +11,7 @@
                         <div class="form-group"> <label> Email address</label> <input type="email" class="form-control" formControlName="email" placeholder=""> </div>
                         <div class="form-group"> <label> Create password</label> <input class="form-control" formControlName="createPassword" type="password"> </div>
                         <div class="form-group"> <label> Confirm password</label> <input class="form-control" formControlName="confirmPassword" type="password"> </div>
-                        <div class="form-group"> <button type="submit" class="btn btn-primary btn-block" [disabled]="!testForm.valid"> Register </button> </div>
+                        <div class="form-group"> <button type="submit" class="btn btn-info btn-block" [disabled]="!testForm.valid"> Register </button> </div>
                     </form>
                 </article>
             </div>

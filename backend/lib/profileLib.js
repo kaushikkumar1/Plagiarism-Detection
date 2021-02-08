@@ -18,30 +18,44 @@ exports.getDayLevelReport = async function (req, res) {
         console.log(req.body);
 
         // var updated_record= await Submission.updateMany({created_at_ms :{$lte:9999999999} }, { $mul: { created_at_ms : 1000 } });
-        // console.log(updated_record);
-
-        // var query ={site_name:'HACKERRANK',submission_points:{$gt:0},problem_id:'181363'}
-        // var query ={site_name:'HACKERRANK',submission_points:{$gt:0},contest_id:'111223',site_user_handle:'17H51A0526'}
-
+        let update_record_normalize = await Submission.updateMany({submission_status:"Terminated due to timeout"},{submission_status_normalized:"TLE"});
+        console.log(update_record_normalize);
 
         var new_user_handle=[];
-        new_user_handle.push(req.body.user_handle);
 
-        for(var i=0;i<mapData.length;i++)
+        let all_username = await Profile.aggregate(
+            [
+                {
+                    $match: {
+                        user_roll_number: req.body.user_handle,
+                        site_name:{$in:['HACKERRANK','VJUDGE']}
+                    }
+                },
+                {
+                    $group: {
+                        _id: {
+                            site_name: "$site_name",
+                            site_user_handle: "$site_user_handle"
+                        }
+                    }
+                },{
+                    $project:{
+                        site_user_handle:"$_id.site_user_handle"
+                    }
+                }
+            ]
+        )
+
+        for(var i=0;i<all_username.length;i++)
         {
-            if(mapData[i].hackerrank_username==req.body.user_handle)
-            {
-                if(mapData[i].vjudge_username)
-                new_user_handle.push(mapData[i].vjudge_username);
-                break;
-            }
+            new_user_handle.push(all_username[i]._id.site_user_handle);
         }
-
         console.log(new_user_handle);
 
 
         var query = {
-            submission_status: 'Accepted',
+            // submission_status: 'Accepted',
+            site_name:{$in:['HACKERRANK','VJUDGE']},
             site_user_handle: {$in: new_user_handle}
         };
 
@@ -57,7 +71,8 @@ exports.getDayLevelReport = async function (req, res) {
                             }]
                         },
                         user_name: "$site_user_handle",
-                        problem_id: "$problem_id"
+                        problem_id: "$problem_id",
+                        submission_status_normalized:"$submission_status_normalized"
                     },
                 },
                 {
@@ -69,25 +84,26 @@ exports.getDayLevelReport = async function (req, res) {
                             }
                         },
                         user_name: "$user_name",
-                        problem_id: "$problem_id"
+                        problem_id: "$problem_id",
+                        submission_status_normalized:"$submission_status_normalized"
                     }
                 },
                 {
                     $group: {
                         _id: {
-                            handle: "$user_name",
                             date: "$date",
-                            problem_id: "$problem_id"
+                            problem_id: "$problem_id",
+                            submission_status_normalized:"$submission_status_normalized"
                         }
                     }
                 },
                 {
                     $group: {
                         _id: {
-                            handle: "$_id.user_name",
                             date: "$_id.date",
+                            submission_status:"$_id.submission_status_normalized"
                         },
-                        accepted_count: {
+                        count: {
                             $sum: 1
                         }
                     }
@@ -96,9 +112,34 @@ exports.getDayLevelReport = async function (req, res) {
             ]
         )
 
+
+        let result={};
+        for(let i=0;i<ans.length;i++)
+        {
+            let ele=ans[i];
+
+            if(result[ele._id.date]==null)
+            result[ele._id.date]={};
+
+            result[ele._id.date][ele._id.submission_status]=ele.count;
+
+        }
+
+        let final_data=[];
+        for(key in result)
+        {
+            let temp={};
+            temp=result[key];
+            temp.date=key;
+            final_data.push(temp);
+        }
+        // for()
+        console.log(final_data);
+
+
         res.status(200).send({
-            total: ans.length,
-            data: ans
+            total: final_data.length,
+            data: final_data
         })
 
 
@@ -107,6 +148,28 @@ exports.getDayLevelReport = async function (req, res) {
         res.status(500).send({
             error
         });
+    }
+}
+
+//get submission of a day of a particular user
+exports.getAllSubmissionOfUserOfADay =async function(req,res){
+
+    try{
+        let start=new Date(req.body.date);
+        start.setHours(0,0,0,0);
+
+        let end = new Date(req.body.date);
+        end.setHours(23,59,59,999);
+
+        let all_username= await Profile.distinct('site_user_handle',{ site_name:{$in:['HACKERRANK','VJUDGE']},user_roll_number: req.body.roll_number});
+        let all_submission_of_day = await Submission.find({site_name:{$in:['HACKERRANK','VJUDGE']},site_user_handle : {$in:all_username},created_at_ms : {$gte : start, $lte : end}});
+        
+        console.log(all_submission_of_day.length);
+
+        res.status(200).send({all_submission_of_day});
+    }catch(error){
+        console.log(error);
+        res.status(500).send({error});
     }
 }
 

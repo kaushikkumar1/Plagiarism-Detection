@@ -1,0 +1,48 @@
+<div class="my-container" >
+    <p class=" h1 text-center text-muted" style="margin-top: 80px;">CODE EDITOR</p>
+
+
+    <div class="container mt-3">
+        <div class="row float-right" style="margin-right: 15px;">
+            <form [formGroup]="findform" (ngSubmit)="onFind()">
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-info text-light" >Select language</span>
+                    </div>
+                    <select class="form-control" formControlName="language_name">
+                        <option *ngFor="let op of languages" [value]="op.value">
+                            {{ op.label}}
+                        </option>
+                    </select>
+                </div>
+
+            </form>
+
+            <form [formGroup]="findtheme" (ngSubmit)="onFind()">
+                <div class="input-group mx-2 my-2 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-info text-light">Select Theme</span>
+                    </div>
+                    <select class="form-control" formControlName="theme_name">
+                        <option *ngFor="let op of themes" [value]="op.value">
+                            {{ op.label}}
+                        </option>
+                    </select>
+                </div>
+
+            </form>
+        </div>
+
+
+        <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="curCode" class="editor border border-dark rounded">
+        </ngx-monaco-editor>
+
+        <div class=" mt-2 md-3 float-right">
+            <button class="btn btn-info " (click)="onSubmit()">Submit Code</button>
+        </div>
+        <div class=" mx-2 mt-2  float-right">
+            <button class="btn btn-info " (click)="onTest()">Test Code</button>
+        </div>
+
+    </div>
+</div>

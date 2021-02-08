@@ -5,6 +5,7 @@ import { ApiDataService } from '../api-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as timeago from 'timeago.js';
 
 @Component({
   selector: 'app-submission',
@@ -28,10 +29,6 @@ export class SubmissionComponent implements OnInit {
       this.pages=[5,10,25,50,100];
       this.limit=25;
 
-      this.apiDataService.postData('/submission/user',{user_handle:this.user_handle}).subscribe(d=>{
-        console.log(d);
-      })
-
       this.findform = new FormGroup(
         {
           pagelimit: new FormControl('', { validators: Validators.required })
@@ -51,6 +48,11 @@ export class SubmissionComponent implements OnInit {
       this.total = d['total'];
       this.p = d['page'];
       this.asyncMeals=d['docs'];
+
+      for(var i=0;i<this.asyncMeals.length;i++)
+      {
+        this.asyncMeals[i].timeago=timeago.format(this.asyncMeals[i].created_at_ms);
+      }
       console.log(this.asyncMeals);
       this.p=this.p+1;
       this.loading = false;

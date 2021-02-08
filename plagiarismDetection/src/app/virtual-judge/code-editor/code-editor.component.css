@@ -1,0 +1,24 @@
+.editor{
+    height: 500px;
+    width: inherit;
+ 
+  }
+  
+  .editor-container{
+    margin: 2em 0;
+  }
+  
+  .editor-options{
+    all:revert;
+    min-width: 15%;
+    max-width: 50%;
+    font-size: 70%;
+  }
+  
+  @media only screen and (max-width: 750px) {
+   .editor-options{
+     min-width: 40%;
+     max-width: 60%;
+   }
+  }
+  

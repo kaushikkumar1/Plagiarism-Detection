@@ -15,22 +15,32 @@ export class ApiDataService {
   }
 
   getData(route) {
-    const headers = new HttpHeaders({
-      'token': localStorage.getItem('token')
-    })
-    return this.http.get(this.url + '/api' + route,{headers});
+
+    var headers;
+
+    if (localStorage.getItem('token')) {
+      headers = new HttpHeaders({
+        'token': localStorage.getItem('token')
+      })
+    }
+
+    return this.http.get(this.url + '/api' + route, { headers });
   }
 
   getD(route) {
-   
+
     return this.http.get(this.url + '/api' + route);
   }
 
   postData(route, body) {
-    const headers = new HttpHeaders({
-      'token': localStorage.getItem('token')
-    })
-    return this.http.post(this.url + '/api' + route, body,{headers});
+
+    var headers;
+    if (localStorage.getItem('token')) {
+       headers = new HttpHeaders({
+        'token': localStorage.getItem('token')
+      })
+    }
+    return this.http.post(this.url + '/api' + route, body, { headers });
 
   }
 
@@ -44,7 +54,7 @@ export class ApiDataService {
     const headers = new HttpHeaders({
       'token': localStorage.getItem('token')
     })
-    return this.http.put(this.url + '/api' + route, body,{headers});
+    return this.http.put(this.url + '/api' + route, body, { headers });
 
   }
 
@@ -52,7 +62,7 @@ export class ApiDataService {
     const headers = new HttpHeaders({
       'token': localStorage.getItem('token')
     })
-    return this.http.delete(this.url + '/api' + route,{headers});
+    return this.http.delete(this.url + '/api' + route, { headers });
 
   }
 }

@@ -45,7 +45,7 @@ export class CreatePlagiarismDataComponent implements OnInit {
     this.profileUrlOne="https://www.hackerrank.com/";
     this.profileUrlTwo="https://www.hackerrank.com/";
 
-    this.apiDataService.getD('/submission/code/' + this.submissionId).subscribe(d => {
+    this.apiDataService.getData('/submission/code/' + this.submissionId).subscribe(d => {
       console.log(d);
       this.data = d['submission_code'];
       this.userNameOne=d['site_user_handle'];
@@ -55,7 +55,7 @@ export class CreatePlagiarismDataComponent implements OnInit {
       this.statusOne=d['submission_status'];
     })
 
-    this.apiDataService.getD('/submission/code/' + this.submissionId2).subscribe(d => {
+    this.apiDataService.getData('/submission/code/' + this.submissionId2).subscribe(d => {
       console.log(d);
       this.data2 = d['submission_code'];
       this.userNameTwo=d['site_user_handle'];

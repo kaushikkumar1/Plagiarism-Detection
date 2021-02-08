@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BatchDataComponent } from './batch-data/batch-data.component';
 import { CreateFileComponent } from './create-file/create-file.component';
 import { CreatePlagiarismDataComponent } from './create-plagiarism-data/create-plagiarism-data.component';
 import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/generate-plagiarism-report.component';
@@ -12,12 +13,14 @@ const routes: Routes = [
   { path: '', component: GeneratePlagiarismReportComponent },
   { path: 'create/file', component: CreateFileComponent },
   { path: 'auth', loadChildren: 'src/app/auth/auth.module#AuthModule' },
+  { path: 'virtual', loadChildren:'src/app/virtual-judge/virtual-judge.module#VirtualJudgeModule'},
   { path: 'create/plagiarism/data/:id/:id2/:p1/:p2', component: CreatePlagiarismDataComponent },
   { path: 'generate/plagiarism/report', component: GeneratePlagiarismReportComponent },
   { path: 'plagiarism/result/:cn', component: PlagiarismDataComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'submission/:user_handle', component:SubmissionComponent},
-  { path: 'profile/:user_handle',component:ProfileComponent}
+  { path: 'profile/:user_handle',component:ProfileComponent},
+  { path: 'batch',component:BatchDataComponent},
 ];
 
 @NgModule({
