@@ -156,32 +156,30 @@ exports.childProcess = async function (req, res) {
             if (err) throw err;
             console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
 
-            child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+            child_process.exec(data, {cwd: 'plagarismFile'},function (error, stdout, stderr) {
                  if(error) console.log(error);
                  console.log(stdout);
                 var str = stdout.split(' ');
                 var len = str[str.length - 1].length;
-                str = str[str.length - 1].substring(11, len - 2);
+                str = str[str.length - 1].substring(11, len - 1);
+                str = 'h'+str;
                 console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
 
                 //call the scrap function for scraping the data
                 ScrapLib.ScrapContestPlagiarismData(str, (data) => {
 
                     console.log(chalk.blue("SAVED THE DATA TO DB BY SCRAPING THE MOSS REPOERT "), "TASK COMPLETED CPP");
-
-                                       
-
-
                                 fs.readFile("./PlagarismFile/commandToRunPython.txt", 'utf8', function (err, data) {
                                     if (err) throw err;
                                     console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
-                        
-                                    child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                    
+                                    child_process.exec(data, {cwd: 'plagarismFile'}, function (error, stdout, stderr) {
                                         if(error) console.log(error);
                                         console.log(stdout);
                                         var str = stdout.split(' ');
                                         var len = str[str.length - 1].length;
-                                        str = str[str.length - 1].substring(11, len - 2);
+                                        str = str[str.length - 1].substring(11, len - 1);
+                                        str = 'h'+str;
                                         console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
                         
                                         //call the scrap function for scraping the data
@@ -195,12 +193,13 @@ exports.childProcess = async function (req, res) {
                                                                         if (err) throw err;
                                                                         console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                                                             
-                                                                        child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                                                        child_process.exec(data, {cwd: 'plagarismFile'},function (error, stdout, stderr) {
                                                                             if(error) console.log(error);
                                                                             console.log(stdout);
                                                                             var str = stdout.split(' ');
                                                                             var len = str[str.length - 1].length;
-                                                                            str = str[str.length - 1].substring(11, len - 2);
+                                                                            str = str[str.length - 1].substring(11, len - 1);
+                                                                            str = 'h'+str;
                                                                             console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
                                                             
                                                                             //call the scrap function for scraping the data
@@ -216,12 +215,13 @@ exports.childProcess = async function (req, res) {
                                                                                                         if (err) throw err;
                                                                                                         console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                                                                                             
-                                                                                                        child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                                                                                        child_process.exec(data, {cwd: 'plagarismFile'},function (error, stdout, stderr) {
                                                                                                             if(error) console.log(error);
                                                                                                             console.log(stdout);
                                                                                                             var str = stdout.split(' ');
                                                                                                             var len = str[str.length - 1].length;
-                                                                                                            str = str[str.length - 1].substring(11, len - 2);
+                                                                                                            str = str[str.length - 1].substring(11, len - 1);
+                                                                                                            str = 'h'+str;
                                                                                                             console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
                                                                                             
                                                                                                             //call the scrap function for scraping the data

@@ -64,17 +64,19 @@ exports.uniqueContests = async function (req, res) {
 
 exports.generateFileForSubmission = async function (req, res) {
     try {
-
         var string_command_c = "perl moss.pl -l c "
         var string_command_cpp = "perl moss.pl -l cc ";
         var string_command_java = "perl moss.pl -l java ";
         var string_command_python = "perl moss.pl -l python ";
 
         var allFiels = [];
-
+        console.log("CONTEST NAME: " + req.body.contest_name);
+        var contest_name = req.body.contest_name;
+        //'bz-klh-22-p1';
         var submission_data = await Submission.find({
-            plagiarism_contest_name: req.body.contest_name,
-            in_contest_bounds: true
+            plagiarism_contest_name: contest_name,
+            in_contest_bounds: true,
+            submission_status:'Accepted'
         });
 
 
