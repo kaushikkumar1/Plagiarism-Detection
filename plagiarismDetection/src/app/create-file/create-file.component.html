@@ -3,7 +3,7 @@
 <div class="container " style="margin-top: 80px;">
     <div class="col-sm-12 ">
         <h1 class="display-4  text-center">Choose contest to create files of submissions in <strong
-                style="color: green;">Plagiarism-Detection/plagirasmFile</strong></h1>
+                style="color: rgb(52, 172, 180);">Plagiarism-Detection/plagirasmFile</strong></h1>
     </div>
     <form [formGroup]="findform" (ngSubmit)="onFind()">
 
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-sm-1 mt-3">
-                <button class="btn btn-primary" [disabled]="!findform.valid && disableForm">Generate</button>
+                <button class="btn btn-info" [disabled]="!findform.valid && disableForm">Generate</button>
             </div>
         </div>
     </form>

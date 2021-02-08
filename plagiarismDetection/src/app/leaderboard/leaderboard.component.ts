@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { link } from 'fs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ExcelService } from '../excel.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -13,7 +14,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./leaderboard.component.css'],
 })
 export class LeaderboardComponent implements OnInit {
-
   asyncMeals:any;
   p: number = 1;
   total: number;
@@ -22,10 +22,14 @@ export class LeaderboardComponent implements OnInit {
   findform: FormGroup;
   limit:any;
 
-  constructor(private apiservice:ApiDataService,private route: ActivatedRoute,
+  constructor(private apiservice:ApiDataService,
+    private route: ActivatedRoute,
+    private excelService: ExcelService,
     private router: Router) { 
-      this.pages=[5,10,25,50,100];
+      this.pages=[5,10,25,50,100,200];
       this.limit=25;
+
+      this.loading=false;
 
       this.findform = new FormGroup(
         {
@@ -43,19 +47,24 @@ getPage(page: number) {
     this.loading = true;
    
     this.apiservice.postData('/leaderboard/data',{page:page-1,limit:this.limit}).subscribe(d=>{
-      console.log(d)
+      // console.log(d)
       this.total = d['total'];
       this.p = d['page'];
       this.asyncMeals=d['data'];
-      console.log(this.asyncMeals);
+      // console.log(this.asyncMeals);
       this.p=this.p+1;
       this.loading = false;
     })
 }
 onFind(){
-  console.log(this.findform.value);
+  // console.log(this.findform.value);
   this.limit= parseInt(this.findform.value.pagelimit);
   this.getPage(this.p);
 }
 
+onGen(){
+  // console.log(this.asyncMeals);
+  this.excelService.exportAsExcelFile(this.asyncMeals, "GlobalLeaderboard");
+
+}
 }
