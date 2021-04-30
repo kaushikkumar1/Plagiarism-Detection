@@ -20,7 +20,11 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "assets/monaco-editor/" },
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco-editor/"
+              },
               "src/favicon.ico",
               "src/assets"
             ],
@@ -120,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "plagiarismDetection"
+    }
+  },
+  "defaultProject": "plagiarismDetection",
+  "cli": {
+    "analytics": false
+  }
 }

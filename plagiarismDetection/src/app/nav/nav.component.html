@@ -8,7 +8,9 @@
         </button>
         <div class="collapse navbar-collapse " id="navbarNavDropdown">
             <ul class="navbar-nav">
-
+                <li *ngIf="isLogedIn" class="nav-item">
+                    <a class="nav-link text-info" [routerLink]="[ '/my/contests' ]">MY CONTESTS</a>
+                </li>
                 <li *ngIf="isLogedIn" class="nav-item">
                     <a class="nav-link text-dark" [routerLink]="[ '/generate/plagiarism/report' ]">REQUEST PLAGIRISM TEST FOR YOU'R CONTEST</a>
                 </li>
@@ -21,7 +23,7 @@
                         ADMIN
                     </a>
                     <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" [routerLink]="[ '/create/file' ]">Generate and View Result</a>
+                        <!-- <a class="dropdown-item" [routerLink]="[ '/create/file' ]">Generate and View Result</a> -->
                         <a class="dropdown-item" [routerLink]="[ '/leaderboard' ]">leaderboard</a>
 
                         <!-- <a class="dropdown-item" [routerLink]="[ '/admin/uploadScore' ]">upload Scores</a> -->
@@ -39,4 +41,5 @@
         </div>
     </div>
 </nav>
-<router-outlet></router-outlet>
+
+<router-outlet> </router-outlet>

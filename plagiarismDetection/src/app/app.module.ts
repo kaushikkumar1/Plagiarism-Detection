@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,8 @@ import { CodeEditorComponent } from './virtual-judge/code-editor/code-editor.com
 import { ProblemComponent } from './virtual-judge/problem/problem.component';
 import { VirtualJudgeModule } from './virtual-judge/virtual-judge.module';
 import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
+import { MyContestComponent } from './my-contest/my-contest.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
     LeaderboardComponent,
     SubmissionComponent,
     ProfileComponent,
-    BatchDataComponent
+    BatchDataComponent,
+    MyContestComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,7 @@ import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
     BrowserAnimationsModule,
     AuthModule,
     VirtualJudgeModule,
-    
+    NgMultiSelectDropDownModule,
     MonacoEditorModule
     ],
   providers: [],

@@ -5,13 +5,14 @@ import { CreateFileComponent } from './create-file/create-file.component';
 import { CreatePlagiarismDataComponent } from './create-plagiarism-data/create-plagiarism-data.component';
 import { GeneratePlagiarismReportComponent } from './generate-plagiarism-report/generate-plagiarism-report.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { MyContestComponent } from './my-contest/my-contest.component';
 import { PlagiarismDataComponent } from './plagiarism-data/plagiarism-data.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SubmissionComponent } from './submission/submission.component';
 
 const routes: Routes = [
   { path: '', component: GeneratePlagiarismReportComponent },
-  { path: 'create/file', component: CreateFileComponent },
+  // { path: 'create/file', component: CreateFileComponent },
   { path: 'auth', loadChildren: 'src/app/auth/auth.module#AuthModule' },
   { path: 'virtual', loadChildren:'src/app/virtual-judge/virtual-judge.module#VirtualJudgeModule'},
   { path: 'create/plagiarism/data/:id/:id2/:p1/:p2', component: CreatePlagiarismDataComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'submission/:user_handle', component:SubmissionComponent},
   { path: 'profile/:user_handle',component:ProfileComponent},
   { path: 'batch',component:BatchDataComponent},
+  { path: 'my/contests', component:MyContestComponent}
 ];
 
 @NgModule({

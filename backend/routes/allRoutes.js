@@ -34,6 +34,8 @@ app.post('/exe/delete',verify,ResultLib.deleteFiles);
 
 //contest routes
 app.post('/submission/contest',verify,ContestLib.getContestDetail) //non admin
+app.get('/contests/user',verify,ContestLib.getContestsOfUser);
+app.post('/contests/problem/user',verify,ContestLib.getProblemsOfContest)
 
 
 //leaderboard routes

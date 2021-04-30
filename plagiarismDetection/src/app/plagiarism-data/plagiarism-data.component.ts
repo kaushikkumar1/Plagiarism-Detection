@@ -15,6 +15,13 @@ export class PlagiarismDataComponent implements OnInit {
   problem: any;
   data: any;
   finalData:any;
+  dropdownSettingsProbles:{}
+  dropdownStatus:any;
+  selectedStatus:any;
+  all_problems:any;
+  selected_all_problems:any;
+  selected_all_contest:any;
+
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -23,11 +30,47 @@ export class PlagiarismDataComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.dropdownSettingsProbles = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    }
+
  
     this.contest_name = this.route.snapshot.params.cn;
+    this.selected_all_contest=[];
+    this.selected_all_contest.push(this.contest_name);
+    this.getProblemsOfContest();
     console.log(this.contest_name);
 
-    this.apiDataService.postData('/plagiarism/result', { contest_name: this.contest_name }).subscribe(d => {
+
+  }
+
+  onStatusSelect(item:any){
+   this.getReportOfproblem()
+  }
+
+  onStatusAll(item:any){
+    this.getReportOfproblem();
+  }
+  
+  onStatusDeSelect(item:any){
+     this.getReportOfproblem();
+  }
+
+  onStatusDeSelectAll(item:any){
+     this.getReportOfproblem();
+    console.log("selected all");
+  }
+
+  getReportOfproblem(){
+
+    console.log(this.selected_all_problems);
+    this.apiDataService.postData('/plagiarism/result', { problem_name: this.selected_all_problems }).subscribe(d => {
       console.log(d);
 
       this.problem = d['problem'];
@@ -57,7 +100,20 @@ export class PlagiarismDataComponent implements OnInit {
       }
 
     })
+
   }
+
+
+  getProblemsOfContest(){
+    this.apiDataService.postData('/contests/problem/user',{contests:this.selected_all_contest}).subscribe(d=>{
+      console.log(d);
+      // this.all_problems=d['data'];
+      this.all_problems= d['crawled_problems'];
+      // this.crawled_problem_length=this.crawled_problem.length;
+      // console.log(this.crawled_problem);
+    })
+  }  
+
 
   onGen() {
     console.log("generate xlsx");

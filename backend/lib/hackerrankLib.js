@@ -4,7 +4,9 @@ module.exports.getOffsetAndPageCount = function (urlTemplate, model, headers, ca
 
     try {
         requestLib.makeAPIRequest(urlTemplate(model), headers, function (err, jsonBody) {
-            callback(err, {
+            if(err) callback(err,null);
+            else
+            callback(null, {
                 total: jsonBody.total,
                 pages: parseInt(jsonBody.total / model.limit)
             })

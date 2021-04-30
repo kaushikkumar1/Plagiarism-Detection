@@ -64,18 +64,22 @@ exports.uniqueContests = async function (req, res) {
 
 exports.generateFileForSubmission = async function (req, res) {
     try {
+        console.log(req.body.item)
+        // console.log(new Date());
 
-        var string_command_c = "perl moss.pl -l c "
-        var string_command_cpp = "perl moss.pl -l cc ";
-        var string_command_java = "perl moss.pl -l java ";
-        var string_command_python = "perl moss.pl -l python ";
+        var string_command_c = "perl moss.pl -l c one.c "
+        var string_command_cpp = "perl moss.pl -l cc one.cpp ";
+        var string_command_java = "perl moss.pl -l java one.java ";
+        var string_command_python = "perl moss.pl -l python one.py ";
 
         var allFiels = [];
 
         var submission_data = await Submission.find({
-            plagiarism_contest_name: req.body.contest_name,
+            problem_id: req.body.problem_id,
             in_contest_bounds: true
         });
+
+        // console.log(submission_data);
 
 
         submission_data.forEach(async element => {
@@ -167,8 +171,8 @@ exports.generateFileForSubmission = async function (req, res) {
         allFiels.push("commandToRunCpp.txt");
         allFiels.push("commandToRunPython.txt");
         allFiels.push("commandToRunJava.txt");
-        //save the command need to be run in commandToRun.txt file
-        //  console.log(allFiels);
+        // save the command need to be run in commandToRun.txt file
+         console.log(allFiels);
         res.status(200).send({
             command: string_command_c + "\n" + string_command_cpp + "\n" + string_command_python + "\n" + string_command_java,
             files: allFiels
@@ -181,10 +185,13 @@ exports.generateFileForSubmission = async function (req, res) {
 };
 
 exports.uniqueGeneratedContestReport = async function (req, res) {
-
     try {
+        var contest_name = await Contest.distinct('contest_name',{user_id:req.user._id});
+        var contest_id = await Submission.distinct('contest_id',{contest_name:{$in:contest_name}});
+        contest_id = await PlagirismData.distinct('contestId',{'contestId':{$in:contest_id}});
+        var distinct_contests = await Submission.distinct('contest_name',{contest_id:{$in:contest_id}});
+        console.log(distinct_contests);
 
-        var distinct_contests = await PlagirismData.distinct('contestName');
         res.status(200).send(distinct_contests);
     } catch (error) {
         console.log(error);

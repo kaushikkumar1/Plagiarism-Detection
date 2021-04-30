@@ -20,7 +20,8 @@ module.exports = {
         hr_submission_id_to_code_url : "https://www.hackerrank.com/rest/contests/${contest_name}/submissions/${site_submission_id}",
         hr_judge_submissions_url : "https://www.hackerrank.com/rest/contests/${contest_name}/judge_submissions?offset=${offset}&limit=${limit}",
         hr_leaderboard_crawling_min_delay_milliseconds: 7000,
-        hr_leaderboard_crawling_max_delay_milliseconds: 10000
+        hr_leaderboard_crawling_max_delay_milliseconds: 10000,
+        contest_running:null
     },
     INTERVIEWBIT : {
         crawl_interval_in_minutes : 1,

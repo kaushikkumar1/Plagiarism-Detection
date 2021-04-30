@@ -27,7 +27,7 @@ exports.contestResult = async function (req, res) {
         var resultArray = [];
 
         var data = await PlagirismData.find({
-            contestName: req.body.contest_name
+            problem_name: {$in:req.body.problem_name}
         });
 
 
@@ -156,12 +156,14 @@ exports.childProcess = async function (req, res) {
             if (err) throw err;
             console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
 
-            child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+            child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
                  if(error) console.log(error);
                  console.log(stdout);
+                 console.log(stderr);
                 var str = stdout.split(' ');
                 var len = str[str.length - 1].length;
-                str = str[str.length - 1].substring(11, len - 2);
+                console.log(str);
+                str = str[str.length - 1].substring(10, len - 1);
                 console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
 
                 //call the scrap function for scraping the data
@@ -176,12 +178,12 @@ exports.childProcess = async function (req, res) {
                                     if (err) throw err;
                                     console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                         
-                                    child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                    child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
                                         if(error) console.log(error);
                                         console.log(stdout);
                                         var str = stdout.split(' ');
                                         var len = str[str.length - 1].length;
-                                        str = str[str.length - 1].substring(11, len - 2);
+                                        str = str[str.length - 1].substring(10, len - 1);
                                         console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
                         
                                         //call the scrap function for scraping the data
@@ -195,12 +197,12 @@ exports.childProcess = async function (req, res) {
                                                                         if (err) throw err;
                                                                         console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                                                             
-                                                                        child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                                                        child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
                                                                             if(error) console.log(error);
                                                                             console.log(stdout);
                                                                             var str = stdout.split(' ');
                                                                             var len = str[str.length - 1].length;
-                                                                            str = str[str.length - 1].substring(11, len - 2);
+                                                                            str = str[str.length - 1].substring(10, len - 1);
                                                                             console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
                                                             
                                                                             //call the scrap function for scraping the data
@@ -216,12 +218,12 @@ exports.childProcess = async function (req, res) {
                                                                                                         if (err) throw err;
                                                                                                         console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                                                                                             
-                                                                                                        child_process.exec("cd plagarismFile &" + data, function (error, stdout, stderr) {
+                                                                                                        child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
                                                                                                             if(error) console.log(error);
                                                                                                             console.log(stdout);
                                                                                                             var str = stdout.split(' ');
                                                                                                             var len = str[str.length - 1].length;
-                                                                                                            str = str[str.length - 1].substring(11, len - 2);
+                                                                                                            str = str[str.length - 1].substring(10, len - 1);
                                                                                                             console.log(chalk.blue("DATA UPLODAD TO MOSS AND RECIEVED THE MOSS REPORT LINK"), str);
                                                                                             
                                                                                                             //call the scrap function for scraping the data

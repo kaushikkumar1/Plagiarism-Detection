@@ -68,11 +68,10 @@ exports.ScrapContestPlagiarismData = async function (urll, callback) {
                 //  console.log(newone_submissionOne.site_submission_id,newtwo_submissionTwo.site_submission_id);
 
                 // if record exist with with submissionIdOne and submissionIdTwo dont save again
+                if(newone_submissionOne && newtwo_submissionTwo){
                 var exist = await PlagirismData.findOne({
                     submissionIdOne: newone_submissionOne.site_submission_id,
                     submissionIdTwo: newtwo_submissionTwo.site_submission_id,
-                    submissionIdTwo: newtwo_submissionTwo.site_submission_id,
-
                 })
 
                 if (exist) {
@@ -80,7 +79,7 @@ exports.ScrapContestPlagiarismData = async function (urll, callback) {
                     console.log(chalk.red(`skip record ${i}`));
                 } else {
                     var new_PDO = new PlagirismData({
-                        contestName: newone_submissionOne.plagiarism_contest_name,
+                        contestName: newone_submissionOne.contest_name,
                         contestId: newone_submissionOne.contest_id,
                         problemId: newone_submissionOne.problem_id,
                         language: newone_submissionOne.submission_language,
@@ -101,6 +100,7 @@ exports.ScrapContestPlagiarismData = async function (urll, callback) {
                     console.log(chalk.blue(`saving..${i}`));
                     new_PDO.save();
                 }
+            }
             }
 
             callback(true);

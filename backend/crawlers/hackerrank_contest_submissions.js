@@ -20,11 +20,7 @@ var submissionIdx = 1;
 // dbconnect.connect(false);
 
 module.exports.crawler=async function( user ){
-
     try{
-
-   
-
     console.log(user);
     let model = {offset: 0, limit: 100, contest_name: user.contest_name};
 
@@ -35,6 +31,11 @@ module.exports.crawler=async function( user ){
     };
     
     hackerrankLib.getOffsetAndPageCount(judgeSubmissionsUrl,model,headers, function(err, res){
+        if(err) {
+            console.log(err);
+            scraperConfig.hackerrank.contest_running=null;
+        }
+        else {
         var totalSubmissions = res.total;
         var allPages = [];
         for (var page = 0; page <= res.pages; page++)
@@ -108,10 +109,14 @@ module.exports.crawler=async function( user ){
         },
         function(err){
             console.log("Crawling Completed");
+            scraperConfig.hackerrank.contest_running=null;
             // dbconnect.disconnect();
         });
+    }
     });
+
 }catch(error){
     console.log(error);
+    scraperConfig.hackerrank.contest_running=null;
 }
 }

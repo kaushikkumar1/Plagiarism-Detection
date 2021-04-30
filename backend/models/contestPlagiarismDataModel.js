@@ -21,4 +21,7 @@ const plagarismDataSchema = mongoose.Schema({
     copied                    :{type:Boolean,default: false }
 })
 
+plagarismDataSchema.index({ submissionIdOne: 1, submissionIdTwo: 1 }, { unique: true });
+
+
 module.exports = mongoose.model("PlagarismData", plagarismDataSchema);

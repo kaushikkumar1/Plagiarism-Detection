@@ -178,7 +178,6 @@ exports.getAllSubmission = async (req, res) => {
 
     try {
 
-
         const schema = {
             'name': {
                 prop: 'name',

@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 
 // SCHEMA OF THE USER ( HOSTEL OWNER )
 const contestSchema = new mongoose.Schema({
-    email:{
-        type:String,
+    user_id : { 
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required:true
+    },
+    email : {
+         type:String
     },
     contest_name: {
         type: String,
