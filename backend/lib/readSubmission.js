@@ -74,9 +74,11 @@ exports.generateFileForSubmission = async function (req, res) {
 
         var allFiels = [];
 
+        // only accepted and in contest bound
         var submission_data = await Submission.find({
             problem_id: req.body.problem_id,
-            in_contest_bounds: true
+            in_contest_bounds: true,
+            submission_status_normalized: "AC",
         });
 
         // console.log(submission_data);
@@ -112,7 +114,7 @@ exports.generateFileForSubmission = async function (req, res) {
 
                 string_command_cpp = string_command_cpp + new_submission.site_submission_id + ".cpp ";
 
-                await fs.appendFile("./PlagarismFile/" + new_submission.site_submission_id + ".cpp", new_submission.submission_code, function (err) {
+                await fs.appendFile("./" + new_submission.site_submission_id + ".cpp", new_submission.submission_code, function (err) {
                     if (err) throw err;
                     console.log('Saved!');
                 }); //save the code in a file with filename as submission id
@@ -121,7 +123,7 @@ exports.generateFileForSubmission = async function (req, res) {
 
                 string_command_c = string_command_c + new_submission.site_submission_id + ".c ";
 
-                await fs.appendFile("./PlagarismFile/" + new_submission.site_submission_id + ".c", new_submission.submission_code, function (err) {
+                await fs.appendFile("./" + new_submission.site_submission_id + ".c", new_submission.submission_code, function (err) {
                     if (err) throw err;
                     console.log('Saved!');
                 }); //save the code in a file with filename as submission id
@@ -131,7 +133,7 @@ exports.generateFileForSubmission = async function (req, res) {
 
                 string_command_python = string_command_python + new_submission.site_submission_id + ".py ";
 
-                await fs.appendFile("./PlagarismFile/" + new_submission.site_submission_id + ".py", new_submission.submission_code, function (err) {
+                await fs.appendFile("./" + new_submission.site_submission_id + ".py", new_submission.submission_code, function (err) {
                     if (err) throw err;
                     console.log('Saved!');
                 }); //save the code in a file with filename as submission id
@@ -141,7 +143,7 @@ exports.generateFileForSubmission = async function (req, res) {
 
                 string_command_java = string_command_java + new_submission.site_submission_id + ".java ";
 
-                await fs.appendFile("./PlagarismFile/" + new_submission.site_submission_id + ".java", new_submission.submission_code, function (err) {
+                await fs.appendFile("./" + new_submission.site_submission_id + ".java", new_submission.submission_code, function (err) {
                     if (err) throw err;
                     console.log('Saved!');
                 }); //save the code in a file with filename as submission id
@@ -151,19 +153,19 @@ exports.generateFileForSubmission = async function (req, res) {
 
         });
 
-        await fs.appendFile("./PlagarismFile/" + "commandToRunC.txt", string_command_c, function (err) {
+        await fs.appendFile("./" + "commandToRunC.txt", string_command_c, function (err) {
             if (err) throw err;
             console.log('Saved!');
         });
-        await fs.appendFile("./PlagarismFile/" + "commandToRunCpp.txt", string_command_cpp, function (err) {
+        await fs.appendFile("./" + "commandToRunCpp.txt", string_command_cpp, function (err) {
             if (err) throw err;
             console.log('Saved!');
         }); //save the command need to be run in commandToRun.txt file
-        await fs.appendFile("./PlagarismFile/" + "commandToRunPython.txt", string_command_python, function (err) {
+        await fs.appendFile("./" + "commandToRunPython.txt", string_command_python, function (err) {
             if (err) throw err;
             console.log('Saved!');
         }); //save the command need to be run in commandToRun.txt file
-        await fs.appendFile("./PlagarismFile/" + "commandToRunJava.txt", string_command_java, function (err) {
+        await fs.appendFile("./" + "commandToRunJava.txt", string_command_java, function (err) {
             if (err) throw err;
             console.log('Saved!');
         }); //save the command need to be run in commandToRun.txt file

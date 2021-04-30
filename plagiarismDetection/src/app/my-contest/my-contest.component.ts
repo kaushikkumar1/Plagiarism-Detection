@@ -148,10 +148,6 @@ export class MyContestComponent implements OnInit {
     let data= await this.generateReportofOneProblem(id,i);
    }
 
-
-
-    
-
     // for(var i=0;i<this.selected_all_problems.length;i++){
     //   let id = this.selected_all_problems[i].item_id;
     //   

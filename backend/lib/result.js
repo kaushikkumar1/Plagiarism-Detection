@@ -23,6 +23,8 @@ const {
 exports.contestResult = async function (req, res) {
     try {
 
+        console.log(req.body);
+
         var problem = ["ProblemName", "UserNameOne", "MatchPercentOne", "UserNameTwo", "MatchPercentTwo", "TotalMatchedLine", "SubmissionIdOne", "SubmissionIdTwo", "MossViewLink"];
         var resultArray = [];
 
@@ -59,10 +61,14 @@ exports.contestResult = async function (req, res) {
 
         }
 
+        let total = resultArray.length;
+        resultArray = resultArray.slice(req.body.page*req.body.limit, req.body.page*req.body.limit+req.body.limit);
+
         // console.log(data[0]);
         res.status(200).send({
             problem: problem,
-            msg: resultArray
+            msg: resultArray,
+            total: total
         })
 
 
@@ -152,11 +158,11 @@ exports.submissionCode = async function (req, res) {
 exports.childProcess = async function (req, res) {
     try {
 
-        fs.readFile("./PlagarismFile/commandToRunCpp.txt", 'utf8', function (err, data) {
+        fs.readFile("./commandToRunCpp.txt", 'utf8', function (err, data) {
             if (err) throw err;
             console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
 
-            child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
+            child_process.exec(data, function (error, stdout, stderr) {
                  if(error) console.log(error);
                  console.log(stdout);
                  console.log(stderr);
@@ -174,11 +180,11 @@ exports.childProcess = async function (req, res) {
                                        
 
 
-                                fs.readFile("./PlagarismFile/commandToRunPython.txt", 'utf8', function (err, data) {
+                                fs.readFile("./commandToRunPython.txt", 'utf8', function (err, data) {
                                     if (err) throw err;
                                     console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                         
-                                    child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
+                                    child_process.exec(data, function (error, stdout, stderr) {
                                         if(error) console.log(error);
                                         console.log(stdout);
                                         var str = stdout.split(' ');
@@ -193,11 +199,11 @@ exports.childProcess = async function (req, res) {
                         
                                                       
 
-                                                                    fs.readFile("./PlagarismFile/commandToRunJava.txt", 'utf8', function (err, data) {
+                                                                    fs.readFile("./commandToRunJava.txt", 'utf8', function (err, data) {
                                                                         if (err) throw err;
                                                                         console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                                                             
-                                                                        child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
+                                                                        child_process.exec(data, function (error, stdout, stderr) {
                                                                             if(error) console.log(error);
                                                                             console.log(stdout);
                                                                             var str = stdout.split(' ');
@@ -214,11 +220,11 @@ exports.childProcess = async function (req, res) {
 
 
 
-                                                                                                    fs.readFile("./PlagarismFile/commandToRunC.txt", 'utf8', function (err, data) {
+                                                                                                    fs.readFile("./commandToRunC.txt", 'utf8', function (err, data) {
                                                                                                         if (err) throw err;
                                                                                                         console.log(chalk.blue("READ THE COMMAND AND RUNNING IT WITH UPLOADING THE DATA"),data);
                                                                                             
-                                                                                                        child_process.exec("cd plagarismFile && " + data, function (error, stdout, stderr) {
+                                                                                                        child_process.exec(data, function (error, stdout, stderr) {
                                                                                                             if(error) console.log(error);
                                                                                                             console.log(stdout);
                                                                                                             var str = stdout.split(' ');
@@ -271,7 +277,7 @@ exports.deleteFiles = async function (req, res) {
         console.log(req.body);
 
         filesTobeDeleted.forEach(filePath => {
-            fs.unlinkSync("./PlagarismFile/" + filePath);
+            fs.unlinkSync("./" + filePath);
             return;
         });
 

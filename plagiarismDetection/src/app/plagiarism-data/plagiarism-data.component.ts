@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { timeStamp } from 'console';
 import { element } from 'protractor';
 import { ApiDataService } from '../api-data.service';
 import { ExcelService } from '../excel.service';
@@ -15,12 +16,18 @@ export class PlagiarismDataComponent implements OnInit {
   problem: any;
   data: any;
   finalData:any;
+  dropdownSettings:{}
   dropdownSettingsProbles:{}
   dropdownStatus:any;
   selectedStatus:any;
   all_problems:any;
+  all_pages:any;
   selected_all_problems:any;
+  selected_all_pages:any;
   selected_all_contest:any;
+  limit:any;
+  total:any;
+  page:number;
 
 
   constructor(private route: ActivatedRoute,
@@ -30,6 +37,10 @@ export class PlagiarismDataComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.all_pages=[10,20,50,100,200];
+    this.selected_all_pages=[50];
+    this.limit = 50;
+    this.page=1;
     this.dropdownSettingsProbles = {
       singleSelection: false,
       idField: 'item_id',
@@ -40,6 +51,17 @@ export class PlagiarismDataComponent implements OnInit {
       allowSearchFilter: true
     }
 
+    this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 1,
+      allowSearchFilter: true
+    }
+
+
  
     this.contest_name = this.route.snapshot.params.cn;
     this.selected_all_contest=[];
@@ -48,6 +70,12 @@ export class PlagiarismDataComponent implements OnInit {
     console.log(this.contest_name);
 
 
+  }
+
+  onStatusSelectPage(item:any){
+    console.log(item);
+    this.limit = item;
+    this.getReportOfproblem();
   }
 
   onStatusSelect(item:any){
@@ -68,13 +96,13 @@ export class PlagiarismDataComponent implements OnInit {
   }
 
   getReportOfproblem(){
-
     console.log(this.selected_all_problems);
-    this.apiDataService.postData('/plagiarism/result', { problem_name: this.selected_all_problems }).subscribe(d => {
+    this.apiDataService.postData('/plagiarism/result', { problem_name: this.selected_all_problems,limit:this.limit,page:this.page-1}).subscribe(d => {
       console.log(d);
 
       this.problem = d['problem'];
       this.data = d['msg'];
+      this.total = d['total'];
       this.finalData=[];
 
       for(var i=0;i<this.data.length;i++){
@@ -101,6 +129,11 @@ export class PlagiarismDataComponent implements OnInit {
 
     })
 
+  }
+
+  getPage(page: number) {
+    this.page = page;
+    this.getReportOfproblem();
   }
 
 
