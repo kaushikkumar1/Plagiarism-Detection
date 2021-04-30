@@ -121,9 +121,13 @@ export class MyContestComponent implements OnInit {
     this.generateReportOfProblem();
 
   }
-  async generateReportofOneProblem(data,item){
+  async generateReportofOneProblem(i,n){
+    if(i<0 || i>=n) return null;
 
-   this.apiDataService.postData('/generate/file', {problem_id:data,item}).subscribe(d => {
+    let id = this.selected_all_problems[i].item_id;
+    let item = i;
+
+   this.apiDataService.postData('/generate/file', {problem_id:id,item}).subscribe(d => {
           console.log(d);
           this.filesArray=d['files'];
   
@@ -135,6 +139,7 @@ export class MyContestComponent implements OnInit {
             this.apiDataService.postData('/exe/delete',{files:this.filesArray}).subscribe((d)=>{
               console.log(d);
               // this.fillUrl3=true;
+              this.generateReportofOneProblem(i+1,n);
             })
             console.log(d);
           })
@@ -143,17 +148,9 @@ export class MyContestComponent implements OnInit {
 
  async  generateReportOfProblem(){
 
-   for(var i=0;i<this.selected_all_problems.length;i++){
-      let id = this.selected_all_problems[i].item_id;
-    let data= await this.generateReportofOneProblem(id,i);
-   }
+    let data= await this.generateReportofOneProblem(0,this.selected_all_problems.length);
+  
 
-    // for(var i=0;i<this.selected_all_problems.length;i++){
-    //   let id = this.selected_all_problems[i].item_id;
-    //   
-    // }
-
-   
 
   }
 
