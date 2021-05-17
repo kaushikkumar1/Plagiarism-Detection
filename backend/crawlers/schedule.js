@@ -1,6 +1,3 @@
-const cron = require('node-cron');
-const Contest = require('../models/contest');
-const submissionModel = require('../models/submissionModel');
 const hackerank_contest_submission = require('./hackerrank_contest_submissions');
 const dbconnect = require('../db/connect');
 dbconnect.connect(false);
@@ -13,7 +10,6 @@ var user ={
 
 
  hackerank_contest_submission.crawler(user);
-
 
 
 
