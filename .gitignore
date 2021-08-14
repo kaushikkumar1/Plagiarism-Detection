@@ -2,3 +2,4 @@
 *.mine.js
 data/
 miscTools/
+.DS_Store
